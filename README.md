@@ -1,3 +1,3 @@
-<h1>581 Capstone Project</h1>
-Team: Mega Man Lives
+#581 Capstone Project#
+##Team: Mega Man Lives##
 ===========
