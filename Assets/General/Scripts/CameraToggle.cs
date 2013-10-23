@@ -22,15 +22,24 @@ public class CameraToggle : MonoBehaviour {
     public Transform leftOVRCamera;
     public Transform rightOVRCamera;
     public Transform firstPersonCamera;
-
+	
+	
+	public bool startWithRift = true; // starts with rift on/off
+	
     // Private variables
     private bool ovrOn; // rift camera on = true, off = false
 
 	void Start () 
     {
-        // Start with toggle on OVR camera
-        firstPersonCamera.gameObject.SetActive(false);
-        ovrOn = true;
+		if(startWithRift){
+			// Start with toggle on OVR camera
+        	firstPersonCamera.gameObject.SetActive(false);
+        	ovrOn = true;
+		} else {
+			rightOVRCamera.gameObject.SetActive(false);
+			leftOVRCamera.gameObject.SetActive (false);
+			ovrOn = false;
+		}
 	}
 	
 	// Update is called once per frame
