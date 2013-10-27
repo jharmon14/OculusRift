@@ -44,6 +44,7 @@
 	</Reference>
   </ItemGroup>
   <ItemGroup>
+     <Compile Include="Assets\Craig_Sprint1\FireGun.cs" />
      <Compile Include="Assets\General\Scripts\CameraToggle.cs" />
      <Compile Include="Assets\Packages\OVR\OVRImageEffects\OVRImageEffectBase.cs" />
      <Compile Include="Assets\Packages\OVR\OVRImageEffects\OVRLensCorrection.cs" />
