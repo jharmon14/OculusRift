@@ -44,7 +44,11 @@
 	</Reference>
   </ItemGroup>
   <ItemGroup>
+     <Compile Include="Assets\FPS\Scripts\GameManager.cs" />
+     <Compile Include="Assets\General\Scripts\CameraFade.cs" />
      <Compile Include="Assets\General\Scripts\CameraToggle.cs" />
+     <Compile Include="Assets\Overworld\Scripts\StartButton.cs" />
+     <Compile Include="Assets\Overworld\Scripts\StartGame.cs" />
      <Compile Include="Assets\Packages\OVR\OVRImageEffects\OVRImageEffectBase.cs" />
      <Compile Include="Assets\Packages\OVR\OVRImageEffects\OVRLensCorrection.cs" />
      <Compile Include="Assets\Packages\OVR\Scripts\OVRCamera.cs" />
@@ -61,10 +65,26 @@
      <Compile Include="Assets\Packages\OVR\Scripts\OVRPlayerController.cs" />
      <Compile Include="Assets\Packages\OVR\Scripts\OVRPresetManager.cs" />
      <Compile Include="Assets\Packages\OVR\Scripts\OVRUtils.cs" />
+     <Compile Include="Assets\Packages\SWS\Scripts\Manager\PathManager.cs" />
+     <Compile Include="Assets\Packages\SWS\Scripts\Manager\WaypointManager.cs" />
+     <Compile Include="Assets\Packages\SWS\Scripts\Movement\MessageExample.cs" />
+     <Compile Include="Assets\Packages\SWS\Scripts\Movement\RotationHelper.cs" />
+     <Compile Include="Assets\Packages\SWS\Scripts\Movement\RuntimeExample.cs" />
+     <Compile Include="Assets\Packages\SWS\Scripts\Movement\UserInput.cs" />
+     <Compile Include="Assets\Packages\SWS\Scripts\Movement\hoMove.cs" />
+     <Compile Include="Assets\Packages\SWS\Scripts\Movement\iMove.cs" />
+     <Compile Include="Assets\Packages\SWS\Scripts\PixelPlacement\iTween.cs" />
      <Compile Include="Assets\Packages\Standard Assets\Character Controllers\Sources\Scripts\MouseLook.cs" />
+     <None Include="Assets\Packages\SWS\Textures\car\Shaders\LightsEmmissive.shader" />
+     <None Include="Assets\Packages\SWS\Scripts\Holoville\HOTween_License.txt" />
+     <None Include="Assets\Packages\SWS\Textures\car\Shaders\GlassReflect.shader" />
      <None Include="Assets\Packages\OVR\OVRImageEffects\OVRLensCorrection_CA.shader" />
      <None Include="Assets\Packages\OVR\OVRImageEffects\OVRLensCorrection.shader" />
      <None Include="Assets\Packages\OVR\Shaders\OVRGUIShader.shader" />
+     <None Include="Assets\Packages\SWS\Scripts\PlayMaker\SWS_PlayMaker_ReadMe.txt" />
+ <Reference Include="HOTween">
+ <HintPath>Assets\Packages\SWS\Scripts\Holoville\HOTween.dll</HintPath>
+ </Reference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
