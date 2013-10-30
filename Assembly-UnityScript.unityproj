@@ -5,7 +5,7 @@
 	<Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
 	<ProductVersion>10.0.20506</ProductVersion>
 	<SchemaVersion>2.0</SchemaVersion>
-	<ProjectGuid>{D1F415DF-489E-5602-F79B-A92A9E283FCD}</ProjectGuid>
+	<ProjectGuid>{A48884B9-1564-0EA8-A242-AEDA581595BF}</ProjectGuid>
 	<OutputType>Library</OutputType>
 	<AppDesignerFolder>Properties</AppDesignerFolder>
 	<RootNamespace></RootNamespace>
@@ -49,16 +49,9 @@
      <Compile Include="Assets\Packages\Standard Assets\Character Controllers\Sources\Scripts\PlatformInputController.js" />
      <Compile Include="Assets\Packages\Standard Assets\Character Controllers\Sources\Scripts\ThirdPersonCamera.js" />
      <Compile Include="Assets\Packages\Standard Assets\Character Controllers\Sources\Scripts\ThirdPersonController.js" />
-     <None Include="Assets\Packages\SWS\Textures\car\Shaders\LightsEmmissive.shader" />
-     <None Include="Assets\Packages\SWS\Scripts\Holoville\HOTween_License.txt" />
-     <None Include="Assets\Packages\SWS\Textures\car\Shaders\GlassReflect.shader" />
      <None Include="Assets\Packages\OVR\OVRImageEffects\OVRLensCorrection_CA.shader" />
      <None Include="Assets\Packages\OVR\OVRImageEffects\OVRLensCorrection.shader" />
      <None Include="Assets\Packages\OVR\Shaders\OVRGUIShader.shader" />
-     <None Include="Assets\Packages\SWS\Scripts\PlayMaker\SWS_PlayMaker_ReadMe.txt" />
- <Reference Include="HOTween">
- <HintPath>Assets\Packages\SWS\Scripts\Holoville\HOTween.dll</HintPath>
- </Reference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

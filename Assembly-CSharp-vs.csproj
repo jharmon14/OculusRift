@@ -5,7 +5,7 @@
 	<Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
 	<ProductVersion>10.0.20506</ProductVersion>
 	<SchemaVersion>2.0</SchemaVersion>
-	<ProjectGuid>{146BE81A-A203-16BC-4436-F0041FA6267E}</ProjectGuid>
+	<ProjectGuid>{34D8EBE8-0895-E73F-36B9-6B7F011AA638}</ProjectGuid>
 	<OutputType>Library</OutputType>
 	<AppDesignerFolder>Properties</AppDesignerFolder>
 	<RootNamespace></RootNamespace>
@@ -61,26 +61,10 @@
      <Compile Include="Assets\Packages\OVR\Scripts\OVRPlayerController.cs" />
      <Compile Include="Assets\Packages\OVR\Scripts\OVRPresetManager.cs" />
      <Compile Include="Assets\Packages\OVR\Scripts\OVRUtils.cs" />
-     <Compile Include="Assets\Packages\SWS\Scripts\Manager\PathManager.cs" />
-     <Compile Include="Assets\Packages\SWS\Scripts\Manager\WaypointManager.cs" />
-     <Compile Include="Assets\Packages\SWS\Scripts\Movement\MessageExample.cs" />
-     <Compile Include="Assets\Packages\SWS\Scripts\Movement\RotationHelper.cs" />
-     <Compile Include="Assets\Packages\SWS\Scripts\Movement\RuntimeExample.cs" />
-     <Compile Include="Assets\Packages\SWS\Scripts\Movement\UserInput.cs" />
-     <Compile Include="Assets\Packages\SWS\Scripts\Movement\hoMove.cs" />
-     <Compile Include="Assets\Packages\SWS\Scripts\Movement\iMove.cs" />
-     <Compile Include="Assets\Packages\SWS\Scripts\PixelPlacement\iTween.cs" />
      <Compile Include="Assets\Packages\Standard Assets\Character Controllers\Sources\Scripts\MouseLook.cs" />
-     <None Include="Assets\Packages\SWS\Textures\car\Shaders\LightsEmmissive.shader" />
-     <None Include="Assets\Packages\SWS\Scripts\Holoville\HOTween_License.txt" />
-     <None Include="Assets\Packages\SWS\Textures\car\Shaders\GlassReflect.shader" />
      <None Include="Assets\Packages\OVR\OVRImageEffects\OVRLensCorrection_CA.shader" />
      <None Include="Assets\Packages\OVR\OVRImageEffects\OVRLensCorrection.shader" />
      <None Include="Assets\Packages\OVR\Shaders\OVRGUIShader.shader" />
-     <None Include="Assets\Packages\SWS\Scripts\PlayMaker\SWS_PlayMaker_ReadMe.txt" />
- <Reference Include="HOTween">
- <HintPath>Assets\Packages\SWS\Scripts\Holoville\HOTween.dll</HintPath>
- </Reference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
