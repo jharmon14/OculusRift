@@ -5,7 +5,7 @@
 	<Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
 	<ProductVersion>10.0.20506</ProductVersion>
 	<SchemaVersion>2.0</SchemaVersion>
-	<ProjectGuid>{83C67A93-427B-7DDA-5328-CF846964C949}</ProjectGuid>
+	<ProjectGuid>{A0D3939D-C1C5-32A4-B114-28F3E51713C6}</ProjectGuid>
 	<OutputType>Library</OutputType>
 	<AppDesignerFolder>Properties</AppDesignerFolder>
 	<RootNamespace></RootNamespace>
@@ -50,18 +50,9 @@
      <Compile Include="Assets\Packages\OVR\Editor\OVREditorGUIUtility.cs" />
      <Compile Include="Assets\Packages\OVR\Editor\OVRPlayerControllerEditor.cs" />
      <Compile Include="Assets\Packages\OVR\Editor\OVRPrefabs.cs" />
-     <Compile Include="Assets\Packages\SWS\Scripts\Editor\CreateWPManager.cs" />
-     <Compile Include="Assets\Packages\SWS\Scripts\Editor\PathEditor.cs" />
-     <Compile Include="Assets\Packages\SWS\Scripts\Editor\WaypointEditor.cs" />
-     <Compile Include="Assets\Packages\SWS\Scripts\Editor\hoMoveEditor.cs" />
-     <Compile Include="Assets\Packages\SWS\Scripts\Editor\iMoveEditor.cs" />
-     <None Include="Assets\Packages\SWS\Textures\car\Shaders\LightsEmmissive.shader" />
-     <None Include="Assets\Packages\SWS\Scripts\Holoville\HOTween_License.txt" />
-     <None Include="Assets\Packages\SWS\Textures\car\Shaders\GlassReflect.shader" />
      <None Include="Assets\Packages\OVR\OVRImageEffects\OVRLensCorrection_CA.shader" />
      <None Include="Assets\Packages\OVR\OVRImageEffects\OVRLensCorrection.shader" />
      <None Include="Assets\Packages\OVR\Shaders\OVRGUIShader.shader" />
-     <None Include="Assets\Packages\SWS\Scripts\PlayMaker\SWS_PlayMaker_ReadMe.txt" />
  <Reference Include="UnityEditor.Graphs">
  <HintPath>C:\Program Files (x86)\Unity\Editor\Data\Managed\UnityEditor.Graphs.dll</HintPath>
  </Reference>
@@ -80,18 +71,12 @@
  <Reference Include="UnityEditor.Android.Extensions">
  <HintPath>C:\Program Files (x86)\Unity\Editor\Data\PlaybackEngines\AndroidPlayer\EditorExtensions\UnityEditor.Android.Extensions.dll</HintPath>
  </Reference>
- <Reference Include="HOTweenV1_Editor">
- <HintPath>Assets\Packages\SWS\Scripts\Holoville\Editor\HOTweenV1_Editor.dll</HintPath>
- </Reference>
- <Reference Include="HOTween">
- <HintPath>Assets\Packages\SWS\Scripts\Holoville\HOTween.dll</HintPath>
- </Reference>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="Assembly-CSharp.csproj">
-      <Project>{146BE81A-A203-16BC-4436-F0041FA6267E}</Project>      <Name>Assembly-CSharp</Name>    </ProjectReference>
+      <Project>{34D8EBE8-0895-E73F-36B9-6B7F011AA638}</Project>      <Name>Assembly-CSharp</Name>    </ProjectReference>
     <ProjectReference Include="Assembly-UnityScript.unityproj">
-      <Project>{D1F415DF-489E-5602-F79B-A92A9E283FCD}</Project>      <Name>Assembly-UnityScript</Name>    </ProjectReference>
+      <Project>{A48884B9-1564-0EA8-A242-AEDA581595BF}</Project>      <Name>Assembly-UnityScript</Name>    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
