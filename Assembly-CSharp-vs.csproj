@@ -49,6 +49,7 @@
      <Compile Include="Assets\General\Scripts\CameraToggle.cs" />
      <Compile Include="Assets\Overworld\Scripts\StartButton.cs" />
      <Compile Include="Assets\Overworld\Scripts\StartGame.cs" />
+     <Compile Include="Assets\Overworld\Scripts\Transport.cs" />
      <Compile Include="Assets\Packages\OVR\OVRImageEffects\OVRImageEffectBase.cs" />
      <Compile Include="Assets\Packages\OVR\OVRImageEffects\OVRLensCorrection.cs" />
      <Compile Include="Assets\Packages\OVR\Scripts\OVRCamera.cs" />
