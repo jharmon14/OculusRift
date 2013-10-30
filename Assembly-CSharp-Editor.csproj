@@ -62,6 +62,12 @@
      <None Include="Assets\Packages\OVR\OVRImageEffects\OVRLensCorrection.shader" />
      <None Include="Assets\Packages\OVR\Shaders\OVRGUIShader.shader" />
      <None Include="Assets\Packages\SWS\Scripts\PlayMaker\SWS_PlayMaker_ReadMe.txt" />
+ <Reference Include="HOTween">
+ <HintPath>Assets\Packages\SWS\Scripts\Holoville\HOTween.dll</HintPath>
+ </Reference>
+ <Reference Include="HOTweenV1_Editor">
+ <HintPath>Assets\Packages\SWS\Scripts\Holoville\Editor\HOTweenV1_Editor.dll</HintPath>
+ </Reference>
  <Reference Include="UnityEditor.Graphs">
  <HintPath>C:\Program Files (x86)\Unity\Editor\Data\Managed\UnityEditor.Graphs.dll</HintPath>
  </Reference>
@@ -79,12 +85,6 @@
  </Reference>
  <Reference Include="UnityEditor.Android.Extensions">
  <HintPath>C:\Program Files (x86)\Unity\Editor\Data\PlaybackEngines\AndroidPlayer\EditorExtensions\UnityEditor.Android.Extensions.dll</HintPath>
- </Reference>
- <Reference Include="HOTweenV1_Editor">
- <HintPath>Assets\Packages\SWS\Scripts\Holoville\Editor\HOTweenV1_Editor.dll</HintPath>
- </Reference>
- <Reference Include="HOTween">
- <HintPath>Assets\Packages\SWS\Scripts\Holoville\HOTween.dll</HintPath>
  </Reference>
   </ItemGroup>
   <ItemGroup>
