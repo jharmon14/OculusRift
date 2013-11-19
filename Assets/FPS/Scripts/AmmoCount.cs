@@ -5,27 +5,27 @@ public class AmmoCount : MonoBehaviour {
 
 	private UILabel ammo;
 	private int ammoCount;
-	private int ammoFull;
 	private bool reloading;
 	private float reloadDone;
 
 	public float reloadRate = 2.5f;
+	public int ammoFull = 30;
 
 	// Use this for initialization
 	void Awake() {
 		ammo = GetComponent<UILabel>();
-		ammoFull = int.Parse(ammo.text);
 		ammoCount = ammoFull;
+        ammo.text = ammoFull.ToString() + " / " + ammoFull.ToString();
 	}
 	
 	// Update is called once per frame
 	void Update () 
 	{
-    // check if player is reloading or firing
+        // check if player is reloading or firing
 		if (!reloading)
 		{
-      // reload button pushed
-			if (Input.GetButtonDown("Reload"))
+            // reload button pushed
+			if (Input.GetButtonDown("Reload") && (ammoCount != ammoFull))
 			{
 				Reload();
 			}
@@ -41,20 +41,17 @@ public class AmmoCount : MonoBehaviour {
 				else
 				{
 					ammoCount--;
-					ammo.text = ammoCount.ToString();
+					ammo.text = ammoCount.ToString() + " / " + ammoFull.ToString();
 				}
 			}
 		}
 
-    // wait while player is reloading
-		else
-		{
-			if (Time.time > reloadDone)
-			{
-				ammo.text = ammoFull.ToString();
-				reloading = false;
-			}
-		}
+        // wait while player is reloading
+		else if (Time.time > reloadDone)
+        {
+            ammo.text = ammoFull.ToString() + " / " + ammoFull.ToString();
+            reloading = false;
+        }
 	}
 
 	void Reload()
