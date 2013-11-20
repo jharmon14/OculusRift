@@ -1,0 +1,24 @@
+For being able to place waypoints onto the ground, please make sure you have some environment in your scene.
+
+Path Creation
+Slides 7 - 8
+
+to create a path:
+
+	- 
+open Window -> Waypoint Manager
+	(open the inspector tab to get the waypoint manager script dialog to open)
+	- with the waypoint manager game object selected, name the new path and press start path.  
+	- with creation mode enabled, hold down: left alt and press left mouse button to place new waypoints onto other objects (WAYPOINTS MUST BE PLACED ON OBJECTS)
+	- once satisfied with the path, release left alt and press "finish editing".
+	- this will rename the first and last waypoint and switch their gismo icons.
+
+	WARNING: do not click on other objects in scene view while creating a path to let the waypoint manager inspector window dissapear.  this will skip the renaming task of the first and last waypoint for better visibility, so you would have to rename them yourself.
+
+To follow a path:
+
+	- click on the game object you want to follow a path
+	- click on component -> Simple Waypoint System -> iMove
+	- once iMove has been associated with the game object that will be moved, open up iMove inside of the game object's inspector window.
+	- click the circle on the text entry for path container, to select the path for the game object to follow
+	- optionally: select where you want the object to be (ie. on start, move to path, orient to path) in relation to the path
