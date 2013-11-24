@@ -44,7 +44,6 @@
 	</Reference>
   </ItemGroup>
   <ItemGroup>
-     <Compile Include="Assets\FPS\Bootcamp\Standard Assets\Water\Sources\WaterSimple.cs" />
      <Compile Include="Assets\FPS\Scripts\GameManager.cs" />
      <Compile Include="Assets\FPS\Scripts\TargetPopup.cs" />
      <Compile Include="Assets\General\Scripts\CameraFade.cs" />
@@ -123,7 +122,6 @@
      <None Include="Assets\FPS\Bootcamp\Standard Assets\Image Effects (Pro Only)\Image Based\Sources\Shaders\ColorCorrectionCurvesSimple.shader" />
      <None Include="Assets\FPS\Bootcamp\Standard Assets\Image Effects (Pro Only)\Image Based\Sources\Shaders\CreaseApply.shader" />
      <None Include="Assets\FPS\Bootcamp\Shaders\MeshTerrain4Splats.shader" />
-     <None Include="Assets\FPS\Bootcamp\Standard Assets\Water\Sources\FX-Water Simple.shader" />
      <None Include="Assets\Packages\OVR\OVRImageEffects\OVRLensCorrection_CA.shader" />
      <None Include="Assets\FPS\Bootcamp\Standard Assets\Image Effects (Pro Only)\Image Based\Sources\Shaders\ChromaticAberrationShader.shader" />
      <None Include="Assets\FPS\Bootcamp\Standard Assets\Image Effects (Pro Only)\Image Based\Sources\Shaders\ColorCorrectionSelective.shader" />
