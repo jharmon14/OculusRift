@@ -12,7 +12,7 @@ public class TargetPopup : MonoBehaviour
 	{
 		// start off with the target invisible (not active) and at the proper orientation
 		gameObject.renderer.enabled = false;
-		gameObject.transform.rotation = Quaternion.Euler(90, 0, 0);
+		gameObject.transform.rotation = Quaternion.Euler(-90, 0, 0);
 		
 		hingeJoint.useSpring = true;
 		
