@@ -44,6 +44,38 @@
 	</Reference>
   </ItemGroup>
   <ItemGroup>
+     <Compile Include="Assets\Packages\NGUI\Scripts\Editor\BMFontReader.cs" />
+     <Compile Include="Assets\Packages\NGUI\Scripts\Editor\ComponentSelector.cs" />
+     <Compile Include="Assets\Packages\NGUI\Scripts\Editor\NGUIEditorTools.cs" />
+     <Compile Include="Assets\Packages\NGUI\Scripts\Editor\NGUIJson.cs" />
+     <Compile Include="Assets\Packages\NGUI\Scripts\Editor\NGUIMenu.cs" />
+     <Compile Include="Assets\Packages\NGUI\Scripts\Editor\NGUISelectionTools.cs" />
+     <Compile Include="Assets\Packages\NGUI\Scripts\Editor\NGUISettings.cs" />
+     <Compile Include="Assets\Packages\NGUI\Scripts\Editor\NGUITransformInspector.cs" />
+     <Compile Include="Assets\Packages\NGUI\Scripts\Editor\SpriteSelector.cs" />
+     <Compile Include="Assets\Packages\NGUI\Scripts\Editor\UIAtlasInspector.cs" />
+     <Compile Include="Assets\Packages\NGUI\Scripts\Editor\UIAtlasMaker.cs" />
+     <Compile Include="Assets\Packages\NGUI\Scripts\Editor\UICameraTool.cs" />
+     <Compile Include="Assets\Packages\NGUI\Scripts\Editor\UICreateNewUIWizard.cs" />
+     <Compile Include="Assets\Packages\NGUI\Scripts\Editor\UICreateWidgetWizard.cs" />
+     <Compile Include="Assets\Packages\NGUI\Scripts\Editor\UIDrawCallInspector.cs" />
+     <Compile Include="Assets\Packages\NGUI\Scripts\Editor\UIFilledSpriteInspector.cs" />
+     <Compile Include="Assets\Packages\NGUI\Scripts\Editor\UIFontInspector.cs" />
+     <Compile Include="Assets\Packages\NGUI\Scripts\Editor\UIFontMaker.cs" />
+     <Compile Include="Assets\Packages\NGUI\Scripts\Editor\UIImageButtonInspector.cs" />
+     <Compile Include="Assets\Packages\NGUI\Scripts\Editor\UILabelInspector.cs" />
+     <Compile Include="Assets\Packages\NGUI\Scripts\Editor\UIPanelInspector.cs" />
+     <Compile Include="Assets\Packages\NGUI\Scripts\Editor\UIPanelTool.cs" />
+     <Compile Include="Assets\Packages\NGUI\Scripts\Editor\UIPopupListInspector.cs" />
+     <Compile Include="Assets\Packages\NGUI\Scripts\Editor\UIScrollBarInspector.cs" />
+     <Compile Include="Assets\Packages\NGUI\Scripts\Editor\UISlicedSpriteInspector.cs" />
+     <Compile Include="Assets\Packages\NGUI\Scripts\Editor\UISliderInspector.cs" />
+     <Compile Include="Assets\Packages\NGUI\Scripts\Editor\UISpriteAnimationInspector.cs" />
+     <Compile Include="Assets\Packages\NGUI\Scripts\Editor\UISpriteInspector.cs" />
+     <Compile Include="Assets\Packages\NGUI\Scripts\Editor\UITextureInspector.cs" />
+     <Compile Include="Assets\Packages\NGUI\Scripts\Editor\UITexturePacker.cs" />
+     <Compile Include="Assets\Packages\NGUI\Scripts\Editor\UITiledSpriteInspector.cs" />
+     <Compile Include="Assets\Packages\NGUI\Scripts\Editor\UIWidgetInspector.cs" />
      <Compile Include="Assets\Packages\OVR\Editor\OVRBuild.cs" />
      <Compile Include="Assets\Packages\OVR\Editor\OVRCameraControllerEditor.cs" />
      <Compile Include="Assets\Packages\OVR\Editor\OVRDeviceEditor.cs" />
@@ -55,13 +87,12 @@
      <Compile Include="Assets\Packages\SWS\Scripts\Editor\WaypointEditor.cs" />
      <Compile Include="Assets\Packages\SWS\Scripts\Editor\hoMoveEditor.cs" />
      <Compile Include="Assets\Packages\SWS\Scripts\Editor\iMoveEditor.cs" />
-     <None Include="Assets\Packages\SWS\Textures\car\Shaders\LightsEmmissive.shader" />
-     <None Include="Assets\Packages\SWS\Scripts\Holoville\HOTween_License.txt" />
      <None Include="Assets\Packages\SWS\Textures\car\Shaders\GlassReflect.shader" />
+     <None Include="Assets\Packages\NGUI\Resources\Shaders\Unlit - Transparent Colored (Packed) (SoftClip).shader" />
      <None Include="Assets\Packages\OVR\OVRImageEffects\OVRLensCorrection_CA.shader" />
-     <None Include="Assets\Packages\OVR\OVRImageEffects\OVRLensCorrection.shader" />
-     <None Include="Assets\Packages\OVR\Shaders\OVRGUIShader.shader" />
-     <None Include="Assets\Packages\SWS\Scripts\PlayMaker\SWS_PlayMaker_ReadMe.txt" />
+     <None Include="Assets\Packages\NGUI\Resources\Shaders\Unlit - Additive Colored.shader" />
+     <None Include="Assets\Packages\NGUI\Resources\Shaders\Unlit - Depth.shader" />
+     <None Include="Assets\Packages\NGUI\Resources\Shaders\Unlit - Transparent Colored (SoftClip).shader" />
  <Reference Include="Assembly-UnityScript">
  <HintPath>Library\ScriptAssemblies\Assembly-UnityScript.dll</HintPath>
  </Reference>
