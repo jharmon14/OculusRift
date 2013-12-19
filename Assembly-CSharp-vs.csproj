@@ -37,10 +37,10 @@
     <Reference Include="System.XML" />
 	<Reference Include="System.Core" />
 	<Reference Include="UnityEngine">
-	  <HintPath>C:/Program Files (x86)/Unity/Editor/Data/Managed/UnityEngine.dll</HintPath>
+	  <HintPath>C:/Program Files/Unity/Editor/Data/Managed/UnityEngine.dll</HintPath>
 	</Reference>
 	<Reference Include="UnityEditor">
-	  <HintPath>C:/Program Files (x86)/Unity/Editor/Data/Managed/UnityEditor.dll</HintPath>
+	  <HintPath>C:/Program Files/Unity/Editor/Data/Managed/UnityEditor.dll</HintPath>
 	</Reference>
   </ItemGroup>
   <ItemGroup>
@@ -92,6 +92,7 @@
      <Compile Include="Assets\Packages\SWS\Scripts\Movement\iMove.cs" />
      <Compile Include="Assets\Packages\SWS\Scripts\PixelPlacement\iTween.cs" />
      <Compile Include="Assets\Packages\Standard Assets\Character Controllers\Sources\Scripts\MouseLook.cs" />
+     <Compile Include="Assets\ReverseNormals.cs" />
      <None Include="Assets\FPS\Level_Assets\Bootcamp\Pro Standard Assets\Glass Refraction\Glass-Stained-BumpDistort.shader" />
      <None Include="Assets\FPS\Level_Assets\Bootcamp\Pro Standard Assets\Image Based\NoiseEffectShaderRGB.shader" />
      <None Include="Assets\FPS\Level_Assets\Bootcamp\Standard Assets\Blob-Shadow\ProjectorAdditive.shader" />
