@@ -37,10 +37,10 @@
     <Reference Include="System.XML" />
 	<Reference Include="System.Core" />
 	<Reference Include="UnityEngine">
-	  <HintPath>C:/Program Files/Unity/Editor/Data/Managed/UnityEngine.dll</HintPath>
+	  <HintPath>C:/Program Files (x86)/Unity/Editor/Data/Managed/UnityEngine.dll</HintPath>
 	</Reference>
 	<Reference Include="UnityEditor">
-	  <HintPath>C:/Program Files/Unity/Editor/Data/Managed/UnityEditor.dll</HintPath>
+	  <HintPath>C:/Program Files (x86)/Unity/Editor/Data/Managed/UnityEditor.dll</HintPath>
 	</Reference>
   </ItemGroup>
   <ItemGroup>
@@ -59,10 +59,13 @@
      <Compile Include="Assets\FPS\Level_Assets\Bootcamp\Pro Standard Assets\Image Based\TwirlEffect.cs" />
      <Compile Include="Assets\FPS\Level_Assets\Bootcamp\Pro Standard Assets\Image Based\VortexEffect.cs" />
      <Compile Include="Assets\FPS\Level_Assets\Bootcamp\Pro Standard Assets\Water\Sources\Water.cs" />
-     <Compile Include="Assets\FPS\Scripts\GameManager.cs" />
+     <Compile Include="Assets\FPS\Scripts\FPSManager.cs" />
      <Compile Include="Assets\FPS\Scripts\TargetPopup.cs" />
      <Compile Include="Assets\General\Scripts\CameraFade.cs" />
      <Compile Include="Assets\General\Scripts\CameraToggle.cs" />
+     <Compile Include="Assets\General\Scripts\GameManager.cs" />
+     <Compile Include="Assets\General\Scripts\Levels.cs" />
+     <Compile Include="Assets\Overworld\Scripts\OverworldManager.cs" />
      <Compile Include="Assets\Overworld\Scripts\StartButton.cs" />
      <Compile Include="Assets\Overworld\Scripts\StartGame.cs" />
      <Compile Include="Assets\Overworld\Scripts\Transport.cs" />

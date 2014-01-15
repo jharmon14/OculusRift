@@ -2,7 +2,7 @@
  *
  * Filename :   GameManager.cs
  * Content  :   General level scripting, score tracking, game start and end scripting
- * Expects  :   (Probably) an OVRPlayerController, tagged enemies
+ * Expects  :   Attached to dedicated GameManager object
  * Authors  :   Devin Turner
  * 
 ************************************************************************************/
@@ -10,10 +10,19 @@
 using UnityEngine;
 using System.Collections;
 
-public class GameManager : MonoBehaviour {
+public class GameManager : MonoBehaviour
+{
+    // Constants
+    public enum Levels
+    {
+        None = -1,
+        Overworld = 0,
+        FPS
+    }
 
 	// Inspector variables
 	public int score;
+    public GameObject[] initialLevelManagers;
 	
 	// Hidden public variables
 	[HideInInspector]
@@ -22,30 +31,39 @@ public class GameManager : MonoBehaviour {
 	[HideInInspector]
 	public OverworldManager overworldManager;
 	
-	[HideInInspector]
-	public enum Levels { Overworld, FPS, Timmy, Misconduct };
-	
 	// Private variables
+    private GameObject levelManagerGO;
 	
 	
-	void Awake () {
+	void Start()
+    {
+        levelManagerGO = Instantiate(initialLevelManagers[(int)Levels.Overworld]) as GameObject;
+        overworldManager = levelManagerGO.GetComponent<OverworldManager>();
 	}
 	
 	// Update is called once per frame
-	void Update () {
-	
+	void Update()
+    {
 	}
 	
-	void LoadLevel(Levels level) {
-		DontDestroyOnLoad(gameObject);
-		switch (level) {
-			case Levels.Overworld:
-				Application.LoadLevel("Arcade");
-				overworldManager = new OverworldManager();
-				break;
+	public void LoadLevel(Levels level)
+    {
+		DontDestroyOnLoad(this.gameObject);
+        Destroy(levelManagerGO);
+		switch (level) 
+        {
 			case Levels.FPS:
-				Application.LoadLevel("FPS_Scene");
-				fpsManager = new FPSManager();
+                CameraFade.StartAlphaFade(Color.black, false, 2.0f, 2.0f, () => { Application.LoadLevel((int)Levels.FPS); });
+                overworldManager = null;
+                levelManagerGO = Instantiate(initialLevelManagers[(int)Levels.FPS]) as GameObject;
+                fpsManager = levelManagerGO.GetComponent<FPSManager>();
+				break;
+			case Levels.Overworld:
+            default:
+                CameraFade.StartAlphaFade(Color.black, false, 2.0f, 2.0f, () => { Application.LoadLevel((int)Levels.Overworld); });
+                fpsManager = null;
+                levelManagerGO = Instantiate(initialLevelManagers[(int)Levels.Overworld]) as GameObject;
+                overworldManager = levelManagerGO.GetComponent<OverworldManager>();
 				break;
 		}
 		return;

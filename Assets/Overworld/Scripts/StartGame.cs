@@ -13,30 +13,27 @@ using System.Collections;
 public class StartGame : MonoBehaviour {
 
 	// Inspector variables
-    public float minDistanceToStartGame = 1.0f;
+    public GameObject initialGameManager;
+    public GameManager.Levels level = GameManager.Levels.None;
 	
 	// Private variables
-    private Transform cameraPos;
 	
-	void Start () {
-        cameraPos = Camera.main.transform;
+	void Awake()
+    {
+        if (GameObject.Find("GameManager") == null)
+        {
+            GameObject gm = Instantiate(initialGameManager) as GameObject;
+            gm.name = "GameManager";
+        }
 	}
 	
 	// Update is called once per frame
-	void Update () {
+	void Update()
+    {
         // Player presses fire1 button
-        if (Input.GetButtonDown("Fire1"))
+        if (Input.GetButtonDown("Fire1") && (level > GameManager.Levels.None))
         {
-            RaycastHit hit;
-            if (Physics.Raycast(cameraPos.position, cameraPos.forward, out hit))
-            {
-                if ((hit.transform.gameObject.tag == "StartButton") && (hit.distance < minDistanceToStartGame))
-                {
-                    StartButton sb = hit.transform.gameObject.GetComponent("StartButton") as StartButton;
-                    // Fade out the camera and load the game level based on the machine they're looking at
-                    CameraFade.StartAlphaFade(Color.black, false, 2.0f, 2.0f, () => { Application.LoadLevel(sb.sceneName); });
-                }
-            }
+            GameObject.Find("GameManager").GetComponent<GameManager>().LoadLevel(level);
         }
 	}
 }

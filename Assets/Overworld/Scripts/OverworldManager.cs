@@ -13,12 +13,15 @@ using System.Collections;
 public class OverworldManager : MonoBehaviour {
 
 	// Use this for initialization
-	void Start () {
-	
+	void Awake()
+    {
+        // Fade in the camera
+        CameraFade.StartAlphaFade(Color.black, true, 4.0f);
 	}
 	
 	// Update is called once per frame
-	void Update () {
+	void Update()
+    {
 	
 	}
 }
