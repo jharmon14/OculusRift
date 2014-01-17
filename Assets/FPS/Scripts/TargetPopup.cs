@@ -39,6 +39,5 @@ public class TargetPopup : MonoBehaviour
 
 			gameObject.renderer.enabled = true;
 		}
-		
 	}
 }
