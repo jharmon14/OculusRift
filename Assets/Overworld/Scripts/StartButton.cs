@@ -14,37 +14,21 @@ public class StartButton : MonoBehaviour
 {
 
 	// Inspector variables
-    public GameManager.Levels level;
-	
-	// Private variables
-	
-	
-	void Start ()
-    {
-	
-	}
-	
-	// Update is called once per frame
-	void Update ()
-    {
-	
+	public GameManager.Levels level;
+
+	void OnTriggerEnter(Collider other)
+	{
+		if (other.gameObject.tag == "Player")
+		{
+			other.gameObject.GetComponent<StartGame>().level = level;
+		}
 	}
 
-    void OnTriggerEnter(Collider other)
-    {
-        if (other.gameObject.tag == "Player")
-        {
-            Debug.Log("entered collider for " + level);
-            other.gameObject.GetComponent<StartGame>().level = level;
-        }
-    }
-
-    void OnTriggerExit(Collider other)
-    {
-        if (other.gameObject.tag == "Player")
-        {
-            Debug.Log("left collider for " + level);
-            other.gameObject.GetComponent<StartGame>().level = GameManager.Levels.None;
-        }
-    }
+	void OnTriggerExit(Collider other)
+	{
+		if (other.gameObject.tag == "Player")
+		{
+			other.gameObject.GetComponent<StartGame>().level = GameManager.Levels.None;
+		}
+	}
 }

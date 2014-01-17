@@ -17,11 +17,12 @@ public class GameManager : MonoBehaviour
 	{
 		None = -1,
 		Overworld = 0,
-		FPS
+		FPS,
+    Num_Levels
 	}
 
 	// Inspector variables
-	public int score;
+	public int[] score;
 	public GameObject[] initialLevelManagers;
 
 	// Hidden public variables
@@ -39,6 +40,7 @@ public class GameManager : MonoBehaviour
 	{
 		levelManagerGO = Instantiate(initialLevelManagers[(int)Levels.Overworld]) as GameObject;
 		overworldManager = levelManagerGO.GetComponent<OverworldManager>();
+		score = new int[(int)Levels.Num_Levels];
 	}
 
 	// Update is called once per frame

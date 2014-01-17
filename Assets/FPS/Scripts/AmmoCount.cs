@@ -1,8 +1,9 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class AmmoCount : MonoBehaviour {
-
+public class AmmoCount : MonoBehaviour
+{
+	private FPSManager fpsManager;
 	private UILabel ammo;
 	private int ammoCount;
 	private bool reloading;
@@ -12,19 +13,22 @@ public class AmmoCount : MonoBehaviour {
 	public int ammoFull = 30;
 
 	// Use this for initialization
-	void Awake() {
+	void Awake()
+	{
 		ammo = GetComponent<UILabel>();
 		ammoCount = ammoFull;
-        ammo.text = ammoFull.ToString() + " / " + ammoFull.ToString();
+		ammo.text = ammoFull.ToString() + " / " + ammoFull.ToString();
+		fpsManager = GameObject.Find("FPSManager").GetComponent<FPSManager>();
+		fpsManager.timeStarted = Time.time;
 	}
-	
+
 	// Update is called once per frame
-	void Update () 
+	void Update()
 	{
-        // check if player is reloading or firing
+		// check if player is reloading or firing
 		if (!reloading)
 		{
-            // reload button pushed
+			// reload button pushed
 			if (Input.GetButtonDown("Reload") && (ammoCount != ammoFull))
 			{
 				Reload();
@@ -41,17 +45,18 @@ public class AmmoCount : MonoBehaviour {
 				else
 				{
 					ammoCount--;
+					fpsManager.shotsFired++;
 					ammo.text = ammoCount.ToString() + " / " + ammoFull.ToString();
 				}
 			}
 		}
 
-        // wait while player is reloading
+				// wait while player is reloading
 		else if (Time.time > reloadDone)
-        {
-            ammo.text = ammoFull.ToString() + " / " + ammoFull.ToString();
-            reloading = false;
-        }
+		{
+			ammo.text = ammoFull.ToString() + " / " + ammoFull.ToString();
+			reloading = false;
+		}
 	}
 
 	void Reload()
