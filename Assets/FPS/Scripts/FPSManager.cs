@@ -24,11 +24,6 @@ public class FPSManager : MonoBehaviour
 		CameraFade.StartAlphaFade(Color.black, true, 4.0f);
 	}
 
-	// Update is called once per frame
-	void Update()
-	{
-	}
-
 	public void LevelEnd(float time)
 	{
     // tally up the score and report to game manager
