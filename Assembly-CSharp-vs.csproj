@@ -62,8 +62,8 @@
      <Compile Include="Assets\FPS\Scripts\AmmoCount.cs" />
      <Compile Include="Assets\FPS\Scripts\FPSManager.cs" />
      <Compile Include="Assets\FPS\Scripts\LevelEnd.cs" />
+     <Compile Include="Assets\FPS\Scripts\Shoot.cs" />
      <Compile Include="Assets\FPS\Scripts\TargetPopup.cs" />
-     <Compile Include="Assets\FPS\Scripts\TargetShot.cs" />
      <Compile Include="Assets\General\Scripts\CameraFade.cs" />
      <Compile Include="Assets\General\Scripts\CameraToggle.cs" />
      <Compile Include="Assets\General\Scripts\GameManager.cs" />

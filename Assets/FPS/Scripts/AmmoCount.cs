@@ -3,7 +3,6 @@ using System.Collections;
 
 public class AmmoCount : MonoBehaviour
 {
-	private FPSManager fpsManager;
 	private UILabel ammo;
 	private int ammoCount;
 	private bool reloading;
@@ -18,8 +17,6 @@ public class AmmoCount : MonoBehaviour
 		ammo = GetComponent<UILabel>();
 		ammoCount = ammoFull;
 		ammo.text = ammoFull.ToString() + " / " + ammoFull.ToString();
-		fpsManager = GameObject.Find("FPSManager").GetComponent<FPSManager>();
-		fpsManager.timeStarted = Time.time;
 	}
 
 	// Update is called once per frame
@@ -45,7 +42,6 @@ public class AmmoCount : MonoBehaviour
 				else
 				{
 					ammoCount--;
-					fpsManager.shotsFired++;
 					ammo.text = ammoCount.ToString() + " / " + ammoFull.ToString();
 				}
 			}
