@@ -20,11 +20,11 @@ public class StartGame : MonoBehaviour {
 	
 	void Awake()
     {
-        if (GameObject.Find("GameManager") == null)
-        {
-            GameObject gm = Instantiate(initialGameManager) as GameObject;
-            gm.name = "GameManager";
-        }
+        //if (GameObject.Find("GameManager") == null)
+        //{
+        //    GameObject gm = Instantiate(initialGameManager) as GameObject;
+        //    gm.name = "GameManager";
+        //}
 	}
 	
 	// Update is called once per frame
