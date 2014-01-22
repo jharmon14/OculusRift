@@ -21,6 +21,12 @@ public class AmmoCount : MonoBehaviour {
 	// Update is called once per frame
 	void Update () 
 	{
+        GameObject go = GameObject.Find("Ground");
+        GameManager managerScript = go.GetComponent<GameManager>();
+        bool paused = managerScript.paused;
+        // check if paused
+        if (paused)
+            return;
         // check if player is reloading or firing
 		if (!reloading)
 		{

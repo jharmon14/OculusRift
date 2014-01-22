@@ -46,6 +46,8 @@
   <ItemGroup>
      <Compile Include="Assets\FPS\Scripts\AmmoCount.cs" />
      <Compile Include="Assets\FPS\Scripts\GameManager.cs" />
+     <Compile Include="Assets\FPS\Scripts\QuitGame.cs" />
+     <Compile Include="Assets\FPS\Scripts\ResumeGame.cs" />
      <Compile Include="Assets\General\Scripts\CameraFade.cs" />
      <Compile Include="Assets\General\Scripts\CameraToggle.cs" />
      <Compile Include="Assets\Overworld\Scripts\StartButton.cs" />
@@ -163,12 +165,30 @@
      <Compile Include="Assets\Packages\SWS\Scripts\Movement\iMove.cs" />
      <Compile Include="Assets\Packages\SWS\Scripts\PixelPlacement\iTween.cs" />
      <Compile Include="Assets\Packages\Standard Assets\Character Controllers\Sources\Scripts\MouseLook.cs" />
+     <None Include="Assets\Packages\NGUI\Resources\Shaders\Unlit - Depth Cutout.shader" />
+     <None Include="Assets\Packages\SWS\Textures\car\Shaders\LightsEmmissive.shader" />
+     <None Include="Assets\Packages\NGUI\Resources\Shaders\Unlit - Masked Colored.shader" />
+     <None Include="Assets\FPS\Fonts\PrototypeFont.txt" />
+     <None Include="Assets\Packages\SWS\Scripts\Holoville\HOTween_License.txt" />
+     <None Include="Assets\Packages\NGUI\Resources\Shaders\Unlit - Transparent Colored (Packed) (AlphaClip) .shader" />
      <None Include="Assets\Packages\SWS\Textures\car\Shaders\GlassReflect.shader" />
+     <None Include="Assets\Packages\NGUI\Resources\Shaders\Unlit - Premultiplied Colored (AlphaClip).shader" />
+     <None Include="Assets\Packages\NGUI\Resources\Shaders\Unlit - Transparent Colored (AlphaClip).shader" />
      <None Include="Assets\Packages\NGUI\Resources\Shaders\Unlit - Transparent Colored (Packed) (SoftClip).shader" />
+     <None Include="Assets\Packages\NGUI\Resources\Shaders\Unlit - Premultiplied Colored (SoftClip).shader" />
      <None Include="Assets\Packages\OVR\OVRImageEffects\OVRLensCorrection_CA.shader" />
+     <None Include="Assets\Packages\NGUI\Resources\Shaders\Unlit - Premultiplied Colored.shader" />
+     <None Include="Assets\Packages\NGUI\ReadMe - 2.5.1.txt" />
+     <None Include="Assets\Packages\NGUI\Resources\Shaders\Unlit - Transparent Colored.shader" />
+     <None Include="Assets\Packages\NGUI\Resources\Shaders\Unlit - Transparent Colored Overlay.shader" />
+     <None Include="Assets\Packages\NGUI\Resources\Shaders\Unlit - Transparent Colored (Packed).shader" />
      <None Include="Assets\Packages\NGUI\Resources\Shaders\Unlit - Additive Colored.shader" />
+     <None Include="Assets\Packages\OVR\OVRImageEffects\OVRLensCorrection.shader" />
+     <None Include="Assets\Packages\OVR\Shaders\OVRGUIShader.shader" />
      <None Include="Assets\Packages\NGUI\Resources\Shaders\Unlit - Depth.shader" />
+     <None Include="Assets\Packages\NGUI\Resources\Shaders\Unlit - Transparent Colored RenderTexture.shader" />
      <None Include="Assets\Packages\NGUI\Resources\Shaders\Unlit - Transparent Colored (SoftClip).shader" />
+     <None Include="Assets\Packages\SWS\Scripts\PlayMaker\SWS_PlayMaker_ReadMe.txt" />
  <Reference Include="HOTween">
  <HintPath>Assets\Packages\SWS\Scripts\Holoville\HOTween.dll</HintPath>
  </Reference>

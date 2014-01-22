@@ -188,10 +188,14 @@ public class OVRPlayerController : OVRComponent
 	static float sDeltaRotationOld = 0.0f;
 	public virtual void UpdateMovement()
 	{
+        GameObject go = GameObject.Find("Ground");
+        GameManager managerScript = go.GetComponent<GameManager>();
+        bool paused = managerScript.paused;
+
 		// Do not apply input if we are showing a level selection display
 		if(HaltUpdateMovement == true)
 			return;
-	
+	    
 		bool moveForward = false;
 		bool moveLeft  	 = false;
 		bool moveRight   = false;
@@ -232,7 +236,7 @@ public class OVRPlayerController : OVRComponent
 		if (Input.GetKey(KeyCode.LeftShift) || Input.GetKey(KeyCode.RightShift))
 			moveInfluence *= 2.0f;
 			
-		if(DirXform != null)
+		if(DirXform != null && !paused)
 		{
 			if (moveForward)
 				MoveThrottle += DirXform.TransformDirection(Vector3.forward * moveInfluence);

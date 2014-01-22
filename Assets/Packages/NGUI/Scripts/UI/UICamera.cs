@@ -744,6 +744,12 @@ public class UICamera : MonoBehaviour
 			if (hoveredObject == null) hoveredObject = genericEventHandler;
 			for (int i = 0; i < 3; ++i) mMouse[i].current = hoveredObject;
 		}
+        if (!useMouse && Application.isPlaying && handlesEvents)
+        {
+            hoveredObject = Raycast(new Vector3(Screen.height/2, Screen.width/2, 0.0f), ref lastHit) ? lastHit.collider.gameObject : fallThrough;
+            if (hoveredObject == null) hoveredObject = genericEventHandler;
+            for (int i = 0; i < 3; ++i) mMouse[i].current = hoveredObject;
+        }
 	}
 
 	/// <summary>
