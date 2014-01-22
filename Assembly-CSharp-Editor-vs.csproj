@@ -114,7 +114,6 @@
      <None Include="Assets\FPS\Level_Assets\Bootcamp\Pro Standard Assets\Image Based\frag_ao.cginc" />
      <None Include="Assets\Packages\NGUI\Resources\Shaders\Unlit - Transparent Colored (AlphaClip).shader" />
      <None Include="Assets\FPS\Level_Assets\Bootcamp\Shaders\WaterShader.shader" />
-     <None Include="Assets\OnTop.shader" />
      <None Include="Assets\FPS\Level_Assets\Bootcamp\Pro Standard Assets\Glass Refraction\Glass-Stained-BumpSpecDistort.shader" />
      <None Include="Assets\FPS\Level_Assets\Bootcamp\Standard Assets\Image Effects (Pro Only)\_Sources\Shaders\_DepthOfField\RecordCenterDepth.shader" />
      <None Include="Assets\FPS\Level_Assets\Bootcamp\Pro Standard Assets\Glass Refraction\Glass-Stained-BumpDistort 1.shader" />
