@@ -17,7 +17,7 @@ public class ResumeGame : MonoBehaviour {
     {
         GameObject pauseMenu = GameObject.Find("PauseMenu");
         NGUITools.SetActive(pauseMenu, false);
-        GameObject.Find("Plane").GetComponent<GameManager>().TogglePause();
+        GameObject.Find("Ground").GetComponent<GameManager>().TogglePause();
        // isPaused = false;
         Time.timeScale = 1.0f;
     }
