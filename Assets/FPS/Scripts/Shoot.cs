@@ -30,7 +30,6 @@ public class Shoot : MonoBehaviour
             fpsManager.shotsFired++;
             if (Physics.Raycast(transform.position, transform.forward, out hit))
             {
-                //Debug.Log(hit.transform.gameObject.name);
                 if (hit.transform.gameObject.name == "Target")
                 {
                     Destroy(hit.transform.gameObject);
