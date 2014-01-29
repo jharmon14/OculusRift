@@ -24,6 +24,8 @@ public class GameManager : MonoBehaviour
 	// Inspector variables
 	public int[] score;
 	public GameObject[] initialLevelManagers;
+    public bool paused = false;
+    public GameObject pauseMenu;
 
 	// Hidden public variables
 	[HideInInspector]
@@ -38,14 +40,33 @@ public class GameManager : MonoBehaviour
 
 	void Start()
 	{
+        pauseMenu.SetActive(false);
 		levelManagerGO = Instantiate(initialLevelManagers[(int)Levels.Overworld]) as GameObject;
 		overworldManager = levelManagerGO.GetComponent<OverworldManager>();
 		score = new int[(int)Levels.Num_Levels];
 	}
 
+    void Awake()
+    {
+        pauseMenu = GameObject.Find("PauseMenu");
+    }
+
 	// Update is called once per frame
 	void Update()
 	{
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            paused = !paused;
+
+            if (paused)
+            {
+                pauseMenu.SetActive(true);
+            }
+            else
+            {
+                pauseMenu.SetActive(false);
+            }
+        }
 	}
 
 	public void LoadLevel(Levels level)
@@ -74,4 +95,9 @@ public class GameManager : MonoBehaviour
 		CameraFade.StartAlphaFade(Color.black, false, 2.0f, 2.0f, () => { Application.LoadLevel(levelIndex); });
 		return;
 	}
+
+    public void TogglePause()
+    {
+        paused = !paused;
+    }
 }

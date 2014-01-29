@@ -79,4 +79,33 @@ public class UIButton : UIButtonColor
 			}
 		}
 	}
+
+    void Update()
+    {
+        int PauseLayerMask = 1 << 9;
+
+        Transform cam = Camera.main.transform;
+        Ray ray = new Ray(cam.position, cam.forward);
+        RaycastHit hit = new RaycastHit();
+
+        if (Physics.Raycast(ray, out hit, Mathf.Infinity, PauseLayerMask))
+        {
+            GameObject buttonHit = hit.transform.gameObject;
+            if (buttonHit.tag == "Button")
+            {
+                Debug.Log("Button Hit");
+                buttonHit.SendMessage("OnHover", true);
+                if (Input.GetMouseButtonDown(0))
+                {
+                    buttonHit.SendMessage("OnClick");
+                }
+            }
+        }
+        else
+        {
+            SendMessage("OnHover", false);
+        }
+        
+    }
+
 }
