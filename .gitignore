@@ -13,5 +13,6 @@ Library/metadata
 Library/previews
 Library/guidmapper
 Temp
+obj
 *.pidb
 build

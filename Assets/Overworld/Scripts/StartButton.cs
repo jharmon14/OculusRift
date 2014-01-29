@@ -10,20 +10,25 @@
 using UnityEngine;
 using System.Collections;
 
-public class StartButton : MonoBehaviour {
+public class StartButton : MonoBehaviour
+{
 
 	// Inspector variables
-    public string sceneName;
-	
-	// Private variables
-	
-	
-	void Start () {
-	
+	public GameManager.Levels level;
+
+	void OnTriggerEnter(Collider other)
+	{
+		if (other.gameObject.tag == "Player")
+		{
+			other.gameObject.GetComponent<StartGame>().level = level;
+		}
 	}
-	
-	// Update is called once per frame
-	void Update () {
-	
+
+	void OnTriggerExit(Collider other)
+	{
+		if (other.gameObject.tag == "Player")
+		{
+			other.gameObject.GetComponent<StartGame>().level = GameManager.Levels.None;
+		}
 	}
 }

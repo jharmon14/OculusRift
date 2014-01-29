@@ -1,8 +1,8 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class AmmoCount : MonoBehaviour {
-
+public class AmmoCount : MonoBehaviour
+{
 	private UILabel ammo;
 	private int ammoCount;
 	private bool reloading;
@@ -12,14 +12,15 @@ public class AmmoCount : MonoBehaviour {
 	public int ammoFull = 30;
 
 	// Use this for initialization
-	void Awake() {
+	void Awake()
+	{
 		ammo = GetComponent<UILabel>();
 		ammoCount = ammoFull;
-        ammo.text = ammoFull.ToString() + " / " + ammoFull.ToString();
+		ammo.text = ammoFull.ToString() + " / " + ammoFull.ToString();
 	}
-	
+
 	// Update is called once per frame
-	void Update () 
+	void Update()
 	{
         GameObject go = GameObject.Find("Ground");
         GameManager managerScript = go.GetComponent<GameManager>();
@@ -27,10 +28,11 @@ public class AmmoCount : MonoBehaviour {
         // check if paused
         if (paused)
             return;
-        // check if player is reloading or firing
+
+		// check if player is reloading or firing
 		if (!reloading)
 		{
-            // reload button pushed
+			// reload button pushed
 			if (Input.GetButtonDown("Reload") && (ammoCount != ammoFull))
 			{
 				Reload();
@@ -52,12 +54,12 @@ public class AmmoCount : MonoBehaviour {
 			}
 		}
 
-        // wait while player is reloading
+				// wait while player is reloading
 		else if (Time.time > reloadDone)
-        {
-            ammo.text = ammoFull.ToString() + " / " + ammoFull.ToString();
-            reloading = false;
-        }
+		{
+			ammo.text = ammoFull.ToString() + " / " + ammoFull.ToString();
+			reloading = false;
+		}
 	}
 
 	void Reload()
