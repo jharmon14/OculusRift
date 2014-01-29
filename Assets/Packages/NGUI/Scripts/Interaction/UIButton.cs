@@ -82,10 +82,13 @@ public class UIButton : UIButtonColor
 
     void Update()
     {
+        int PauseLayerMask = 1 << 9;
+
         Transform cam = Camera.main.transform;
         Ray ray = new Ray(cam.position, cam.forward);
         RaycastHit hit = new RaycastHit();
-        if (Physics.Raycast(ray, out hit, 500f))
+
+        if (Physics.Raycast(ray, out hit, 500f, PauseLayerMask))
         {
             GameObject buttonHit = hit.transform.gameObject;
             if (buttonHit.tag == "Button")

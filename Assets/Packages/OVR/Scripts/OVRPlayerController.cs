@@ -46,6 +46,7 @@ public class OVRPlayerController : OVRComponent
 	public float JumpForce 		   = 0.3f;
 	public float RotationAmount    = 1.5f;
 	public float GravityModifier   = 0.379f;
+    public GameObject Manager;
 		
 	private float   MoveScale 	   = 1.0f;
 	private Vector3 MoveThrottle   = Vector3.zero;
@@ -188,8 +189,8 @@ public class OVRPlayerController : OVRComponent
 	static float sDeltaRotationOld = 0.0f;
 	public virtual void UpdateMovement()
 	{
-        GameObject go = GameObject.Find("Ground");
-        GameManager managerScript = go.GetComponent<GameManager>();
+        GameObject go = GameObject.Find("PauseManager");
+        PauseManagerScript managerScript = go.GetComponent<PauseManagerScript>();
         bool paused = managerScript.paused;
 
 		// Do not apply input if we are showing a level selection display
