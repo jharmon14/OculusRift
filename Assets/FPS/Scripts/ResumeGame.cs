@@ -3,6 +3,7 @@ using System.Collections;
 
 public class ResumeGame : MonoBehaviour {
 
+    public GameObject pauseMenu;
 	// Use this for initialization
 	void Start () {
 	
@@ -15,7 +16,6 @@ public class ResumeGame : MonoBehaviour {
 
     void OnClick()
     {
-        GameObject pauseMenu = GameObject.Find("PauseMenu");
         NGUITools.SetActive(pauseMenu, false);
         GameObject.Find("Ground").GetComponent<GameManager>().TogglePause();
        // isPaused = false;

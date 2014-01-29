@@ -43,12 +43,10 @@ public class GameManager : MonoBehaviour {
             if (paused)
             {
                 pauseMenu.SetActive(true);
-                Debug.Log(paused);
             }
             else
             {
                 pauseMenu.SetActive(false);
-                Debug.Log(paused);
             }
         }
 
