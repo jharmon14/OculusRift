@@ -1,8 +1,9 @@
 ﻿<Properties>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Packages\SWS\Scripts\Movement\iMove.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Packages\SWS\Scripts\Movement\hoMove.cs">
     <Files>
-      <File FileName="Assets\Packages\SWS\Scripts\Movement\iMove.cs" Line="112" Column="1" />
+      <File FileName="Assets\Packages\SWS\Scripts\Movement\hoMove.cs" Line="316" Column="1" />
+      <File FileName="Assets\FPS\Scripts\Shoot.cs" Line="33" Column="19" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
