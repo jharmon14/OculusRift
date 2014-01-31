@@ -62,11 +62,14 @@
      <Compile Include="Assets\FPS\Scripts\AmmoCount.cs" />
      <Compile Include="Assets\FPS\Scripts\FPSManager.cs" />
      <Compile Include="Assets\FPS\Scripts\LevelEnd.cs" />
+     <Compile Include="Assets\FPS\Scripts\QuitGame.cs" />
+     <Compile Include="Assets\FPS\Scripts\ResumeGame.cs" />
      <Compile Include="Assets\FPS\Scripts\Shoot.cs" />
      <Compile Include="Assets\FPS\Scripts\TargetPopup.cs" />
      <Compile Include="Assets\General\Scripts\CameraFade.cs" />
      <Compile Include="Assets\General\Scripts\CameraToggle.cs" />
      <Compile Include="Assets\General\Scripts\GameManager.cs" />
+     <Compile Include="Assets\General\Scripts\PauseManagerScript.cs" />
      <Compile Include="Assets\Overworld\Scripts\OverworldManager.cs" />
      <Compile Include="Assets\Overworld\Scripts\StartButton.cs" />
      <Compile Include="Assets\Overworld\Scripts\StartGame.cs" />
