@@ -93,7 +93,6 @@ public class UIButton : UIButtonColor
             GameObject buttonHit = hit.transform.gameObject;
             if (buttonHit.tag == "Button")
             {
-                Debug.Log("Button Hit");
                 buttonHit.SendMessage("OnHover", true);
                 if (Input.GetMouseButtonDown(0))
                 {

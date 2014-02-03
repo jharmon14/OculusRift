@@ -51,6 +51,12 @@ public class GameManager : MonoBehaviour
         pauseMenu = GameObject.Find("PauseMenu");
     }
 
+    void OnLevelWasLoaded(int level)
+    {
+        pauseMenu = GameObject.Find("PauseMenu");
+        pauseMenu.SetActive(false);
+    }
+
 	// Update is called once per frame
 	void Update()
 	{
