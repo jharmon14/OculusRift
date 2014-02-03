@@ -5,6 +5,7 @@ public class PauseManagerScript : MonoBehaviour {
 
     public GameObject Manager;
     public bool paused;
+
 	// Use this for initialization
 	void Start () {
         Manager = GameObject.Find("GameManager");

@@ -53,7 +53,7 @@ public class GameManager : MonoBehaviour
 
     void OnLevelWasLoaded(int level)
     {
-        pauseMenu = GameObject.Find("PauseMenu");
+        pauseMenu = GameObject.FindWithTag("PauseMenu");
         pauseMenu.SetActive(false);
     }
 
