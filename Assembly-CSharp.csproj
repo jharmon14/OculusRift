@@ -185,6 +185,7 @@
      <Compile Include="Assets\Packages\SWS\Scripts\PixelPlacement\iTween.cs" />
      <Compile Include="Assets\Packages\Standard Assets\Character Controllers\Sources\Scripts\MouseLook.cs" />
      <Compile Include="Assets\ReverseNormals.cs" />
+     <Compile Include="Assets\Timmy\EnemyController.cs" />
      <None Include="Assets\Packages\NGUI\Resources\Shaders\Unlit - Depth Cutout.shader" />
      <None Include="Assets\FPS\Level_Assets\Bootcamp\Pro Standard Assets\Glass Refraction\Glass-Stained-BumpDistort.shader" />
      <None Include="Assets\FPS\Level_Assets\Bootcamp\Pro Standard Assets\Image Based\NoiseEffectShaderRGB.shader" />
