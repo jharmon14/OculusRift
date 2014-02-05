@@ -4,25 +4,24 @@ using System.Collections;
 public class EnemyController : MonoBehaviour 
 {
 
-    private Quaternion startRotation, endRotation;
-	private Vector3 targetPoint;
+    private Quaternion endRotation;
 	private GameObject target;
 	private float distance;
 	private float nextFire;
+	private GameObject bulletParent, bullet;
 	
     public float moveSpeed = 1.0f;
 	public GameObject bulletPrefab;
 	
-	// use this to change how far it will rotate the game object on an enemy by enemy basis
+	// use this to change how far it will rotate the game object on an enemy by enemy basis (higher = larger rotation
 	public float bound = 0;
 	
-	// how much the enemy shoots
-	public float fireRate = 2;
+	// how much the enemy shoots (lower = faster)
+	public float fireRate = 1;
 	
     // Use this for initialization
     void Start () 
 	{
-        startRotation = transform.parent.rotation;
         endRotation = transform.rotation;
 		target = GameObject.Find("Player");
 		nextFire = 0;
@@ -30,21 +29,17 @@ public class EnemyController : MonoBehaviour
    
     // Update is called once per frame
     void Update () 
-	{
+	{		
 		// don't update the enemies unless they are on screen, temporary arbitrary number of 50
 		if(distance < 50)
 		{
+			// rotate the parent, calculate distance from player to enemy
 			transform.parent.Rotate(Vector3.up * Time.deltaTime * moveSpeed);
 			distance = Vector3.Distance (transform.position, target.transform.position);
 			
 			// if it's going to go out of bounds, reverse the direction
 	        if (Quaternion.Angle(transform.parent.rotation, endRotation) > bound)
-	        {
 	            moveSpeed = -moveSpeed;
-	            var temp = startRotation;
-	            startRotation = endRotation;
-	            endRotation = temp;
-	        }
 			
 			// look at the player if it's close enough
 			if(distance < 10)
@@ -53,12 +48,28 @@ public class EnemyController : MonoBehaviour
 			// fire 
 			if(Time.time > nextFire)// && distance < 20)
 			{
-				nextFire += Time.time;
-				GameObject bullet = (GameObject)Instantiate(bulletPrefab, transform.position, transform.rotation);
-				//bullet.transform.parent = transform.parent;
-				bullet.transform.rotation = Quaternion.Lerp(bullet.transform.rotation, endRotation, Time.time * moveSpeed * 2);
+				// destroy previous bullet
+				if(bullet != null)
+				{
+					Destroy(bullet);
+					Destroy(bulletParent);
+				}
 				
+				nextFire = Time.time + fireRate;
+				
+				// create a bullet, make a temporary parent to that bullet and then rotate it
+				// with double the enemy movement speed to show the movement of the bullet
+				bulletParent = new GameObject();
+				bulletParent.transform.rotation = transform.parent.rotation;
+				bulletParent.transform.position = transform.parent.position;
+				
+				bullet = (GameObject)Instantiate(bulletPrefab, transform.position, transform.rotation);
+				bullet.transform.parent = bulletParent.transform;				
 			}
+			
+			// rotate the bullet's parent and check for collision
+			if(bulletParent != null)
+				bulletParent.transform.Rotate(Vector3.up * Time.deltaTime * Mathf.Abs(moveSpeed * 3));
 		}
     }
 }
