@@ -21,6 +21,7 @@ public class MisconductPlayerController : MonoBehaviour
 
 	// Private variables
 	private Transform cam;
+	private RaycastHit hit;
 	private bool needsRotated = false;
 	private bool possessing = false;
 	private bool possLerping = false;
@@ -34,6 +35,7 @@ public class MisconductPlayerController : MonoBehaviour
 
 	void Awake()
 	{
+		cam = GameObject.Find("CameraRight").transform;
 		possLerpStart = this.transform.position;
 		possLerpEnd = this.transform.position + new Vector3(0, possLookHeight, 0);
 		this.gameObject.name = this.gameObject.name.Replace("(Clone)", "");
@@ -44,7 +46,7 @@ public class MisconductPlayerController : MonoBehaviour
 	{
 		if (!possessing)
 		{
-      // Character "leaning" rotation
+			// Character "leaning" rotation
 			this.transform.Rotate(new Vector3(Input.GetAxis("Vertical"), 0, -Input.GetAxis("Horizontal")));
 			if (this.transform.eulerAngles.x < 314)
 			{
@@ -79,13 +81,13 @@ public class MisconductPlayerController : MonoBehaviour
 			}
 			this.transform.localEulerAngles = new Vector3(
 					Mathf.Clamp(this.transform.eulerAngles.x, xRotMin, xRotMax),
-          0,
+					0,
 					Mathf.Clamp(this.transform.eulerAngles.z, zRotMin, zRotMax));
 			xPrev = this.transform.eulerAngles.x;
 			xChanged = false;
 		}
 
-    // Begin Lerp to possession height
+		// Begin Lerp to possession height
 		if (Input.GetButtonDown("Possess") && !possLerping)
 		{
 			possessing = !possessing;
@@ -93,7 +95,7 @@ public class MisconductPlayerController : MonoBehaviour
 			studentRendererSet = false;
 		}
 
-    // Lerp to possession height
+		// Lerp to possession height
 		if (possLerping)
 		{
 			// Rotate character back to center
@@ -103,7 +105,7 @@ public class MisconductPlayerController : MonoBehaviour
 			}
 			else
 			{
-        // Start rotating to face down
+				// Start rotating to face down
 				if (!needsRotated)
 				{
 					needsRotated = true;
@@ -128,10 +130,10 @@ public class MisconductPlayerController : MonoBehaviour
 			}
 
 
-      // Clean up when Lerp is done
+			// Clean up when Lerp is done
 			if (possLerp >= 1.0f)
 			{
-        // Turn on student mesh when done moving down
+				// Turn on student mesh when done moving down
 				if (!studentRendererSet && !possLerpUp)
 				{
 					playerStudent.enabled = !playerStudent.enabled;
@@ -145,6 +147,15 @@ public class MisconductPlayerController : MonoBehaviour
 				possLerp = 0;
 				possLerpUp = !possLerpUp;
 				needsRotated = false;
+			}
+			
+			// Detect player looking at 
+			if (Physics.Raycast(cam.position, cam.forward, out hit))
+			{
+				if (hit.transform.gameObject.name == "StudentShape")
+				{
+					Debug.Log(hit.transform.parent.name);
+				}
 			}
 		}
 	}
