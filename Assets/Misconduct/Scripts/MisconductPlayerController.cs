@@ -16,22 +16,27 @@ public class MisconductPlayerController : MonoBehaviour
 	// Inspector variables
 	public float possLookHeight = 3.0f;
 	public float possLerpTime = 1.0f;
+	[HideInInspector]
+	public MeshRenderer playerStudent;
 
 	// Private variables
 	private Transform cam;
+	private bool needsRotated = false;
 	private bool possessing = false;
 	private bool possLerping = false;
 	private float possLerp = 0.0f;
 	private Vector3 possLerpStart, possLerpEnd;
+	private bool possLerpUp = true;
+	private bool studentRendererSet = false;
 	private int xRotMin, xRotMax, zRotMin, zRotMax;
 	private bool xChanged = false;
 	private float xPrev;
 
 	void Awake()
 	{
-		cam = transform.Find("OVRCameraController").transform;
-		possLerpStart = cam.position;
-		possLerpEnd = cam.position + new Vector3(0, possLookHeight, 0);
+		possLerpStart = this.transform.position;
+		possLerpEnd = this.transform.position + new Vector3(0, possLookHeight, 0);
+		this.gameObject.name = this.gameObject.name.Replace("(Clone)", "");
 	}
 
 	// Update is called once per frame
@@ -40,8 +45,8 @@ public class MisconductPlayerController : MonoBehaviour
 		if (!possessing)
 		{
       // Character "leaning" rotation
-			transform.Rotate(new Vector3(Input.GetAxis("Vertical"), 0, -Input.GetAxis("Horizontal")));
-			if (transform.eulerAngles.x < 314)
+			this.transform.Rotate(new Vector3(Input.GetAxis("Vertical"), 0, -Input.GetAxis("Horizontal")));
+			if (this.transform.eulerAngles.x < 314)
 			{
 				xRotMin = 0;
 				xRotMax = 45;
@@ -61,7 +66,7 @@ public class MisconductPlayerController : MonoBehaviour
 			}
 			if (!xChanged)
 			{
-				if (transform.eulerAngles.z < 50)
+				if (this.transform.eulerAngles.z < 50)
 				{
 					zRotMin = 0;
 					zRotMax = 45;
@@ -72,11 +77,11 @@ public class MisconductPlayerController : MonoBehaviour
 					zRotMax = 360;
 				}
 			}
-			transform.localEulerAngles = new Vector3(
-					Mathf.Clamp(transform.eulerAngles.x, xRotMin, xRotMax),
+			this.transform.localEulerAngles = new Vector3(
+					Mathf.Clamp(this.transform.eulerAngles.x, xRotMin, xRotMax),
           0,
-					Mathf.Clamp(transform.eulerAngles.z, zRotMin, zRotMax));
-			xPrev = transform.eulerAngles.x;
+					Mathf.Clamp(this.transform.eulerAngles.z, zRotMin, zRotMax));
+			xPrev = this.transform.eulerAngles.x;
 			xChanged = false;
 		}
 
@@ -85,30 +90,61 @@ public class MisconductPlayerController : MonoBehaviour
 		{
 			possessing = !possessing;
 			possLerping = true;
+			studentRendererSet = false;
 		}
 
     // Lerp to possession height
 		if (possLerping)
 		{
 			// Rotate character back to center
-			if (Quaternion.Angle(Quaternion.Euler(Vector3.zero), transform.rotation) > 0.1)
+			if ((Quaternion.Angle(Quaternion.Euler(Vector3.zero), this.transform.rotation) > 1.0f) && possLerpUp && !needsRotated)
 			{
-				transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.Euler(new Vector3(0, 0, 0)), 5.0f * Time.deltaTime);
+				this.transform.rotation = Quaternion.Slerp(this.transform.rotation, Quaternion.Euler(Vector3.zero), 5.0f * Time.deltaTime);
 			}
-      else
+			else
 			{
-        // Lerp up from center
+        // Start rotating to face down
+				if (!needsRotated)
+				{
+					needsRotated = true;
+				}
+
+				// Turn student mesh on when moving up
+				if (!studentRendererSet && possLerpUp)
+				{
+					playerStudent.enabled = !playerStudent.enabled;
+					studentRendererSet = true;
+				}
+
+				if (needsRotated)
+				{
+					Vector3 targetRotation = possLerpUp ? new Vector3(90, 0, 0) : Vector3.zero;
+					this.transform.rotation = Quaternion.Slerp(this.transform.rotation, Quaternion.Euler(targetRotation), 3.0f * Time.deltaTime);
+				}
+
+				// Lerp up from center
 				possLerp += Time.deltaTime / possLerpTime;
-				cam.position = Vector3.Lerp(possLerpStart, possLerpEnd, possLerp);
+				this.transform.position = Vector3.Lerp(possLerpStart, possLerpEnd, possLerp);
 			}
 
+
+      // Clean up when Lerp is done
 			if (possLerp >= 1.0f)
 			{
+        // Turn on student mesh when done moving down
+				if (!studentRendererSet && !possLerpUp)
+				{
+					playerStudent.enabled = !playerStudent.enabled;
+					studentRendererSet = true;
+				}
+
 				possLerping = false;
 				Vector3 temp = possLerpStart;
 				possLerpStart = possLerpEnd;
 				possLerpEnd = temp;
 				possLerp = 0;
+				possLerpUp = !possLerpUp;
+				needsRotated = false;
 			}
 		}
 	}

@@ -10,38 +10,37 @@
 using UnityEngine;
 using System.Collections;
 
-public class MisconductStudent : MonoBehaviour {
+public class MisconductStudent : MonoBehaviour
+{
 
 	// Inspector variables
-    public bool isPlayer = false;
-	
+	public bool isPlayer = false;
+
 	// Private variables
-	
-	
-	void Start () {
-        if (isPlayer)
-        {
-            MakePlayer();
-            var mm = GameObject.Find("MisconductManager").GetComponent<MisconductManager>();
-            var player = Instantiate(mm.playerOject, transform.position, transform.rotation) as GameObject;
-            mm.player = player.GetComponent<MisconductPlayerController>();
-        }
+
+
+	void Start()
+	{
+		if (isPlayer)
+		{
+			MeshRenderer meshRend = this.transform.Find("StudentShape").GetComponent<MeshRenderer>();
+      meshRend.enabled = false;
+			var mm = GameObject.Find("MisconductManager").GetComponent<MisconductManager>();
+			var player = Instantiate(mm.playerOject, this.transform.position, this.transform.rotation) as GameObject;
+			mm.player = player.GetComponent<MisconductPlayerController>();
+			mm.player.playerStudent = meshRend;
+		}
 	}
 
-    void MakePlayer()
-    {
-        isPlayer = true;
-        transform.Find("StudentShape").gameObject.GetComponent<MeshRenderer>().enabled = false;
-    }
+	public void ToggleMesh()
+	{
+		var meshRend = transform.Find("StudentShape").GetComponent<MeshRenderer>();
+		meshRend.enabled = !meshRend.enabled;
+	}
 
-    void NotPlayer()
-    {
-        isPlayer = false;
-        transform.Find("StudentShape").gameObject.GetComponent<MeshRenderer>().enabled = true;
-    }
-	
 	// Update is called once per frame
-	void Update () {
-	
+	void Update()
+	{
+
 	}
 }
