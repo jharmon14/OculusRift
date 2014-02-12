@@ -61,12 +61,16 @@
      <Compile Include="Assets\FPS\Level_Assets\Bootcamp\Pro Standard Assets\Water\Sources\Water.cs" />
      <Compile Include="Assets\FPS\Scripts\AmmoCount.cs" />
      <Compile Include="Assets\FPS\Scripts\FPSManager.cs" />
+     <Compile Include="Assets\FPS\Scripts\FireGun.cs" />
      <Compile Include="Assets\FPS\Scripts\LevelEnd.cs" />
      <Compile Include="Assets\FPS\Scripts\Shoot.cs" />
      <Compile Include="Assets\FPS\Scripts\TargetPopup.cs" />
      <Compile Include="Assets\General\Scripts\CameraFade.cs" />
      <Compile Include="Assets\General\Scripts\CameraToggle.cs" />
      <Compile Include="Assets\General\Scripts\GameManager.cs" />
+     <Compile Include="Assets\General\Scripts\PauseManagerScript.cs" />
+     <Compile Include="Assets\General\Scripts\QuitGame.cs" />
+     <Compile Include="Assets\General\Scripts\ResumeGame.cs" />
      <Compile Include="Assets\Overworld\Scripts\OverworldManager.cs" />
      <Compile Include="Assets\Overworld\Scripts\StartButton.cs" />
      <Compile Include="Assets\Overworld\Scripts\StartGame.cs" />
@@ -184,6 +188,10 @@
      <Compile Include="Assets\Packages\SWS\Scripts\PixelPlacement\iTween.cs" />
      <Compile Include="Assets\Packages\Standard Assets\Character Controllers\Sources\Scripts\MouseLook.cs" />
      <Compile Include="Assets\ReverseNormals.cs" />
+     <Compile Include="Assets\Timmy\Scripts\Bullet.cs" />
+     <Compile Include="Assets\Timmy\Scripts\BulletRotation.cs" />
+     <Compile Include="Assets\Timmy\Scripts\PlayerJump.cs" />
+     <Compile Include="Assets\Timmy\Scripts\PlayerMovement.cs" />
      <None Include="Assets\Packages\NGUI\Resources\Shaders\Unlit - Depth Cutout.shader" />
      <None Include="Assets\FPS\Level_Assets\Bootcamp\Pro Standard Assets\Glass Refraction\Glass-Stained-BumpDistort.shader" />
      <None Include="Assets\FPS\Level_Assets\Bootcamp\Pro Standard Assets\Image Based\NoiseEffectShaderRGB.shader" />

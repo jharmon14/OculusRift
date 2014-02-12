@@ -66,6 +66,7 @@ public class OVRPlayerController : OVRComponent
 	private float MoveScaleMultiplier     = 1.0f; 
 	private float RotationScaleMultiplier = 1.0f; 
 	private bool  AllowMouseRotation      = true;
+	
 	private bool  HaltUpdateMovement      = false;
 	
 	// TEST: Get Y from second sensor
@@ -267,7 +268,7 @@ public class OVRPlayerController : OVRComponent
 			
 		// Rotate
 		float deltaRotation = 0.0f;
-		if(AllowMouseRotation == false)
+		if(AllowMouseRotation == true)
 			deltaRotation = Input.GetAxis("Mouse X") * rotateInfluence * 3.25f;
 			
 		float filteredDeltaRotation = (sDeltaRotationOld * 0.0f) + (deltaRotation * 1.0f);

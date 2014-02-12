@@ -3,7 +3,7 @@
  * Filename :   FPSManager.cs
  * Content  :   General level scripting, score tracking, game start and end scripting
  * Expects  :   (Probably) an OVRPlayerController, tagged enemies
- * Authors  :   Devin Turner
+ * Authors  :   Devin Turder hahaha
  * 
 ************************************************************************************/
 
