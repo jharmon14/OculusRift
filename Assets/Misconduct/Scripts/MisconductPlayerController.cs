@@ -23,11 +23,13 @@ public class MisconductPlayerController : MonoBehaviour
 	private Transform cam;
 	private RaycastHit hit;
 	private bool needsRotated = false;
+	private float lastRaycast = 1.0f;
 	private bool possessing = false;
 	private bool possLerping = false;
 	private float possLerp = 0.0f;
 	private Vector3 possLerpStart, possLerpEnd;
 	private bool possLerpUp = true;
+	private MisconductStudent possTarget = null;
 	private bool studentRendererSet = false;
 	private int xRotMin, xRotMax, zRotMin, zRotMax;
 	private bool xChanged = false;
@@ -138,6 +140,11 @@ public class MisconductPlayerController : MonoBehaviour
 				{
 					playerStudent.enabled = !playerStudent.enabled;
 					studentRendererSet = true;
+					GameObject[] students = GameObject.FindGameObjectsWithTag("MisconductStudent") as GameObject[];
+					foreach (GameObject student in students)
+					{
+						student.transform.Find("StudentShape").GetComponent<MeshRenderer>().material.color = Color.white;
+					}
 				}
 
 				possLerping = false;
@@ -150,11 +157,44 @@ public class MisconductPlayerController : MonoBehaviour
 			}
 			
 			// Detect player looking at 
-			if (Physics.Raycast(cam.position, cam.forward, out hit))
+		}
+
+		if (possessing)
+		{
+      if (Time.time - lastRaycast > 0.4f)
 			{
-				if (hit.transform.gameObject.name == "StudentShape")
+				lastRaycast = Time.time;
+				if (Physics.Raycast(cam.position, cam.forward, out hit))
 				{
-					Debug.Log(hit.transform.parent.name);
+					var students = GameObject.FindGameObjectsWithTag("MisconductStudent") as GameObject[];
+					var closest = Mathf.Infinity;
+					GameObject closestStudent = null;
+					foreach (var student in students)
+					{
+						var distance = (student.transform.position - hit.point).sqrMagnitude;
+						if (distance < closest)
+						{
+							closest = distance;
+							closestStudent = student;
+						}
+					}
+
+					if (possTarget == null)
+					{
+						possTarget = closestStudent.GetComponent<MisconductStudent>();
+						possTarget.highlightColor = true;
+					}
+					else if (possTarget != closestStudent.GetComponent<MisconductStudent>())
+					{
+						possTarget.revertColor = true;
+						possTarget = closestStudent.GetComponent<MisconductStudent>();
+						possTarget.highlightColor = true;
+					}
+				}
+
+				if (Input.GetAxis("Right Trigger") == 1)
+				{
+					Debug.Log("trigger pulled " + Input.GetAxis("Right Trigger"));
 				}
 			}
 		}
