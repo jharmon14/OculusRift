@@ -17,7 +17,7 @@ public class FireGun : MonoBehaviour {
 		if( Physics.Raycast(transform.position, fwd, out hit, 100) && hit.collider.tag == "Enemy"){
 			
 			//DEBUG: Directional light is Green when raytrace hits
-	        //gunSight.gameObject.light.color = Color.green;
+	        gunSight.gameObject.light.color = Color.green;
 			//Debug.Log ("Hit");
 			
 			// Shot Hit
@@ -29,7 +29,7 @@ public class FireGun : MonoBehaviour {
 		} else {
 			
 			//DEBUG: Directional light is Red when raytrace misses
-			//gunSight.gameObject.light.color = Color.red;
+			gunSight.gameObject.light.color = Color.red;
 			
 			// Shot Missed
 			if (Input.GetButtonDown("Fire1")){
