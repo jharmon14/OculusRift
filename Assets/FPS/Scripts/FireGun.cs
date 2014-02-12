@@ -10,6 +10,7 @@ public class FireGun : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
+		
 
 		Vector3 fwd = gunSight.gameObject.transform.TransformDirection(Vector3.forward);
 		
