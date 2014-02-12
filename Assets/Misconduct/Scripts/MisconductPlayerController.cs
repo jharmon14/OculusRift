@@ -148,9 +148,8 @@ public class MisconductPlayerController : MonoBehaviour
 				}
 
 				possLerping = false;
-				Vector3 temp = possLerpStart;
 				possLerpStart = possLerpEnd;
-				possLerpEnd = temp;
+				possLerpEnd = possLerpStart + new Vector3(0, possLookHeight, 0);
 				possLerp = 0;
 				possLerpUp = !possLerpUp;
 				needsRotated = false;
@@ -194,7 +193,11 @@ public class MisconductPlayerController : MonoBehaviour
 
 				if (Input.GetAxis("Right Trigger") == 1)
 				{
-					Debug.Log("trigger pulled " + Input.GetAxis("Right Trigger"));
+					possessing = !possessing;
+					possLerping = true;
+					playerStudent = possTarget.transform.Find("StudentShape").GetComponent<MeshRenderer>();
+					possLerpEnd = possTarget.transform.position;
+					studentRendererSet = false;
 				}
 			}
 		}
