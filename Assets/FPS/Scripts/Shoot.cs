@@ -37,6 +37,7 @@ public class Shoot : MonoBehaviour
                     fpsManager.targetsHit++;
                 }
             }
+			Debug.Log("Accuracy: " + fpsManager.targetsHit + "/" + fpsManager.shotsFired);
         }
 	}
 }

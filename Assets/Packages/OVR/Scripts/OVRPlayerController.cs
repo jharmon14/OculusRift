@@ -66,6 +66,7 @@ public class OVRPlayerController : OVRComponent
 	private float MoveScaleMultiplier     = 1.0f; 
 	private float RotationScaleMultiplier = 1.0f; 
 	private bool  AllowMouseRotation      = true;
+	
 	private bool  HaltUpdateMovement      = false;
 	
 	// TEST: Get Y from second sensor

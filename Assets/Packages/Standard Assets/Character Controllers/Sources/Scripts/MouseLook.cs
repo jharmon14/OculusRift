@@ -23,11 +23,11 @@ public class MouseLook : MonoBehaviour {
 	public float sensitivityX = 15F;
 	public float sensitivityY = 15F;
 
-	public float minimumX = -360F;
-	public float maximumX = 360F;
+	public float minimumY = -135F;
+	public float maximumY = 45F;
 
-	public float minimumY = -60F;
-	public float maximumY = 60F;
+	public float minimumX = -45F;
+	public float maximumX = 45F;
 
     public float moveSensitivity = 1.0f;
 
@@ -38,47 +38,46 @@ public class MouseLook : MonoBehaviour {
 
 	void Update ()
 	{
-        //if (Input.GetMouseButton(0))
-        //{
-            if (axes == RotationAxes.MouseXAndY)
-            {
-                // Read the mouse input axis
-                rotationX += Input.GetAxis("Mouse X") * sensitivityX;
-                rotationY += Input.GetAxis("Mouse Y") * sensitivityY;
+        if (axes == RotationAxes.MouseXAndY)
+        {
+            // Read the mouse input axis5
+            rotationX += Input.GetAxis("Mouse X") * sensitivityX;
+			if(rotationX > 45){
+				Debug.Log("Too High");
+				rotationX = 45;
+			}
+			else if(rotationX < -45){
+				rotationX = -45;
+			}
+            rotationY += Input.GetAxis("Mouse Y") * sensitivityY;
+            rotationY = ClampAngle(rotationY, minimumY, maximumY);
 
-                rotationX = ClampAngle(rotationX, minimumX, maximumX);
-                rotationY = ClampAngle(rotationY, minimumY, maximumY);
+            Quaternion xQuaternion = Quaternion.AngleAxis(rotationX, Vector3.forward);
+            Quaternion yQuaternion = Quaternion.AngleAxis(rotationY, Vector3.left);
 
-                Quaternion xQuaternion = Quaternion.AngleAxis(rotationX, Vector3.up);
-                Quaternion yQuaternion = Quaternion.AngleAxis(rotationY, Vector3.left);
+            transform.localRotation = originalRotation * xQuaternion * yQuaternion;
+        }
+        else if (axes == RotationAxes.MouseX)
+        {
+            rotationX += Input.GetAxis("Mouse X") * sensitivityX;
+			if(rotationX > 45){
+				rotationX = 45;
+			}
+			else if(rotationX < -45){
+				rotationX = -45;
+			}
 
-                transform.localRotation = originalRotation * xQuaternion * yQuaternion;
-            }
-            else if (axes == RotationAxes.MouseX)
-            {
-                rotationX += Input.GetAxis("Mouse X") * sensitivityX;
-                rotationX = ClampAngle(rotationX, minimumX, maximumX);
+            Quaternion xQuaternion = Quaternion.AngleAxis(rotationX, Vector3.forward);
+            transform.localRotation = originalRotation * xQuaternion;
+        }
+        else
+        {
+            rotationY += Input.GetAxis("Mouse Y") * sensitivityY;
+            rotationY = ClampAngle(rotationY, minimumY, maximumY);
 
-                Quaternion xQuaternion = Quaternion.AngleAxis(rotationX, Vector3.up);
-                transform.localRotation = originalRotation * xQuaternion;
-            }
-            else
-            {
-                rotationY += Input.GetAxis("Mouse Y") * sensitivityY;
-                rotationY = ClampAngle(rotationY, minimumY, maximumY);
-
-                Quaternion yQuaternion = Quaternion.AngleAxis(rotationY, Vector3.left);
-                transform.localRotation = originalRotation * yQuaternion;
-            }
-        //}
-
-        /*Vector3 moveVector = new Vector3(0, 0, 0);
-        if (Input.GetKey(KeyCode.D)) moveVector.x += moveSensitivity;
-        if (Input.GetKey(KeyCode.A)) moveVector.x -= moveSensitivity;
-        if (Input.GetKey(KeyCode.W)) moveVector.z += moveSensitivity;
-        if (Input.GetKey(KeyCode.S)) moveVector.z -= moveSensitivity;
-
-        transform.localPosition += transform.TransformDirection( moveVector );*/
+            Quaternion yQuaternion = Quaternion.AngleAxis(rotationY, Vector3.left);
+            transform.localRotation = originalRotation * yQuaternion;
+        }
 	}
 	
 	void Start ()
@@ -90,11 +89,7 @@ public class MouseLook : MonoBehaviour {
 	}
 	
 	public static float ClampAngle (float angle, float min, float max)
-	{
-		if (angle < -360F)
-			angle += 360F;
-		if (angle > 360F)
-			angle -= 360F;
+	{	
 		return Mathf.Clamp (angle, min, max);
 	}
 }

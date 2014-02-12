@@ -3,7 +3,7 @@
  * Filename :   FPSManager.cs
  * Content  :   General level scripting, score tracking, game start and end scripting
  * Expects  :   (Probably) an OVRPlayerController, tagged enemies
- * Authors  :   Devin Turner
+ * Authors  :   Devin Turder hahaha
  * 
 ************************************************************************************/
 
@@ -13,7 +13,7 @@ using System.Collections;
 public class FPSManager : MonoBehaviour
 {
 	public int targetsHit = 0;
-	public int shotsFired = 0;
+	public int shotsFired = -1;
 	public int targetScoreMultiplier = 100;
 	public int accuracyScoreMultiplier = 10;
 	public float timeStarted = 0.0f;
