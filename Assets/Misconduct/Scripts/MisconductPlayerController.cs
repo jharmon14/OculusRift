@@ -1,176 +1,160 @@
-﻿/************************************************************************************
- *
- * Filename :   MisconductPlayerController.cs
- * Content  :   
- * Expects  :   
- * Authors  :   
- * 
-************************************************************************************/
-
-using UnityEngine;
+﻿using UnityEngine;
 using System.Collections;
 
-public class MisconductPlayerController : MonoBehaviour
+public class MisconductPlayerController : MonoBehaviour 
 {
+  // Inspector variables
+	public float possLookHeight = 8.0f;
+	public float movingLerpTime = 1.0f;
+	public float raycastRate = 0.5f;
 
-	// Inspector variables
-	public float possLookHeight = 3.0f;
-	public float possLerpTime = 1.0f;
+	// Public variables
 	[HideInInspector]
 	public MeshRenderer playerStudent;
 
-	// Private variables
+  // Private variables
+	private enum State
+	{
+		Sitting = 0,
+    Centering,
+		Moving,
+		Possessing
+	};
 	private Transform cam;
-	private RaycastHit hit;
-	private bool needsRotated = false;
-	private float lastRaycast = 1.0f;
-	private bool possessing = false;
-	private bool possLerping = false;
-	private float possLerp = 0.0f;
-	private Vector3 possLerpStart, possLerpEnd;
-	private bool possLerpUp = true;
-	private MisconductStudent possTarget = null;
-	private bool studentRendererSet = false;
-	private int xRotMin, xRotMax, zRotMin, zRotMax;
-	private bool xChanged = false;
-	private float xPrev;
+	private State state = State.Sitting;
 
-	void Awake()
+	// Sitting variables
+	private int xRotMin, xRotMax, zRotMin, zRotMax;
+
+  // Moving variables
+	private bool movingUp, movingDown = false;
+	private float movingLerp = 0.0f;
+
+  // Possession variables
+	private float lastRaycast;
+	private Vector3 possCancel;
+	private Vector3 possLook;
+	private MisconductStudent possStudent;
+	private Vector3 possTarget;
+
+	// Use this for initialization
+	void Awake() 
 	{
 		cam = GameObject.Find("CameraRight").transform;
-		possLerpStart = this.transform.position;
-		possLerpEnd = this.transform.position + new Vector3(0, possLookHeight, 0);
-		this.gameObject.name = this.gameObject.name.Replace("(Clone)", "");
+		SittingSetup();
 	}
-
+	
 	// Update is called once per frame
 	void Update()
 	{
-		if (!possessing)
+    // player is sitting at a desk
+		if (state == State.Sitting)
 		{
-			// Character "leaning" rotation
+      // character leaning
 			this.transform.Rotate(new Vector3(Input.GetAxis("Vertical"), 0, -Input.GetAxis("Horizontal")));
-			if (this.transform.eulerAngles.x < 314)
+      if (this.transform.eulerAngles.x < 314)
 			{
 				xRotMin = 0;
 				xRotMax = 45;
-				if (xPrev > 314)
-				{
-					xChanged = true;
-				}
 			}
 			else
 			{
 				xRotMin = 315;
 				xRotMax = 360;
-				if (xPrev < 314)
-				{
-					xChanged = true;
-				}
 			}
-			if (!xChanged)
+			if (this.transform.eulerAngles.z < 50)
 			{
-				if (this.transform.eulerAngles.z < 50)
-				{
-					zRotMin = 0;
-					zRotMax = 45;
-				}
-				else
-				{
-					zRotMin = 315;
-					zRotMax = 360;
-				}
+				zRotMin = 0;
+				zRotMax = 45;
+			}
+			else
+			{
+				zRotMin = 315;
+				zRotMax = 360;
 			}
 			this.transform.localEulerAngles = new Vector3(
 					Mathf.Clamp(this.transform.eulerAngles.x, xRotMin, xRotMax),
 					0,
-					Mathf.Clamp(this.transform.eulerAngles.z, zRotMin, zRotMax));
-			xPrev = this.transform.eulerAngles.x;
-			xChanged = false;
+					Mathf.Clamp(this.transform.eulerAngles.z, zRotMin, zRotMax)
+					);
+
+      // start possessing
+			if (Input.GetButtonDown("Possess"))
+			{
+				state = State.Centering;
+			}
 		}
 
-		// Begin Lerp to possession height
-		if (Input.GetButtonDown("Possess") && !possLerping)
+		// Center the player from the sitting position before moving up
+		else if (state == State.Centering)
 		{
-			possessing = !possessing;
-			possLerping = true;
-			studentRendererSet = false;
-		}
-
-		// Lerp to possession height
-		if (possLerping)
-		{
-			// Rotate character back to center
-			if ((Quaternion.Angle(Quaternion.Euler(Vector3.zero), this.transform.rotation) > 1.0f) && possLerpUp && !needsRotated)
+			if (Quaternion.Angle(Quaternion.Euler(Vector3.zero), this.transform.rotation) > 1.0f)
 			{
 				this.transform.rotation = Quaternion.Slerp(this.transform.rotation, Quaternion.Euler(Vector3.zero), 5.0f * Time.deltaTime);
 			}
 			else
 			{
-				// Start rotating to face down
-				if (!needsRotated)
-				{
-					needsRotated = true;
-				}
-
-				// Turn student mesh on when moving up
-				if (!studentRendererSet && possLerpUp)
-				{
-					playerStudent.enabled = !playerStudent.enabled;
-					studentRendererSet = true;
-				}
-
-				if (needsRotated)
-				{
-					Vector3 targetRotation = possLerpUp ? new Vector3(90, 0, 0) : Vector3.zero;
-					this.transform.rotation = Quaternion.Slerp(this.transform.rotation, Quaternion.Euler(targetRotation), 3.0f * Time.deltaTime);
-				}
-
-				// Lerp up from center
-				possLerp += Time.deltaTime / possLerpTime;
-				this.transform.position = Vector3.Lerp(possLerpStart, possLerpEnd, possLerp);
+				movingUp = true;
+				playerStudent.enabled = true;
+				state = State.Moving;
 			}
-
-
-			// Clean up when Lerp is done
-			if (possLerp >= 1.0f)
-			{
-				// Turn on student mesh when done moving down
-				if (!studentRendererSet && !possLerpUp)
-				{
-					playerStudent.enabled = !playerStudent.enabled;
-					studentRendererSet = true;
-					GameObject[] students = GameObject.FindGameObjectsWithTag("MisconductStudent") as GameObject[];
-					foreach (GameObject student in students)
-					{
-						student.transform.Find("StudentShape").GetComponent<MeshRenderer>().material.color = Color.white;
-					}
-				}
-
-				possLerping = false;
-				possLerpStart = possLerpEnd;
-				possLerpEnd = possLerpStart + new Vector3(0, possLookHeight, 0);
-				possLerp = 0;
-				possLerpUp = !possLerpUp;
-				needsRotated = false;
-			}
-			
-			// Detect player looking at 
 		}
 
-		if (possessing)
+		// Move the player to possession spot
+		else if (state == State.Moving)
 		{
-      if (Time.time - lastRaycast > 0.4f)
+      // Lerp up to look position
+			if (movingUp)
 			{
-				lastRaycast = Time.time;
+				if (movingUp && (movingLerp < 1.0f))
+				{
+					this.transform.rotation = Quaternion.Slerp(this.transform.rotation, Quaternion.Euler(90, 0, 0), 3.0f * Time.deltaTime);
+					movingLerp += Time.deltaTime / movingLerpTime;
+					this.transform.position = Vector3.Lerp(possCancel, possLook, movingLerp);
+				}
+				else
+				{
+					movingLerp = 0.0f;
+					movingUp = false;
+					state = State.Possessing;
+				}
+			}
+			else if (movingDown)
+			{
+				// Lerp down to target position
+				if (movingDown && (movingLerp < 1.0f))
+				{
+					this.transform.rotation = Quaternion.Slerp(this.transform.rotation, Quaternion.Euler(0, 0, 0), 3.0f * Time.deltaTime);
+					movingLerp += Time.deltaTime / movingLerpTime;
+					this.transform.position = Vector3.Lerp(possLook, possTarget, movingLerp);
+				}
+				else
+				{
+					movingLerp = 0.0f;
+					movingDown = false;
+					SittingSetup();
+					playerStudent.enabled = false;
+					state = State.Sitting;
+				}
+			}
+		}
+
+		// Player can choose a student to possess
+		else if (state == State.Possessing)
+		{
+      // Only find student after seconds
+			if (Time.time - lastRaycast > raycastRate)
+			{
+				// Find nearest student to possess
+        RaycastHit hit;
 				if (Physics.Raycast(cam.position, cam.forward, out hit))
 				{
-					var students = GameObject.FindGameObjectsWithTag("MisconductStudent") as GameObject[];
-					var closest = Mathf.Infinity;
+					GameObject[] students = GameObject.FindGameObjectsWithTag("MisconductStudent") as GameObject[];
+					float closest = Mathf.Infinity;
 					GameObject closestStudent = null;
-					foreach (var student in students)
+					foreach (GameObject student in students)
 					{
-						var distance = (student.transform.position - hit.point).sqrMagnitude;
+						float distance = (student.transform.position - hit.point).sqrMagnitude;
 						if (distance < closest)
 						{
 							closest = distance;
@@ -178,28 +162,60 @@ public class MisconductPlayerController : MonoBehaviour
 						}
 					}
 
-					if (possTarget == null)
-					{
-						possTarget = closestStudent.GetComponent<MisconductStudent>();
-						possTarget.highlightColor = true;
-					}
-					else if (possTarget != closestStudent.GetComponent<MisconductStudent>())
-					{
-						possTarget.revertColor = true;
-						possTarget = closestStudent.GetComponent<MisconductStudent>();
-						possTarget.highlightColor = true;
-					}
-				}
+					possTarget = closestStudent.transform.position;
 
-				if (Input.GetAxis("Right Trigger") == 1)
-				{
-					possessing = !possessing;
-					possLerping = true;
-					playerStudent = possTarget.transform.Find("StudentShape").GetComponent<MeshRenderer>();
-					possLerpEnd = possTarget.transform.position;
-					studentRendererSet = false;
+          // highlight selected student
+					if (possStudent == null)
+					{
+						possStudent = closestStudent.GetComponent<MisconductStudent>();
+						possStudent.highlightColor = true;
+					}
+					else if (possStudent != closestStudent.GetComponent<MisconductStudent>())
+					{
+						possStudent.revertColor = true;
+						possStudent = closestStudent.GetComponent<MisconductStudent>();
+						possStudent.highlightColor = true;
+					}
+
+					lastRaycast = Time.time;
 				}
 			}
+
+      // Possess the selected student
+			if (Input.GetAxis("Right Trigger") == 1)
+			{
+				movingDown = true;
+				foreach (var student in GameObject.FindGameObjectsWithTag("MisconductStudent") as GameObject[])
+				{
+					student.transform.Find("StudentShape").GetComponent<MeshRenderer>().material.color = Color.white;
+				}
+				possStudent.revertColor = true;
+				playerStudent = possStudent.transform.Find("StudentShape").GetComponent<MeshRenderer>();
+				state = State.Moving;
+        return;
+			}
+
+      // Cancel possession and return to previous body
+			if (Input.GetButtonDown("Possess"))
+			{
+				movingDown = true;
+				possStudent.revertColor = true;
+				possTarget = possCancel;
+				state = State.Moving;
+				return;
+			}
 		}
+
+		else
+		{
+			Debug.Log("You dun fouled up.");
+		}
+	}
+
+	void SittingSetup()
+	{
+		possCancel = this.transform.position;
+		possLook = possCancel + new Vector3(0, possLookHeight, 0);
+		possStudent = null;
 	}
 }
