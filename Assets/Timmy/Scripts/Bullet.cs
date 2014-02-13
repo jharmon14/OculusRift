@@ -21,11 +21,14 @@ public class Bullet : MonoBehaviour {
         }
         Destroy(transform.parent.gameObject);
         //For Enemy bullets
+        /*
         if (collision.gameObject.tag == "Player")
         {
+            Debug.Log(collision.gameObject.name);
             PlayerScript p = collision.gameObject.GetComponent<PlayerScript>();
             p.GotShot();
         }
+         */
     }
 
 }
