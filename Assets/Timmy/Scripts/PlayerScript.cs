@@ -8,6 +8,7 @@ public class PlayerScript : MonoBehaviour {
     public float gravity = 20.0F;
     public GameObject bulletClockWise;
     public GameObject bulletCounterClockWise;
+    public GameObject playerParent;
     public PlayerMovement playerMovement;
     public bool direction;
     public bool moving;
@@ -19,14 +20,16 @@ public class PlayerScript : MonoBehaviour {
     // Use this for initialization
     void Start()
     {
-        playerMovement = GameObject.Find("PlayerParent").GetComponent<PlayerMovement>();
+        playerParent = GameObject.Find("PlayerParent");
+        playerMovement = playerParent.GetComponent<PlayerMovement>();
         bulletClockWise.SetActive(false);
         bulletCounterClockWise.SetActive(false);
     }
 
     void OnLevelWasLoaded(int level)
     {
-        playerMovement = GameObject.Find("PlayerParent").GetComponent<PlayerMovement>();
+        playerParent = GameObject.Find("PlayerParent");
+        playerMovement = playerParent.GetComponent<PlayerMovement>();
         bulletClockWise.SetActive(false);
         bulletCounterClockWise.SetActive(false);
     }
@@ -73,13 +76,17 @@ public class PlayerScript : MonoBehaviour {
         if (direction)
         {
             bulletClockWise.SetActive(true);
-            clone = Instantiate(bulletClockWise, new Vector3(bulletClockWise.transform.position.x, transform.position.y -.2f, bulletClockWise.transform.position.z), transform.rotation) as GameObject;
+            clone = Instantiate(bulletClockWise, 
+                new Vector3(bulletClockWise.transform.position.x, transform.position.y -.2f, bulletClockWise.transform.position.z), 
+                playerParent.transform.rotation) as GameObject;
             bulletClockWise.SetActive(false);
         }
         else
         {
             bulletCounterClockWise.SetActive(true);
-            clone = Instantiate(bulletCounterClockWise, new Vector3(bulletCounterClockWise.transform.position.x, transform.position.y - .2f, bulletCounterClockWise.transform.position.z), transform.rotation) as GameObject;
+            clone = Instantiate(bulletCounterClockWise, 
+                new Vector3(bulletCounterClockWise.transform.position.x, transform.position.y - .2f, bulletCounterClockWise.transform.position.z), 
+                playerParent.transform.rotation) as GameObject;
             bulletCounterClockWise.SetActive(false);
         }
         Destroy(clone, 1);
