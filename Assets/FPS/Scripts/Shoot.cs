@@ -15,9 +15,23 @@ public class Shoot : MonoBehaviour
     // Private variables
     private FPSManager fpsManager;
     private RaycastHit hit;
-	
+    private GameObject pauseManager;
+    private PauseManagerScript managerScript;
+    private bool paused;
+
+
+    void OnLevelWasLoaded(int level)
+    {
+        pauseManager = GameObject.Find("PauseManager");
+        managerScript = pauseManager.GetComponent<PauseManagerScript>();
+        fpsManager = GameObject.Find("FPSManager").GetComponent<FPSManager>();
+        fpsManager.timeStarted = Time.time;
+    }
+
 	void Awake()
     {
+        pauseManager = GameObject.Find("PauseManager");
+        managerScript = pauseManager.GetComponent<PauseManagerScript>();
         fpsManager = GameObject.Find("FPSManager").GetComponent<FPSManager>();
         fpsManager.timeStarted = Time.time;
 	}
@@ -25,6 +39,10 @@ public class Shoot : MonoBehaviour
 	// Update is called once per frame
 	void Update()
     {
+        paused = managerScript.paused;
+        if (paused)
+            return;
+
         if (Input.GetButtonDown("Fire1"))
         {
             fpsManager.shotsFired++;

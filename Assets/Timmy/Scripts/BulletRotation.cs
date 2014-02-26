@@ -5,10 +5,13 @@ public class BulletRotation : MonoBehaviour {
 
     public bool direction;
     public PlayerMovement playerMovement;
+    public GameObject playerParent;
 	// Use this for initialization
 	void Start () {
-        playerMovement = GameObject.Find("PlayerParent").GetComponent<PlayerMovement>();
+        playerParent = GameObject.Find("PlayerParent");
+        playerMovement = playerParent.GetComponent<PlayerMovement>();
         direction = playerMovement.direction;
+        transform.rotation = playerParent.transform.rotation;
 	}
 	
 	// Update is called once per frame

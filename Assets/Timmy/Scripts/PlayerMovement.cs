@@ -40,7 +40,7 @@ public class PlayerMovement : MonoBehaviour {
                 direction = !direction;
                 player.transform.Rotate(0, 180, 0);
             }
-            transform.Rotate(new Vector3(0, 1, 0), 1);
+            transform.Rotate(0, 1, 0);
         }
         else if (Input.GetKey("a"))
         {
@@ -52,7 +52,7 @@ public class PlayerMovement : MonoBehaviour {
                 direction = !direction;
                 player.transform.Rotate(0, 180, 0);
             }
-            transform.Rotate(new Vector3(0, 1, 0), -1);
+            transform.Rotate(0, -1, 0);
         }
         else
         {

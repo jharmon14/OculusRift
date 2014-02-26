@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 62c4fb36b7677444b95f5e3e191e129e
+guid: d24291be4a2f5014da50cf64b4bc4b32
 ModelImporter:
   serializedVersion: 15
   fileIDToRecycleName:
@@ -127,20 +127,17 @@ ModelImporter:
     4300002: Bounds
     4300004: rifle
     4300006: Cube
-    6400000: Bounds
-    6400002: Plane
-    6400004: rifle
-    7400000: Default Take
-    7400002: air
-    7400004: crouch
-    7400006: hit
-    7400008: idle
-    7400010: jump
-    7400012: run
-    7400014: slide
-    7400016: walk
-    7400018: walk_kick
+    7400000: air
+    7400002: crouch
+    7400004: hit
+    7400006: idle
+    7400008: jump
+    7400010: run
+    7400012: slide
+    7400014: walk
+    7400016: walk_kick
     9500000: //RootNode
+    11100000: //RootNode
     13700000: Cube
   materials:
     importMaterials: 1
@@ -160,7 +157,7 @@ ModelImporter:
     lODScreenPercentages: []
     globalScale: .00999999978
     meshCompression: 0
-    addColliders: 1
+    addColliders: 0
     importBlendShapes: 1
     swapUVChannels: 0
     generateSecondaryUV: 0
@@ -192,5 +189,5 @@ ModelImporter:
     rootMotionBoneName: 
   lastHumanDescriptionAvatarSource: {instanceID: 0}
   additionalBone: 1
-  animationType: 2
+  animationType: 1
   userData: 

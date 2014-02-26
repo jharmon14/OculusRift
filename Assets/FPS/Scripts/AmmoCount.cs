@@ -7,13 +7,27 @@ public class AmmoCount : MonoBehaviour
 	private int ammoCount;
 	private bool reloading;
 	private float reloadDone;
+    private GameObject pauseManager;
+    private PauseManagerScript managerScript;
+    private bool paused;
 
 	public float reloadRate = 2.5f;
 	public int ammoFull = 30;
 
+
+    void OnLevelWasLoaded(int level)
+    {
+        pauseManager = GameObject.Find("PauseManager");
+        managerScript = pauseManager.GetComponent<PauseManagerScript>();
+        ammo = GetComponent<UILabel>();
+        ammoCount = ammoFull;
+        ammo.text = ammoFull.ToString() + " / " + ammoFull.ToString();
+    }
 	// Use this for initialization
 	void Awake()
 	{
+        pauseManager = GameObject.Find("PauseManager");
+        managerScript = pauseManager.GetComponent<PauseManagerScript>();
 		ammo = GetComponent<UILabel>();
 		ammoCount = ammoFull;
 		ammo.text = ammoFull.ToString() + " / " + ammoFull.ToString();
@@ -22,10 +36,7 @@ public class AmmoCount : MonoBehaviour
 	// Update is called once per frame
 	void Update()
 	{
-
-        GameObject go = GameObject.Find("PauseManager");
-        PauseManagerScript managerScript = go.GetComponent<PauseManagerScript>();
-        bool paused = managerScript.paused;
+        paused = managerScript.paused;
         // check if paused
         if (paused)
             return;
