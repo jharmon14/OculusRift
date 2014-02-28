@@ -7,22 +7,25 @@ public class FireGun : MonoBehaviour {
 	private int shotsHit = 0;
 	private int shotsTotal = 0;
 	private RaycastHit hit;
-	
+		
 	// Update is called once per frame
 	void Update () {
 		
-
+	 	GameObject go = GameObject.Find("Panel");
+    	AmmoCount ammoCount = go.GetComponent<AmmoCount>();
+		//Debug.Log(ammoCount.isReloading);
+		
 		Vector3 fwd = gunSight.gameObject.transform.TransformDirection(Vector3.forward);
 		
 		// If Raycast hits something, and that something is an enemy
-		if( Physics.Raycast(transform.position, fwd, out hit, 100) && hit.collider.tag == "Enemy"){
+		if( Physics.Raycast(transform.position, fwd, out hit, 200) && hit.collider.tag == "Enemy"){
 			
 			//DEBUG: Directional light is Green when raytrace hits
 	        gunSight.gameObject.light.color = Color.green;
 			//Debug.Log ("Hit");
 			
 			// Shot Hit
-			if( Input.GetButtonDown("Fire1")){
+			if(!ammoCount.isReloading && Input.GetButtonDown("Fire1")){
 				shotsHit++;
 				shotsTotal++;
 	            Debug.Log("Accuracy: " + shotsHit + "/" + shotsTotal);
