@@ -15,17 +15,19 @@ public class Shoot : MonoBehaviour
 	// Private variables
 	private FPSManager fpsManager;
 	private RaycastHit hit;
+    private AmmoCount ammoCount;
 
 	void Awake()
 	{
 		fpsManager = GameObject.Find("FPSManager").GetComponent<FPSManager>();
 		fpsManager.timeStarted = Time.time;
+        ammoCount = GameObject.Find("Panel").GetComponentInChildren<AmmoCount>();
 	}
 
 	// Update is called once per frame
 	void Update()
 	{
-		if (Input.GetButtonDown("Fire1"))
+		if (Input.GetButtonDown("Fire1") && !ammoCount.isReloading)
 		{
 			fpsManager.shotsFired++;
 			if (Physics.Raycast(transform.position, transform.forward, out hit))

@@ -7,12 +7,18 @@ public class FireGun : MonoBehaviour {
 	private int shotsHit = 0;
 	private int shotsTotal = 0;
 	private RaycastHit hit;
-		
+    private AmmoCount ammoCount;
+    private GameObject go;
+
+
+    void Start()
+    {
+        go = GameObject.Find("Panel");
+        ammoCount = go.GetComponent<AmmoCount>();
+    }
 	// Update is called once per frame
 	void Update () {
-		
-	 	GameObject go = GameObject.Find("Panel");
-    	AmmoCount ammoCount = go.GetComponent<AmmoCount>();
+    	
 		//Debug.Log(ammoCount.isReloading);
 		
 		Vector3 fwd = gunSight.gameObject.transform.TransformDirection(Vector3.forward);

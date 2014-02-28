@@ -68,6 +68,7 @@ public class AmmoCount : MonoBehaviour
 	{
 		ammoCount = ammoFull;
 		reloading = true;
+        isReloading = true;
 		reloadDone = Time.time + reloadRate;
 		ammo.text = "Reloading";
 	}
