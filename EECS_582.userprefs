@@ -1,0 +1,13 @@
+﻿<Properties>
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Timmy\Scripts\PlayerMovement.cs">
+    <Files>
+      <File FileName="Assets\Timmy\Scripts\PlayerMovement.cs" Line="84" Column="57" />
+      <File FileName="Assets\Timmy\Scripts\PlayerScript.cs" Line="84" Column="25" />
+    </Files>
+  </MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.DebuggingService.Breakpoints>
+    <BreakpointStore />
+  </MonoDevelop.Ide.DebuggingService.Breakpoints>
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+</Properties>

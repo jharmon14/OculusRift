@@ -10,9 +10,12 @@ public class PlayerScript : MonoBehaviour {
     public GameObject bulletCounterClockWise;
     public GameObject playerParent;
     public PlayerMovement playerMovement;
+	// True is clockwise; False is counterclockwise
     public bool direction;
     public bool moving;
     public bool touchingGround = true;
+	public bool touchingBlock = false;
+	public bool touchingEnemy = false;
 
     private int health = 100;
 
@@ -39,6 +42,7 @@ public class PlayerScript : MonoBehaviour {
     {
         moving = playerMovement.moving;
         direction = playerMovement.direction;
+		
         if (touchingGround && !moving)
         {
             animation.Play("idle");
@@ -50,9 +54,12 @@ public class PlayerScript : MonoBehaviour {
         if (touchingGround && Input.GetButtonDown("Jump"))
         {
             rigidbody.AddForce(jumpVelocity, ForceMode.VelocityChange);
-            touchingGround = false;
+			touchingGround = false;		
             animation.Play("jump");
-        }
+        } else if (touchingBlock && Input.GetButtonDown("Jump")){
+			rigidbody.AddForce(jumpVelocity, ForceMode.VelocityChange);
+			animation.Play("jump");
+		}
 
         if (Input.GetButtonDown("Fire1"))
         {
@@ -60,13 +67,21 @@ public class PlayerScript : MonoBehaviour {
         }
     }
 
-    void OnCollisionEnter()
+    void OnCollisionEnter(Collision collision)
     {
-        touchingGround = true;
+		if(collision.gameObject.tag == "Block"){
+			touchingBlock = true;
+		} else if (collision.gameObject.tag == "Enemy"){
+			touchingEnemy = true;
+		} else {
+        	touchingGround = true;
+		}
     }
 
     void OnCollisionExit()
     {
+		touchingBlock = false;
+		touchingEnemy = false;
         touchingGround = false;
     }
 
