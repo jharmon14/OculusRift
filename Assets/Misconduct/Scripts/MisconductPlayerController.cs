@@ -9,6 +9,7 @@
 
 using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
 public class MisconductPlayerController : MonoBehaviour
 {
@@ -16,20 +17,25 @@ public class MisconductPlayerController : MonoBehaviour
 	// Inspector variables
 	public float possLookHeight = 3.0f;
 	public float possLerpTime = 1.0f;
+	public float lookDistance = 1.5f;
 	[HideInInspector]
 	public MeshRenderer playerStudent;
 
 	// Private variables
+	private int answersCollected = 0;
 	private Transform cam;
 	private RaycastHit hit;
 	private bool needsRotated = false;
 	private float lastRaycast = 1.0f;
+	private List<Transform> papersCollected = new List<Transform>();
+	private Transform paperPlayer;
 	private bool possessing = false;
 	private bool possLerping = false;
 	private float possLerp = 0.0f;
 	private Vector3 possLerpStart, possLerpEnd;
 	private bool possLerpUp = true;
 	private MisconductStudent possTarget = null;
+	private UISlider slider;
 	private bool studentRendererSet = false;
 	private int xRotMin, xRotMax, zRotMin, zRotMax;
 	private bool xChanged = false;
@@ -38,14 +44,19 @@ public class MisconductPlayerController : MonoBehaviour
 	void Awake()
 	{
 		cam = GameObject.Find("CameraRight").transform;
+		paperPlayer = GameObject.Find("PlayerStudent/Paper").transform;
 		possLerpStart = this.transform.position;
 		possLerpEnd = this.transform.position + new Vector3(0, possLookHeight, 0);
 		this.gameObject.name = this.gameObject.name.Replace("(Clone)", "");
+		slider = GameObject.Find("Progress Bar").GetComponent<UISlider>();
 	}
 
 	// Update is called once per frame
 	void Update()
 	{
+		/*
+		 * Sitting character functionality
+		 */
 		if (!possessing)
 		{
 			// Character "leaning" rotation
@@ -54,50 +65,77 @@ public class MisconductPlayerController : MonoBehaviour
 			{
 				xRotMin = 0;
 				xRotMax = 45;
-				if (xPrev > 314)
-				{
-					xChanged = true;
-				}
 			}
 			else
 			{
 				xRotMin = 315;
 				xRotMax = 360;
-				if (xPrev < 314)
-				{
-					xChanged = true;
-				}
 			}
-			if (!xChanged)
+			if (this.transform.eulerAngles.z < 50)
 			{
-				if (this.transform.eulerAngles.z < 50)
-				{
-					zRotMin = 0;
-					zRotMax = 45;
-				}
-				else
-				{
-					zRotMin = 315;
-					zRotMax = 360;
-				}
+				zRotMin = 0;
+				zRotMax = 45;
+			}
+			else
+			{
+				zRotMin = 315;
+				zRotMax = 360;
 			}
 			this.transform.localEulerAngles = new Vector3(
 					Mathf.Clamp(this.transform.eulerAngles.x, xRotMin, xRotMax),
 					0,
 					Mathf.Clamp(this.transform.eulerAngles.z, zRotMin, zRotMax));
-			xPrev = this.transform.eulerAngles.x;
-			xChanged = false;
+
+			// Detect looking at neighbor's paper
+			if (Physics.Raycast(cam.position, cam.forward, out hit, lookDistance))
+			{
+				if (hit.transform.name == "Paper")
+				{
+					if (!papersCollected.Contains(hit.transform) && (hit.transform != paperPlayer))
+					{
+						slider.gameObject.SetActive(true);
+						slider.sliderValue += 0.5f * Time.deltaTime;
+						if (slider.sliderValue >= 1.0f)
+						{
+							papersCollected.Add(hit.transform);
+							slider.sliderValue = 0.0f;
+							answersCollected++;
+						}
+						//papersCollected.Add(hit.transform);
+						//Debug.Log(papersCollected.Count);
+					}
+					else
+					{
+						// answer already collected message
+						slider.gameObject.SetActive(false);
+					}
+				}
+				else
+				{
+					slider.gameObject.SetActive(false);
+				}
+			}
+			else
+			{
+				slider.gameObject.SetActive(false);
+			}
 		}
 
-		// Begin Lerp to possession height
-		if (Input.GetButtonDown("Possess") && !possLerping)
+
+		/*
+		 * Begin Lerp to possession height
+		 */
+		if (Input.GetButtonDown("Possess") && !possLerping && !possessing)
 		{
 			possessing = !possessing;
 			possLerping = true;
 			studentRendererSet = false;
 		}
 
-		// Lerp to possession height
+
+		/*
+		 * Lerp to possession begin or end position
+		 */
 		if (possLerping)
 		{
 			// Rotate character back to center
@@ -154,11 +192,13 @@ public class MisconductPlayerController : MonoBehaviour
 				possLerpUp = !possLerpUp;
 				needsRotated = false;
 			}
-			
-			// Detect player looking at 
 		}
 
-		if (possessing)
+
+		/*
+		 * Possessing player functionality
+		 */
+		if (possessing && !possLerping)
 		{
       if (Time.time - lastRaycast > 0.4f)
 			{
@@ -190,15 +230,22 @@ public class MisconductPlayerController : MonoBehaviour
 						possTarget.highlightColor = true;
 					}
 				}
+			}
 
-				if (Input.GetAxis("Right Trigger") == 1)
-				{
-					possessing = !possessing;
-					possLerping = true;
-					playerStudent = possTarget.transform.Find("StudentShape").GetComponent<MeshRenderer>();
-					possLerpEnd = possTarget.transform.position;
-					studentRendererSet = false;
-				}
+			if ((Input.GetAxis("Possess Pick") == 1) || Input.GetButtonDown("Possess Pick"))
+			{
+				possessing = !possessing;
+				possLerping = true;
+				playerStudent = possTarget.transform.Find("StudentShape").GetComponent<MeshRenderer>();
+				possLerpEnd = possTarget.transform.position;
+				studentRendererSet = false;
+			}
+			else if (Input.GetButtonDown("Possess Cancel"))
+			{
+				possessing = !possessing;
+				possLerping = true;
+				possLerpEnd = possLerpStart + new Vector3(0, -possLookHeight, 0);
+				studentRendererSet = false;
 			}
 		}
 	}
