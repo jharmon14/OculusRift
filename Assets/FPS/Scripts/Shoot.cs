@@ -18,7 +18,8 @@ public class Shoot : MonoBehaviour
     private GameObject pauseManager;
     private PauseManagerScript managerScript;
     private bool paused;
-
+    private bool reloading;
+    private AmmoCount ammoCountScript;
 
     void OnLevelWasLoaded(int level)
     {
@@ -26,6 +27,7 @@ public class Shoot : MonoBehaviour
         managerScript = pauseManager.GetComponent<PauseManagerScript>();
         fpsManager = GameObject.Find("FPSManager").GetComponent<FPSManager>();
         fpsManager.timeStarted = Time.time;
+        ammoCountScript = GameObject.Find("Panel").GetComponentInChildren<AmmoCount>();
     }
 
 	void Awake()
@@ -34,6 +36,7 @@ public class Shoot : MonoBehaviour
         managerScript = pauseManager.GetComponent<PauseManagerScript>();
         fpsManager = GameObject.Find("FPSManager").GetComponent<FPSManager>();
         fpsManager.timeStarted = Time.time;
+        ammoCountScript = GameObject.Find("Panel").GetComponentInChildren<AmmoCount>();
 	}
 	
 	// Update is called once per frame
@@ -43,7 +46,8 @@ public class Shoot : MonoBehaviour
         if (paused)
             return;
 
-        if (Input.GetButtonDown("Fire1"))
+        reloading = ammoCountScript.reloading;
+        if (Input.GetButtonDown("Fire1") && !reloading)
         {
             fpsManager.shotsFired++;
             if (Physics.Raycast(transform.position, transform.forward, out hit))

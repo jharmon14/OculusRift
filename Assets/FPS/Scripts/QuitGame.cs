@@ -3,9 +3,13 @@ using System.Collections;
 
 public class QuitGame : MonoBehaviour {
 
+    public GameObject Manager;
+    public GameObject pauseMenu;
+
 	// Use this for initialization
 	void Start () {
-	
+        Manager = GameObject.Find("GameManager");
+        pauseMenu = GameObject.FindWithTag("PauseMenu");
 	}
 	
 	// Update is called once per frame
@@ -13,8 +17,9 @@ public class QuitGame : MonoBehaviour {
 	
 	}
 
-    void Onclick()
+    void OnClick()
     {
-        GameObject.Find("GameManage").GetComponent<GameManager>().LoadLevel(GameManager.Levels.Overworld);
+        Manager.GetComponent<GameManager>().paused = false;
+        Manager.GetComponent<GameManager>().LoadLevel(GameManager.Levels.Overworld);
     }
 }

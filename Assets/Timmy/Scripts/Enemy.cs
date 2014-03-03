@@ -22,26 +22,36 @@ public class Enemy : MonoBehaviour {
     private bool move = false; //used to keep enemy moving beyond activeDistance and until maxDistance
     private GameObject bullets;
     private float lastFireTime;
+    private bool flippedToShoot = false;
     
 	// Use this for initialization
 	void Start () {
         player = GameObject.Find("Player");
         target = player.transform;
-        bullets = GameObject.Find("Bullets");
+        bullets = GameObject.Find("EnemyBullets");
         bullets.SetActive(false);
 	}
-	
+    /*
+    void OnLevelWasLoaded(int level)
+    {
+        player = GameObject.Find("Player");
+        target = player.transform;
+        bullets = GameObject.Find("EnemyBullets");
+        //bullets.SetActive(false);
+    }
+	*/
 	// Update is called once per frame
 	void Update () {
         Vector3 heading = target.position - transform.position;
 		dirNum = AngleDir(new Vector3(1, 0, 0), heading, transform.up);
+
         if (health <= 0)
         {
             Destroy(transform.gameObject);
         }
+
         if (Vector3.Angle(transform.position, player.transform.position) < activeDistance || move)
         {
-            Debug.Log(Vector3.Angle(transform.position, player.transform.position));
             if (Vector3.Angle(transform.position, player.transform.position) < shootingDistance)
             {
                 if (dirNum < 0)
@@ -54,12 +64,22 @@ public class Enemy : MonoBehaviour {
                 }
                 if (Time.time > lastFireTime + fireRate)
                 {
+                    if (direction != playerDirection && !flippedToShoot)
+                    {
+                        transform.Rotate(0, 180, 0);
+                        flippedToShoot = true;
+                    }
                     Fire();
                     lastFireTime = Time.time;
                 }
             }
             else
             {
+                if (flippedToShoot)
+                {
+                    transform.Rotate(0, 180, 0);
+                    flippedToShoot = false;
+                }
                 animation.Play("walk");
                 move = true;
                 if (currentDegree == 0 || currentDegree == maxDegree)

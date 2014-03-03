@@ -4,8 +4,7 @@ using System.Collections;
 public class AmmoCount : MonoBehaviour
 {
 	private UILabel ammo;
-	private int ammoCount;
-	private bool reloading;
+    private int ammoCount;
 	private float reloadDone;
     private GameObject pauseManager;
     private PauseManagerScript managerScript;
@@ -13,7 +12,7 @@ public class AmmoCount : MonoBehaviour
 
 	public float reloadRate = 2.5f;
 	public int ammoFull = 30;
-
+    public bool reloading;
 
     void OnLevelWasLoaded(int level)
     {

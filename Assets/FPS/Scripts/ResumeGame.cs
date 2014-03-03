@@ -7,7 +7,8 @@ public class ResumeGame : MonoBehaviour {
     public GameObject Manager;
 	// Use this for initialization
 	void Start () {
-	
+        pauseMenu = GameObject.FindWithTag("PauseMenu");
+        Manager = GameObject.Find("GameManager");
 	}
 	
 	// Update is called once per frame
@@ -17,7 +18,7 @@ public class ResumeGame : MonoBehaviour {
 
     void OnClick()
     {
-        NGUITools.SetActive(pauseMenu, false);
         Manager.GetComponent<GameManager>().TogglePause();
+        NGUITools.SetActive(pauseMenu, false);
     }
 }

@@ -28,7 +28,7 @@ public class PlayerScript : MonoBehaviour {
         bullets = GameObject.Find("Bullets");
         bullets.SetActive(false);
     }
-
+    /*
     void OnLevelWasLoaded(int level)
     {
         pauseManager = GameObject.Find("PauseManager");
@@ -36,9 +36,9 @@ public class PlayerScript : MonoBehaviour {
         playerParent = GameObject.Find("PlayerParent");
         playerMovement = playerParent.GetComponent<PlayerMovement>();
         bullets = GameObject.Find("Bullets");
-        bullets.SetActive(false);
+        //bullets.SetActive(false);
     }
-
+    */
     // Update is called once per frame
     void Update()
     {
@@ -54,7 +54,7 @@ public class PlayerScript : MonoBehaviour {
         }
 
         if (health <= 0)
-            Destroy(transform.gameObject);
+            DieAndRespawn();
 
         if (touchingGround && Input.GetButtonDown("Jump"))
         {
@@ -106,5 +106,10 @@ public class PlayerScript : MonoBehaviour {
     public void GotShot()
     {
         health -= 10;
+    }
+
+    void DieAndRespawn()
+    {
+
     }
 }

@@ -18,6 +18,7 @@ public class GameManager : MonoBehaviour
 		None = -1,
 		Overworld = 0,
 		FPS,
+        Timmy,
     Num_Levels
 	}
 
@@ -34,21 +35,32 @@ public class GameManager : MonoBehaviour
 	[HideInInspector]
 	public OverworldManager overworldManager;
 
+    [HideInInspector]
+    public TimmyManager timmyManager;
+
 	// Private variables
 	private GameObject levelManagerGO;
 
 
 	void Start()
 	{
+        pauseMenu = GameObject.FindWithTag("PauseMenu");
         pauseMenu.SetActive(false);
 		levelManagerGO = Instantiate(initialLevelManagers[(int)Levels.Overworld]) as GameObject;
 		overworldManager = levelManagerGO.GetComponent<OverworldManager>();
 		score = new int[(int)Levels.Num_Levels];
 	}
 
+    void OnLevelWasLoaded(int level)
+    {
+        pauseMenu = GameObject.FindWithTag("PauseMenu");
+        pauseMenu.SetActive(false);
+    }
+
     void Awake()
     {
-        pauseMenu = GameObject.Find("PauseMenu");
+        pauseMenu = GameObject.FindWithTag("PauseMenu");
+
     }
 
 	// Update is called once per frame
@@ -76,9 +88,17 @@ public class GameManager : MonoBehaviour
 		int levelIndex;
 		switch (level)
 		{
+            case Levels.Timmy:
+                levelIndex = (int)Levels.Timmy;
+                overworldManager = null;
+                fpsManager = null;
+                levelManagerGO = Instantiate(initialLevelManagers[levelIndex]) as GameObject;
+                timmyManager = levelManagerGO.GetComponent<TimmyManager>();
+                break;
 			case Levels.FPS:
 				levelIndex = (int)Levels.FPS;
 				overworldManager = null;
+                timmyManager = null;
 				levelManagerGO = Instantiate(initialLevelManagers[levelIndex]) as GameObject;
 				fpsManager = levelManagerGO.GetComponent<FPSManager>();
 				break;
@@ -86,6 +106,7 @@ public class GameManager : MonoBehaviour
 			default:
 				levelIndex = (int)Levels.Overworld;
 				fpsManager = null;
+                timmyManager = null;
 				levelManagerGO = Instantiate(initialLevelManagers[levelIndex]) as GameObject;
 				overworldManager = levelManagerGO.GetComponent<OverworldManager>();
 				break;

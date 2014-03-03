@@ -192,6 +192,7 @@
      <Compile Include="Assets\Timmy\Scripts\Enemy.cs" />
      <Compile Include="Assets\Timmy\Scripts\PlayerMovement.cs" />
      <Compile Include="Assets\Timmy\Scripts\PlayerScript.cs" />
+     <Compile Include="Assets\Timmy\Scripts\TimmyManager.cs" />
      <None Include="Assets\Packages\NGUI\Resources\Shaders\Unlit - Depth Cutout.shader" />
      <None Include="Assets\FPS\Level_Assets\Bootcamp\Pro Standard Assets\Glass Refraction\Glass-Stained-BumpDistort.shader" />
      <None Include="Assets\FPS\Level_Assets\Bootcamp\Pro Standard Assets\Image Based\NoiseEffectShaderRGB.shader" />
