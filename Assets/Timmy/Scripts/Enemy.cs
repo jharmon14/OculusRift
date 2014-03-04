@@ -107,6 +107,7 @@ public class Enemy : MonoBehaviour {
 
     public void GotShot()
     {
+		Debug.Log("Enemy got shot");
         health -= 50;
     }
 

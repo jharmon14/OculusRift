@@ -19,7 +19,7 @@ public class GameManager : MonoBehaviour
 		Overworld = 0,
 		FPS,
         Timmy,
-    Num_Levels
+    	Num_Levels
 	}
 
 	// Inspector variables

@@ -3,15 +3,18 @@ using System.Collections;
 
 public class PlayerScript : MonoBehaviour {
 
-    public Vector3 jumpVelocity = new Vector3(0, 7, 0);
-    public float gravity = 20.0F;
+    //public Vector3 jumpVelocity = new Vector3(0, 7, 0);
+   // public float gravity = 20.0F;
     public GameObject playerParent;
     public PlayerMovement playerMovement;
     public bool direction;
-    public bool moving;
+	
+	// Collision variables
     public bool touchingGround = true;
+	public bool touchingBlock = false;
+	public bool touchingEnemy = false;
 
-    private int health = 100;
+    public int health = 100;
     private GameObject pauseManager;
     private PauseManagerScript managerScript;
     private bool paused;
@@ -40,46 +43,35 @@ public class PlayerScript : MonoBehaviour {
     }
     */
     // Update is called once per frame
+
     void Update()
     {
-        paused = managerScript.paused;
-        if (paused)
-            return;
-
-        moving = playerMovement.moving;
-        direction = playerMovement.direction;
-        if (touchingGround && !moving)
-        {
-            animation.Play("idle");
-        }
-
-        if (health <= 0)
-            DieAndRespawn();
-
-        if (touchingGround && Input.GetButtonDown("Jump"))
-        {
-            rigidbody.AddForce(jumpVelocity, ForceMode.VelocityChange);
-            touchingGround = false;
-            animation.Play("jump");
-        }
-
-        if (Input.GetButtonDown("Fire1"))
-        {
-            Fire();
-        }
+    	direction = playerMovement.direction;
     }
 
-    void OnCollisionEnter()
+    void OnCollisionEnter(Collision collision)
     {
-        touchingGround = true;
+		if(collision.gameObject.tag == "Block"){
+			touchingBlock = true;
+		} else if (collision.gameObject.tag == "Enemy"){
+			touchingEnemy = true;
+		} else {
+        	touchingGround = true;
+		}
     }
 
-    void OnCollisionExit()
+    void OnCollisionExit(Collision collision)
     {
-        touchingGround = false;
+		if(collision.gameObject.tag == "Block"){
+			touchingBlock = false;
+		} else if (collision.gameObject.tag == "Enemy"){
+			touchingEnemy = false;
+		} else {
+        	touchingGround = false;
+		}
     }
 
-    void Fire()
+    public void Fire()
     {
         GameObject clone;
         if (direction)
@@ -106,9 +98,10 @@ public class PlayerScript : MonoBehaviour {
     public void GotShot()
     {
         health -= 10;
+		//Debug.Log ("Health: " + health.ToString());
     }
 
-    void DieAndRespawn()
+    public void DieAndRespawn()
     {
 
     }
