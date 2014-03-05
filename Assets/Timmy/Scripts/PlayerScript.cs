@@ -51,25 +51,39 @@ public class PlayerScript : MonoBehaviour {
 
     void OnCollisionEnter(Collision collision)
     {
-		if(collision.gameObject.tag == "Block"){
+		/*if(collision.gameObject.tag == "Block"){
 			touchingBlock = true;
-		} else if (collision.gameObject.tag == "Enemy"){
+		} else */
+		if (collision.gameObject.tag == "Enemy"){
 			touchingEnemy = true;
 		} else {
         	touchingGround = true;
 		}
     }
-
+	
     void OnCollisionExit(Collision collision)
     {
-		if(collision.gameObject.tag == "Block"){
+		/*if(collision.gameObject.tag == "Block"){
 			touchingBlock = false;
-		} else if (collision.gameObject.tag == "Enemy"){
+		} else */
+		if (collision.gameObject.tag == "Enemy"){
 			touchingEnemy = false;
 		} else {
         	touchingGround = false;
 		}
     }
+	
+	void OnTriggerEnter(Collider collision){
+		if(collision.gameObject.tag == "Block"){
+			touchingBlock = true;
+		}
+	}
+	
+	void OnTriggerExit(Collider collision){
+		if(collision.gameObject.tag == "Block"){
+			touchingBlock = false;
+		}
+	}
 
     public void Fire()
     {
