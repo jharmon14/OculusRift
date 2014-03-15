@@ -72,6 +72,7 @@
      <Compile Include="Assets\General\Scripts\QuitGame.cs" />
      <Compile Include="Assets\General\Scripts\ResumeGame.cs" />
      <Compile Include="Assets\Overworld\Scripts\OverworldManager.cs" />
+     <Compile Include="Assets\Overworld\Scripts\ShowLabel.cs" />
      <Compile Include="Assets\Overworld\Scripts\StartButton.cs" />
      <Compile Include="Assets\Overworld\Scripts\StartGame.cs" />
      <Compile Include="Assets\Overworld\Scripts\Transport.cs" />
@@ -250,6 +251,7 @@
      <None Include="Assets\Packages\NGUI\Resources\Shaders\Unlit - Additive Colored.shader" />
      <None Include="Assets\Packages\OVR\OVRImageEffects\OVRLensCorrection.shader" />
      <None Include="Assets\Packages\OVR\Shaders\OVRGUIShader.shader" />
+     <None Include="Assets\Overworld\Fonts\PrototypeFont.txt" />
      <None Include="Assets\Packages\NGUI\Resources\Shaders\Unlit - Depth.shader" />
      <None Include="Assets\Packages\NGUI\Resources\Shaders\Unlit - Transparent Colored RenderTexture.shader" />
      <None Include="Assets\Packages\NGUI\Resources\Shaders\Unlit - Transparent Colored (SoftClip).shader" />
