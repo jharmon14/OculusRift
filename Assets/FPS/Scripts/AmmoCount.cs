@@ -11,6 +11,8 @@ public class AmmoCount : MonoBehaviour
 	public float reloadRate = 2.5f;
 	public int ammoFull = 30;
 	public bool isReloading;
+	
+	public AudioClip reloadSound;
 
 	// Use this for initialization
 	void Awake()
@@ -66,6 +68,8 @@ public class AmmoCount : MonoBehaviour
 
 	void Reload()
 	{
+		audio.PlayOneShot(reloadSound);
+		
 		ammoCount = ammoFull;
 		reloading = true;
         isReloading = true;

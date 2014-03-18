@@ -16,6 +16,8 @@ public class Shoot : MonoBehaviour
 	private FPSManager fpsManager;
 	private RaycastHit hit;
     private AmmoCount ammoCount;
+	
+	public AudioClip shootSound;
 
 	void Awake()
 	{
@@ -29,6 +31,7 @@ public class Shoot : MonoBehaviour
 	{
 		if (Input.GetButtonDown("Fire1") && !ammoCount.isReloading)
 		{
+			audio.PlayOneShot(shootSound);
 			fpsManager.shotsFired++;
 			if (Physics.Raycast(transform.position, transform.forward, out hit))
 			{
