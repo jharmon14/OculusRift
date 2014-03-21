@@ -15,6 +15,7 @@ public class StartGame : MonoBehaviour {
 	// Inspector variables
     public GameObject initialGameManager;
     public GameManager.Levels level = GameManager.Levels.None;
+	public AudioClip coinSound;
 	
 	// Private variables
 	
@@ -33,6 +34,7 @@ public class StartGame : MonoBehaviour {
         // Player presses fire1 button
         if (Input.GetButtonDown("Fire1") && (level > GameManager.Levels.None))
         {
+			audio.PlayOneShot(coinSound);
             GameObject.Find("GameManager").GetComponent<GameManager>().LoadLevel(level);
         }
 	}

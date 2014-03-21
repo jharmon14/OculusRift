@@ -4,6 +4,7 @@ using System.Collections;
 public class LevelEnd : MonoBehaviour
 {
     private FPSManager fpsm;
+	private GameManager gm;
     private bool inLevelEnd = false;
     private UILabel label;
     private string initText;
@@ -11,6 +12,7 @@ public class LevelEnd : MonoBehaviour
     void Awake()
     {
         fpsm = GameObject.Find("FPSManager").GetComponent<FPSManager>();
+		gm = GameObject.Find("GameManager").GetComponent<GameManager>();
         label = GameObject.Find("LevelEndLabel").GetComponent<UILabel>();
         initText = label.text;
     }
@@ -23,6 +25,7 @@ public class LevelEnd : MonoBehaviour
 
         if (inLevelEnd && Input.GetButtonDown("Reload"))
         {
+			gm.gmScoreFPS = fpsm.score;
             fpsm.LevelEnd(Time.time);
         }
     }

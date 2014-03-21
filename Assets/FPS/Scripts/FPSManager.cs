@@ -22,7 +22,7 @@ public class FPSManager : MonoBehaviour
     [HideInInspector]
     public float accuracy;
     [HideInInspector]
-    public int score;
+    public int score = 0;
     [HideInInspector]
     public float timeStarted = 0.0f;
     [HideInInspector]

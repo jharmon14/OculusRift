@@ -34,6 +34,8 @@ public class GameManager : MonoBehaviour
 
 	[HideInInspector]
 	public OverworldManager overworldManager;
+	
+	public int gmScoreFPS = 0;
 
 	// Private variables
 	private GameObject levelManagerGO;

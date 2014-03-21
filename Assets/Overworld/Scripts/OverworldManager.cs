@@ -11,8 +11,7 @@ using UnityEngine;
 using System.Collections;
 
 public class OverworldManager : MonoBehaviour
-{
-
+{	
 	// Use this for initialization
 	void Awake()
 	{
@@ -23,5 +22,6 @@ public class OverworldManager : MonoBehaviour
 	// Update is called once per frame
 	void Update()
 	{
+		
 	}
 }
