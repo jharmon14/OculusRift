@@ -134,6 +134,7 @@
      <None Include="Assets\FPS\Level_Assets\Bootcamp\Pro Standard Assets\Glass Refraction\Glass-Stained-BumpDistort 2.shader" />
      <None Include="Assets\FPS\Level_Assets\Bootcamp\Pro Standard Assets\Water\Sources\FX-Water.shader" />
      <None Include="Assets\Packages\NGUI\Resources\Shaders\Unlit - Transparent Colored (Packed).shader" />
+     <None Include="Assets\Overworld\Fonts\Prototype.txt" />
      <None Include="Assets\FPS\Level_Assets\Bootcamp\Pro Standard Assets\Image Based\ColorCorrectionEffect.shader" />
      <None Include="Assets\FPS\Level_Assets\Bootcamp\Pro Standard Assets\Image Based\GrayscaleEffect.shader" />
      <None Include="Assets\FPS\Level_Assets\Bootcamp\Pro Standard Assets\Image Based\SepiaToneEffect.shader" />

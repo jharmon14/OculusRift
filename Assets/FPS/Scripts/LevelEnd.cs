@@ -25,7 +25,6 @@ public class LevelEnd : MonoBehaviour
 
         if (inLevelEnd && Input.GetButtonDown("Reload"))
         {
-			gm.gmScoreFPS = fpsm.score;
             fpsm.LevelEnd(Time.time);
         }
     }
