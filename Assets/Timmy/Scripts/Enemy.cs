@@ -112,10 +112,56 @@ public class Enemy : MonoBehaviour {
             move = false;
         }
 	}
+	
+	private void moveEnemy(){
+		// If the player is in enemy range, allow Update() to determine enemy movement
+		if(Vector3.Angle(transform.position, player.transform.position) > maxDistance){
 
+            if (flippedToShoot)
+            {
+                transform.Rotate(0, 180, 0);
+                flippedToShoot = false;
+            }
+			
+            animation.Play("walk");
+			
+		    if (currentDegree == 0 || currentDegree == maxDegree)
+		    {
+		        direction = !direction;
+		        transform.Rotate(0, 180, 0);
+		    }
+			
+		    if (direction)
+		    {
+		        transform.RotateAround(Vector3.zero, Vector3.up, .5f);
+		        currentDegree += 1;
+		    }
+		    else
+		    {
+		        transform.RotateAround(Vector3.zero, Vector3.up, -.5f);
+		        currentDegree -= 1;
+		    }
+		}
+	}
+
+	void OnTriggerEnter(Collider trigger) {
+		// Move the Enemy
+        if(trigger.gameObject.tag == "Light"){;
+			moveEnemy();
+		}
+    }
+	
+	void OnTriggerStay(Collider collision){
+		if(collision.gameObject.tag == "Light"){
+			moveEnemy();
+		}
+	}
+	
+	void OnTriggerExit(Collider collision){}
+	
     public void GotShot()
     {
-        health -= 20;
+        health -= 50;
     }
 
     void Fire()

@@ -4,19 +4,27 @@ using System.Collections;
 public class PlayerMovement : MonoBehaviour {
 
     public GameObject player;
-    public bool paused;
     public GameObject Manager;
     public GameManager managerScript;
+	public GameObject camera;
+	public bool paused;
 	public PlayerScript playerScript;
 
 	// Movement Variables
 	public Vector3 jumpVelocity = new Vector3(0, 7, 0);
 	public Vector3 wallJumpVelocity = new Vector3(0, 9, 0);
+	
+	public float cameraYPosition;
+	
 	public int knockBack = 0;
     public float gravity = 20.0F;
     public bool direction = true;
 	public bool lockDirection = false;
 	public bool moving = false;
+	
+	// Jumping variables for FixedUpdate
+	private bool fireWallJump = false;
+	private bool fireJump = false;
 	
 	// Player Variables
 	private int health = 100;
@@ -29,6 +37,8 @@ public class PlayerMovement : MonoBehaviour {
         managerScript = Manager.GetComponent<GameManager>();
         player = GameObject.Find("Player");
 		playerScript = player.GetComponent<PlayerScript>();
+		camera = GameObject.Find("OVRCameraController");
+		cameraYPosition = camera.transform.position.y;
     }
 
     void OnLevelWasLoaded(int level)
@@ -36,8 +46,28 @@ public class PlayerMovement : MonoBehaviour {
         Manager = GameObject.Find("GameManager");
         managerScript = Manager.GetComponent<GameManager>();
         player = GameObject.Find("Player");
+		camera = GameObject.Find("OVRCameraController");
 		playerScript = player.GetComponent<PlayerScript>();
+		cameraYPosition = camera.transform.position.y;
     }
+	
+	void FixedUpdate()
+	{
+		if(fireJump){
+			player.rigidbody.AddForce(jumpVelocity, ForceMode.VelocityChange);
+			
+            player.animation.Play("jump");
+			fireJump = false;
+		}
+		else if(fireWallJump){
+			player.rigidbody.AddForce(wallJumpVelocity, ForceMode.VelocityChange);
+			
+            player.animation.Play("jump");
+			
+			fireWallJump = false;
+		}
+		
+	}
 	
 	// Update is called once per frame
     void Update()
@@ -46,6 +76,8 @@ public class PlayerMovement : MonoBehaviour {
         paused = managerScript.paused;
         if (paused)
             return;
+		
+		camera.transform.position = new Vector3(0, cameraYPosition + player.transform.position.y, 0);
 		
 		// Essentially an easier implementation of slerp
 		if (knockBack != 0){
@@ -73,9 +105,11 @@ public class PlayerMovement : MonoBehaviour {
 		// Overlapping Inputs
 		if (playerScript.touchingGround && Input.GetButtonDown("Jump"))
 		{//Player is on the ground, and wants to jump;
-			player.rigidbody.AddForce(jumpVelocity, ForceMode.VelocityChange);
+			//player.rigidbody.AddForce(jumpVelocity, ForceMode.VelocityChange);
+			fireJump = true;
+			
             playerScript.touchingGround = false;
-            player.animation.Play("jump");
+            //player.animation.Play("jump");
 			
 		}
 		else if (playerScript.touchingBlock)
@@ -123,10 +157,11 @@ public class PlayerMovement : MonoBehaviour {
 					else
 						transform.Rotate(0, 2, 0);
 					direction = !direction;
-					
+					fireWallJump = true;
 					// 'Bounce' Off Wall
-					player.rigidbody.AddForce(wallJumpVelocity, ForceMode.VelocityChange);
-		            player.animation.Play("jump");
+					//player.rigidbody.AddForce(wallJumpVelocity, ForceMode.VelocityChange);
+					
+		            //player.animation.Play("jump");
 				}
 			}
 			
@@ -165,7 +200,9 @@ public class PlayerMovement : MonoBehaviour {
         }
 		else if(!moving)
         {// Just standing there
-            player.animation.Play("idle");
+			if(playerScript.touchingGround){
+        		player.animation.Play("idle");
+			}
         }
 		else
 		{
