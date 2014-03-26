@@ -146,12 +146,20 @@ public class Enemy : MonoBehaviour {
 
 	void OnTriggerEnter(Collider trigger) {
 		// Move the Enemy
+        if (paused)
+        {
+            return;
+        }
         if(trigger.gameObject.tag == "Light"){;
 			moveEnemy();
 		}
     }
 	
 	void OnTriggerStay(Collider collision){
+        if (paused)
+        {
+            return;
+        }
 		if(collision.gameObject.tag == "Light"){
 			moveEnemy();
 		}
