@@ -6,6 +6,7 @@ public class PlayerMovement : MonoBehaviour {
     public GameObject player;
     public bool paused;
     public GameObject Manager;
+    public GameManager managerScript;
 	public PlayerScript playerScript;
 
 	// Movement Variables
@@ -25,6 +26,7 @@ public class PlayerMovement : MonoBehaviour {
     void Start()
     {
         Manager = GameObject.Find("GameManager");
+        managerScript = Manager.GetComponent<GameManager>();
         player = GameObject.Find("Player");
 		playerScript = player.GetComponent<PlayerScript>();
     }
@@ -32,6 +34,7 @@ public class PlayerMovement : MonoBehaviour {
     void OnLevelWasLoaded(int level)
     {
         Manager = GameObject.Find("GameManager");
+        managerScript = Manager.GetComponent<GameManager>();
         player = GameObject.Find("Player");
 		playerScript = player.GetComponent<PlayerScript>();
     }
@@ -40,7 +43,7 @@ public class PlayerMovement : MonoBehaviour {
     void Update()
     {		
 		// Pausing the game
-        paused = Manager.GetComponent<GameManager>().paused;
+        paused = managerScript.paused;
         if (paused)
             return;
 		

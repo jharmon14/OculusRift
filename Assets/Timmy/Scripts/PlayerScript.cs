@@ -8,6 +8,7 @@ public class PlayerScript : MonoBehaviour {
     public GameObject playerParent;
     public PlayerMovement playerMovement;
     public bool direction;
+    public int damageAmount;
 	
 	// Collision variables
     public bool touchingGround = true;
@@ -15,8 +16,8 @@ public class PlayerScript : MonoBehaviour {
 	public bool touchingEnemy = false;
 
     public int health = 100;
-    private GameObject pauseManager;
-    private PauseManagerScript managerScript;
+    private GameObject manager;
+    private GameManager managerScript;
     private bool paused;
 
     public GameObject bullets;
@@ -24,8 +25,8 @@ public class PlayerScript : MonoBehaviour {
     // Use this for initialization
     void Start()
     {
-        pauseManager = GameObject.Find("PauseManager");
-        managerScript = pauseManager.GetComponent<PauseManagerScript>();
+        manager = GameObject.Find("GameManager");
+        managerScript = manager.GetComponent<GameManager>();
         playerParent = GameObject.Find("PlayerParent");
         playerMovement = playerParent.GetComponent<PlayerMovement>();
         bullets = GameObject.Find("Bullets");
@@ -47,6 +48,7 @@ public class PlayerScript : MonoBehaviour {
     void Update()
     {
     	direction = playerMovement.direction;
+        paused = managerScript.paused;
     }
 
     void OnCollisionEnter(Collision collision)
@@ -117,6 +119,25 @@ public class PlayerScript : MonoBehaviour {
 
     public void DieAndRespawn()
     {
-
+        if (managerScript.timmyLives > 1)
+        {
+            managerScript.timmyLives--;
+            Destroy(gameObject);
+            managerScript.paused = true;
+            int finalScore = 1;
+            GameManager gm = GameObject.Find("GameManager").GetComponent<GameManager>();
+            gm.score[(int)GameManager.Levels.Timmy] += (int)finalScore;
+            gm.LoadLevel(GameManager.Levels.Timmy);
+        }
+        else
+        {
+            managerScript.timmyLives = 3;
+            Destroy(gameObject);
+            managerScript.paused = true;
+            int finalScore = 1;
+            GameManager gm = GameObject.Find("GameManager").GetComponent<GameManager>();
+            gm.score[(int)GameManager.Levels.Timmy] += (int)finalScore;
+            gm.LoadLevel(GameManager.Levels.Overworld);
+        }
     }
 }

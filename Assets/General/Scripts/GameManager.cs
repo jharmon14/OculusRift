@@ -27,6 +27,7 @@ public class GameManager : MonoBehaviour
 	public GameObject[] initialLevelManagers;
     public bool paused = false;
     public GameObject pauseMenu;
+    public int timmyLives;
 
 	// Hidden public variables
 	[HideInInspector]
@@ -49,12 +50,14 @@ public class GameManager : MonoBehaviour
 		levelManagerGO = Instantiate(initialLevelManagers[(int)Levels.Overworld]) as GameObject;
 		overworldManager = levelManagerGO.GetComponent<OverworldManager>();
 		score = new int[(int)Levels.Num_Levels];
+        timmyLives = 3;
 	}
 
     void OnLevelWasLoaded(int level)
     {
         pauseMenu = GameObject.FindWithTag("PauseMenu");
         pauseMenu.SetActive(false);
+        paused = false;
     }
 
     void Awake()

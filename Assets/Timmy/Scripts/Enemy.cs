@@ -13,10 +13,11 @@ public class Enemy : MonoBehaviour {
     public bool playerDirection; //which way to shoot bullets
     public Transform target; //used for AngleDir function
 	public float dirNum; //set by AngleDir function
+    public bool shooter = false; //true if enemy shoots, false if enemy only patrols
 
     private int health = 100;
-    private GameObject pauseManager;
-    private PauseManagerScript managerScript;
+    private GameObject manager;
+    private GameManager managerScript;
     private bool paused;
     private GameObject player;
     private bool move = false; //used to keep enemy moving beyond activeDistance and until maxDistance
@@ -30,6 +31,8 @@ public class Enemy : MonoBehaviour {
         target = player.transform;
         bullets = GameObject.Find("EnemyBullets");
         bullets.SetActive(false);
+        manager = GameObject.Find("GameManager");
+        managerScript = manager.GetComponent<GameManager>();
 	}
     /*
     void OnLevelWasLoaded(int level)
@@ -42,6 +45,11 @@ public class Enemy : MonoBehaviour {
 	*/
 	// Update is called once per frame
 	void Update () {
+        paused = managerScript.paused;
+        if (paused)
+        {
+            return;
+        }
         Vector3 heading = target.position - transform.position;
 		dirNum = AngleDir(new Vector3(1, 0, 0), heading, transform.up);
 
@@ -52,7 +60,7 @@ public class Enemy : MonoBehaviour {
 
         if (Vector3.Angle(transform.position, player.transform.position) < activeDistance || move)
         {
-            if (Vector3.Angle(transform.position, player.transform.position) < shootingDistance)
+            if (Vector3.Angle(transform.position, player.transform.position) < shootingDistance && shooter)
             {
                 if (dirNum < 0)
                 {
@@ -107,8 +115,7 @@ public class Enemy : MonoBehaviour {
 
     public void GotShot()
     {
-		Debug.Log("Enemy got shot");
-        health -= 50;
+        health -= 20;
     }
 
     void Fire()
