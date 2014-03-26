@@ -1,6 +1,6 @@
 ﻿/************************************************************************************
  *
- * Filename :   MisconductManager.cs
+ * Filename :   MisconductWaypoint.cs
  * Content  :   
  * Expects  :   
  * Authors  :   
@@ -10,32 +10,24 @@
 using UnityEngine;
 using System.Collections;
 
-public class MisconductManager : MonoBehaviour
+public class MisconductWaypoint : MonoBehaviour
 {
 
 	// Inspector variables
-	public GameObject playerOject;
-  [HideInInspector]
-	public MisconductPlayerController player;
-	[HideInInspector]
-	public MisconductStudent playerStudent;
-
-	private int answersCollected = 0;
-
+	public Transform[] waypoints;
+	
+	
 	// Private variables
-
-	void Start()
+	
+	
+	void Start ()
 	{
-	}
 
+	}
+	
 	// Update is called once per frame
 	void Update()
 	{
-
-	}
-
-	public void collectAnswer()
-	{
-		answersCollected++;
+	
 	}
 }

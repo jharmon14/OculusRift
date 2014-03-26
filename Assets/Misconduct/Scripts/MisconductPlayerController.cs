@@ -27,7 +27,9 @@ public class MisconductPlayerController : MonoBehaviour
 	private RaycastHit hit;
 	private bool needsRotated = false;
 	private float lastRaycast = 1.0f;
+	private MisconductManager misconductManager;
 	private List<Transform> papersCollected = new List<Transform>();
+	private Dictionary<Transform, float> papersProgress = new Dictionary<Transform, float>();
 	private Transform paperPlayer;
 	private bool possessing = false;
 	private bool possLerping = false;
@@ -49,6 +51,7 @@ public class MisconductPlayerController : MonoBehaviour
 		possLerpEnd = this.transform.position + new Vector3(0, possLookHeight, 0);
 		this.gameObject.name = this.gameObject.name.Replace("(Clone)", "");
 		slider = GameObject.Find("Progress Bar").GetComponent<UISlider>();
+		misconductManager = GameObject.Find("MisconductManager").GetComponent<MisconductManager>();
 	}
 
 	// Update is called once per frame
@@ -91,18 +94,25 @@ public class MisconductPlayerController : MonoBehaviour
 			{
 				if (hit.transform.name == "Paper")
 				{
+					// add paper if not already tracking
+					if (!papersProgress.ContainsKey(hit.transform))
+					{
+						papersProgress.Add(hit.transform, 0.0f);
+					}
 					if (!papersCollected.Contains(hit.transform) && (hit.transform != paperPlayer))
 					{
+						slider.sliderValue = papersProgress[hit.transform];
 						slider.gameObject.SetActive(true);
 						slider.sliderValue += 0.5f * Time.deltaTime;
+						papersProgress[hit.transform] = slider.sliderValue;
+
+						// reset the slider and mark answer collected
 						if (slider.sliderValue >= 1.0f)
 						{
 							papersCollected.Add(hit.transform);
 							slider.sliderValue = 0.0f;
-							answersCollected++;
+							misconductManager.collectAnswer();
 						}
-						//papersCollected.Add(hit.transform);
-						//Debug.Log(papersCollected.Count);
 					}
 					else
 					{
