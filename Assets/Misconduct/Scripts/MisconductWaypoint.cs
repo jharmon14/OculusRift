@@ -15,6 +15,7 @@ public class MisconductWaypoint : MonoBehaviour
 
 	// Inspector variables
 	public Transform[] waypoints;
+	public bool canWaitAt = false;
 	
 	
 	// Private variables
