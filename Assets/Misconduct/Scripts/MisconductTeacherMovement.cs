@@ -15,17 +15,22 @@ public class MisconductTeacherMovement : MonoBehaviour
 
 	// Inspector variables
 	public Transform initialWaypoint;
-	public float speed = 3.0f;
+	public float moveSpeed = 3.0f;
+	public float movingTurnSpeed = 20.0f;
 	public float minStopTime = 5.0f;
 	public float maxStopTime = 15.0f;
 	public int minWaypointsTilStop = 5;
 	public int maxWaypointsTilStop = 10;
 
+	// Public variables
+	[HideInInspector]
+	public float stopTime;
+
 	// Private variables
 	private Transform lastWaypoint;
 	private Transform nextWaypoint;
-	private float stopTime;
 	private float timeStopped;
+	private int turnsToMake;
 	private int waypointsTilStop;
 	private int waypointsHit = 0;
 	private State state = State.Moving;
@@ -33,7 +38,8 @@ public class MisconductTeacherMovement : MonoBehaviour
 	public enum State
 	{
 		Stopped = 0,
-		Moving
+		Moving,
+		Turning
 	}
 
 	void Start()
@@ -81,7 +87,8 @@ public class MisconductTeacherMovement : MonoBehaviour
 			// Move to the next waypoint
 			else
 			{
-				transform.position = Vector3.Lerp(transform.position, nextWaypoint.position, (speed * Time.deltaTime) / waypointDistance);
+				transform.position = Vector3.Lerp(transform.position, nextWaypoint.position, (moveSpeed * Time.deltaTime) / waypointDistance);
+				transform.rotation = Quaternion.RotateTowards(transform.rotation, Quaternion.LookRotation(lastWaypoint.position - nextWaypoint.position), movingTurnSpeed);
 			}
 		}
 		// Teacher is stopping to survey the room to stopTime seconds
@@ -96,6 +103,10 @@ public class MisconductTeacherMovement : MonoBehaviour
 			{
 				timeStopped += Time.deltaTime;
 			}
+		}
+		// Teacher is turning from stand point to where they will face
+		else if (state == State.Turning)
+		{
 		}
 	}
 }
