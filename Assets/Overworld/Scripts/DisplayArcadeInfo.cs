@@ -23,7 +23,9 @@ public class DisplayArcadeInfo : MonoBehaviour
 	void Awake()
 	{
 		gm = GameObject.Find("GameManager").GetComponent<GameManager>();
-		RTScore.text = gm.score[1].ToString();
+		
+		if(gm.score.Length >= 1)
+			RTScore.text = gm.score[1].ToString();
 		//LTScore.text = gm.score[2].ToString();
 		//AMScore.text = gm.score[3].ToString();
 	}

@@ -1,8 +1,8 @@
 ﻿<Properties>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\FPS\Scripts\TargetPopup.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Overworld\Scripts\DisplayArcadeInfo.cs">
     <Files>
-      <File FileName="Assets\FPS\Scripts\TargetPopup.cs" Line="16" Column="79" />
+      <File FileName="Assets\Overworld\Scripts\DisplayArcadeInfo.cs" Line="27" Column="27" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
