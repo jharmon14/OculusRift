@@ -16,11 +16,14 @@ public class PlayerScript : MonoBehaviour {
 	public bool touchingEnemy = false;
 
     public int health = 100;
+    public GameObject bullets;
+
+    public UISlider healthBar;
+
     private GameObject manager;
     private GameManager managerScript;
     private bool paused;
-
-    public GameObject bullets;
+    private UILabel gameTime;
 
     // Use this for initialization
     void Start()
@@ -31,6 +34,8 @@ public class PlayerScript : MonoBehaviour {
         playerMovement = playerParent.GetComponent<PlayerMovement>();
         bullets = GameObject.Find("Bullets");
         bullets.SetActive(false);
+        healthBar = GameObject.Find("HealthBar").GetComponent<UISlider>();
+        gameTime = GameObject.Find("GameTime").GetComponent<UILabel>();
     }
     /*
     void OnLevelWasLoaded(int level)
@@ -49,6 +54,8 @@ public class PlayerScript : MonoBehaviour {
     {
     	direction = playerMovement.direction;
         paused = managerScript.paused;
+        gameTime.text = Mathf.RoundToInt(Time.time).ToString();
+
     }
 
     void OnCollisionEnter(Collision collision)
@@ -114,6 +121,7 @@ public class PlayerScript : MonoBehaviour {
     public void GotShot()
     {
         health -= 10;
+        healthBar.sliderValue = health/100.0f;
 		//Debug.Log ("Health: " + health.ToString());
     }
 
