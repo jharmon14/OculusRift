@@ -17,6 +17,8 @@ public class StartGame : MonoBehaviour {
     public GameManager.Levels level = GameManager.Levels.None;
 	public AudioClip coinSound;
 	
+	private bool hasStartedGame;
+	
 	// Private variables
 	
 	void Awake()
@@ -26,6 +28,8 @@ public class StartGame : MonoBehaviour {
         //    GameObject gm = Instantiate(initialGameManager) as GameObject;
         //    gm.name = "GameManager";
         //}
+		
+		hasStartedGame = false;
 	}
 	
 	// Update is called once per frame
@@ -34,7 +38,12 @@ public class StartGame : MonoBehaviour {
         // Player presses fire1 button
         if (Input.GetButtonDown("Fire1") && (level > GameManager.Levels.None))
         {
-			audio.PlayOneShot(coinSound);
+			if(!hasStartedGame)
+			{
+				audio.PlayOneShot(coinSound);
+				hasStartedGame = true;
+			}
+			
             GameObject.Find("GameManager").GetComponent<GameManager>().LoadLevel(level);
         }
 	}

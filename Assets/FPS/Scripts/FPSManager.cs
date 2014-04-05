@@ -32,6 +32,7 @@ public class FPSManager : MonoBehaviour
     {
         // Fade in the camera
         CameraFade.StartAlphaFade(Color.black, true, 4.0f);
+		Screen.showCursor = false;
     }
 
     public void Update()
