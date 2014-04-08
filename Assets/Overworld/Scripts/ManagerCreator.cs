@@ -7,6 +7,7 @@ public class ManagerCreator : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
+
         if (GameObject.Find("GameManager") == null)
         {
             GameObject GameManager = Instantiate(gameManager) as GameObject;
