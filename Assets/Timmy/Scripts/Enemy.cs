@@ -14,27 +14,35 @@ public class Enemy : MonoBehaviour {
     public Transform target; //used for AngleDir function
 	public float dirNum; //set by AngleDir function
     public bool shooter = false; //true if enemy shoots, false if enemy only patrols
+    public GameObject bullets;
 
     private int health = 100;
-    private GameObject manager;
+    public GameObject manager;
     private GameManager managerScript;
     private bool paused;
     private GameObject player;
     private bool move = false; //used to keep enemy moving beyond activeDistance and until maxDistance
-    private GameObject bullets;
     private float lastFireTime;
+    private bool pd = false;
     private bool flippedToShoot = false;
+    private bool shooting = false;
     
 	// Use this for initialization
 	void Start () {
         player = GameObject.Find("Player");
         target = player.transform;
-        bullets = GameObject.Find("EnemyBullets");
-        bullets.SetActive(false);
         manager = GameObject.Find("GameManager");
         managerScript = manager.GetComponent<GameManager>();
 	}
-    /*
+/*
+    void Awake()
+    {
+        player = GameObject.Find("Player");
+        target = player.transform;
+        manager = GameObject.Find("GameManager");
+        managerScript = manager.GetComponent<GameManager>();
+    }
+
     void OnLevelWasLoaded(int level)
     {
         player = GameObject.Find("Player");
@@ -50,8 +58,23 @@ public class Enemy : MonoBehaviour {
         {
             return;
         }
+        PlayerMovement playerMovement = GameObject.Find("PlayerParent").GetComponent<PlayerMovement>();
+
+        
+        if (!shooting)
+        {
+            pd = playerMovement.direction;
+        }
+
         Vector3 heading = target.position - transform.position;
-		dirNum = AngleDir(new Vector3(1, 0, 0), heading, transform.up);
+        if (pd)
+        {
+            dirNum = AngleDir(new Vector3(1, 0, 0), heading, transform.up);
+        }
+        else
+        {
+            dirNum = AngleDir(new Vector3(-1, 0, 0), heading, transform.up);
+        }
 
         if (health <= 0)
         {
@@ -62,13 +85,22 @@ public class Enemy : MonoBehaviour {
         {
             if (Vector3.Angle(transform.position, player.transform.position) < shootingDistance && shooter)
             {
-                if (dirNum < 0)
+                shooting = true;
+                if (dirNum < 0 && pd)
                 {
                     playerDirection = false;
                 }
-                else
+                else if (dirNum < 0 && !pd) 
                 {
                     playerDirection = true;
+                }
+                else if (dirNum > 0 && !pd)
+                {
+                    playerDirection = true;
+                }
+                else
+                {
+                    playerDirection = false;
                 }
                 if (Time.time > lastFireTime + fireRate)
                 {
@@ -83,12 +115,13 @@ public class Enemy : MonoBehaviour {
             }
             else
             {
+                shooting = false;
                 if (flippedToShoot)
                 {
                     transform.Rotate(0, 180, 0);
                     flippedToShoot = false;
                 }
-                animation.Play("walk");
+                animation.Play();
                 move = true;
                 if (currentDegree == 0 || currentDegree == maxDegree)
                 {
@@ -123,7 +156,7 @@ public class Enemy : MonoBehaviour {
                 flippedToShoot = false;
             }
 			
-            animation.Play("walk");
+            animation.Play();
 			
 		    if (currentDegree == 0 || currentDegree == maxDegree)
 		    {
