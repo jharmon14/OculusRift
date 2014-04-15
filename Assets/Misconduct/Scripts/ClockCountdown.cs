@@ -6,8 +6,10 @@ public class ClockCountdown : MonoBehaviour
 	public int minutes, seconds;
 	public TextMesh clockMinutes;
 	public TextMesh clockSeconds;
+	public GameObject light;
 	
 	private bool outOfTime = false;
+	private int secondsPassed = 0;
 
 	
 	// Use this for initialization
@@ -18,19 +20,39 @@ public class ClockCountdown : MonoBehaviour
 	
 	IEnumerator CountDown()
 	{
+		if(minutes >= 0 && seconds > 30)
+			light.light.intensity = 0;
+		
 		if(seconds == 0 && minutes == 0)
 			outOfTime = true;
-		
+				
 		if(!outOfTime)
-		{
+		{			
 			if(seconds <= 0)
 			{
 				seconds = 59;
-				minutes --;			
+				minutes --;		
 			}
 				
 			else
 				seconds--;
+			
+			// turn red and flash every 2 seconds if running out of time
+			if(minutes == 0 && seconds <= 30 && (secondsPassed % 2 == 0))
+			{
+				light.light.intensity = 2;
+				light.light.color = Color.white;
+				clockMinutes.renderer.material.color = Color.red;
+				clockSeconds.renderer.material.color = Color.red;
+			}
+			
+			else if(minutes == 0 && seconds <= 30 && (secondsPassed % 2 != 0))
+			{
+				light.light.intensity = 2;
+				light.light.color = Color.red;
+				clockMinutes.renderer.material.color = Color.white;
+				clockSeconds.renderer.material.color = Color.white;		
+			}
 				
 			// add a dummy 0 to m
 			if(minutes < 10)
@@ -48,6 +70,7 @@ public class ClockCountdown : MonoBehaviour
 		}
 		
 		yield return new WaitForSeconds(1);
+		secondsPassed++;
 		
 		StartCoroutine(CountDown());
 	}

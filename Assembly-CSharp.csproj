@@ -5,7 +5,7 @@
 	<Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
 	<ProductVersion>10.0.20506</ProductVersion>
 	<SchemaVersion>2.0</SchemaVersion>
-	<ProjectGuid>{15E38452-2E55-ECAA-6A63-A6E61195218C}</ProjectGuid>
+	<ProjectGuid>{34D8EBE8-0895-E73F-36B9-6B7F011AA638}</ProjectGuid>
 	<OutputType>Library</OutputType>
 	<AppDesignerFolder>Properties</AppDesignerFolder>
 	<RootNamespace></RootNamespace>
@@ -70,6 +70,7 @@
      <Compile Include="Assets\General\Scripts\CameraToggle.cs" />
      <Compile Include="Assets\General\Scripts\GameManager.cs" />
      <Compile Include="Assets\General\Scripts\PauseManagerScript.cs" />
+     <Compile Include="Assets\Misconduct\Scripts\ClockCountdown.cs" />
      <Compile Include="Assets\Misconduct\Scripts\MisconductManager.cs" />
      <Compile Include="Assets\Misconduct\Scripts\MisconductPlayerController.cs" />
      <Compile Include="Assets\Misconduct\Scripts\MisconductStudent.cs" />
