@@ -72,6 +72,7 @@
      <Compile Include="Assets\General\Scripts\PlayVideo.cs" />
      <Compile Include="Assets\General\Scripts\QuitGame.cs" />
      <Compile Include="Assets\General\Scripts\ResumeGame.cs" />
+     <Compile Include="Assets\Overworld\Scripts\ClockCountdown.cs" />
      <Compile Include="Assets\Overworld\Scripts\DisplayArcadeInfo.cs" />
      <Compile Include="Assets\Overworld\Scripts\OverworldManager.cs" />
      <Compile Include="Assets\Overworld\Scripts\StartButton.cs" />
@@ -254,6 +255,7 @@
      <None Include="Assets\Packages\OVR\OVRImageEffects\OVRLensCorrection.shader" />
      <None Include="Assets\Packages\OVR\Shaders\OVRGUIShader.shader" />
      <None Include="Assets\Overworld\Fonts\PrototypeFont.txt" />
+     <None Include="Assets\General\3D Text\3D Shader.shader" />
      <None Include="Assets\Packages\NGUI\Resources\Shaders\Unlit - Depth.shader" />
      <None Include="Assets\Packages\NGUI\Resources\Shaders\Unlit - Transparent Colored RenderTexture.shader" />
      <None Include="Assets\Packages\NGUI\Resources\Shaders\Unlit - Transparent Colored (SoftClip).shader" />
