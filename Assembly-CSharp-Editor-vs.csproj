@@ -145,6 +145,7 @@
      <None Include="Assets\Packages\NGUI\Resources\Shaders\Unlit - Additive Colored.shader" />
      <None Include="Assets\Packages\OVR\OVRImageEffects\OVRLensCorrection.shader" />
      <None Include="Assets\Packages\OVR\Shaders\OVRGUIShader.shader" />
+     <None Include="Assets\General\3D Text\3D Shader.shader" />
      <None Include="Assets\Packages\NGUI\Resources\Shaders\Unlit - Depth.shader" />
      <None Include="Assets\Packages\NGUI\Resources\Shaders\Unlit - Transparent Colored RenderTexture.shader" />
      <None Include="Assets\Packages\NGUI\Resources\Shaders\Unlit - Transparent Colored (SoftClip).shader" />
