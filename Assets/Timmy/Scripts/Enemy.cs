@@ -26,6 +26,8 @@ public class Enemy : MonoBehaviour {
     private bool pd = false;
     private bool flippedToShoot = false;
     private bool shooting = false;
+
+    private TimmyManager tm;
     
 	// Use this for initialization
 	void Start () {
@@ -33,6 +35,7 @@ public class Enemy : MonoBehaviour {
         target = player.transform;
         manager = GameObject.Find("GameManager");
         managerScript = manager.GetComponent<GameManager>();
+        tm = GameObject.Find("TimmyManager").GetComponent<TimmyManager>();
 	}
 /*
     void Awake()
@@ -78,6 +81,7 @@ public class Enemy : MonoBehaviour {
 
         if (health <= 0)
         {
+            tm.kills += 1;
             Destroy(transform.gameObject);
         }
 
@@ -118,15 +122,30 @@ public class Enemy : MonoBehaviour {
                 shooting = false;
                 if (flippedToShoot)
                 {
-                    transform.Rotate(0, 180, 0);
-                    flippedToShoot = false;
+                    if (transform.name == "timmy_bat")
+                    {
+                        transform.Rotate(0, 0, 180);
+                        flippedToShoot = false;
+                    }
+                    else
+                    {
+                        transform.Rotate(0, 180, 0);
+                        flippedToShoot = false;
+                    }
                 }
                 animation.Play();
                 move = true;
                 if (currentDegree == 0 || currentDegree == maxDegree)
                 {
                     direction = !direction;
-                    transform.Rotate(0, 180, 0);
+                    if (transform.name == "timmy_bat")
+                    {
+                        transform.Rotate(0, 0, 180);
+                    }
+                    else
+                    {
+                        transform.Rotate(0, 180, 0);
+                    }
                 }
                 if (direction)
                 {
@@ -146,10 +165,12 @@ public class Enemy : MonoBehaviour {
         }
 	}
 	
-	private void moveEnemy(){
+	public void moveEnemy(){
 		// If the player is in enemy range, allow Update() to determine enemy movement
-		if(Vector3.Angle(transform.position, player.transform.position) > maxDistance){
-
+		if(Vector3.Angle(transform.position, player.transform.position) > maxDistance || 
+            (Vector3.Angle(transform.position, player.transform.position) > activeDistance && !move))
+        {
+            shooting = false;
             if (flippedToShoot)
             {
                 transform.Rotate(0, 180, 0);
@@ -177,15 +198,35 @@ public class Enemy : MonoBehaviour {
 		}
 	}
 
-	void OnTriggerEnter(Collider trigger) {
+	void OnTriggerEnter(Collider collision) {
 		// Move the Enemy
         if (paused)
         {
             return;
         }
-        if(trigger.gameObject.tag == "Light"){;
+        if(collision.gameObject.tag == "Light"){
 			moveEnemy();
 		}
+        if (collision.gameObject.tag == "EnemyBullet")
+        {
+            Destroy(collision.gameObject);
+        }
+        if(collision.gameObject.tag == "PlayerBullet") 
+        {
+            GotShot();
+            Destroy(collision.gameObject);
+        }
+        if (collision.gameObject.tag == "Block")
+        {
+            if (direction)
+            {
+                maxDegree = currentDegree;
+            }
+            else
+            {
+                currentDegree = 0;
+            }
+        }
     }
 	
 	void OnTriggerStay(Collider collision){
@@ -198,7 +239,8 @@ public class Enemy : MonoBehaviour {
 		}
 	}
 	
-	void OnTriggerExit(Collider collision){}
+	void OnTriggerExit(Collider collision){
+    }
 	
     public void GotShot()
     {

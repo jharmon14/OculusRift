@@ -7,6 +7,7 @@ public class TimmyManager : MonoBehaviour {
     public float lastTime;
     public int points;
     public int lives;
+    public int kills;
 
     void Awake()
     {
@@ -16,7 +17,7 @@ public class TimmyManager : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-	
+        kills = 0;
 	}
 	
 	// Update is called once per frame

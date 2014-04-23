@@ -19,11 +19,12 @@ public class PlayerScript : MonoBehaviour {
     public GameObject bullets;
 
     public UISlider healthBar;
+    public UILabel gameTime;
 
     private GameObject manager;
     private GameManager managerScript;
     private bool paused;
-    private UILabel gameTime;
+    private TimmyManager tm;
 
     // Use this for initialization
     void Start()
@@ -36,6 +37,7 @@ public class PlayerScript : MonoBehaviour {
         bullets.SetActive(false);
         healthBar = GameObject.Find("HealthBar").GetComponent<UISlider>();
         gameTime = GameObject.Find("GameTime").GetComponent<UILabel>();
+        tm = GameObject.Find("TimmyManager").GetComponent<TimmyManager>();
     }
     /*
     void OnLevelWasLoaded(int level)
@@ -52,10 +54,15 @@ public class PlayerScript : MonoBehaviour {
 
     void Update()
     {
+        if (managerScript.paused)
+            return;
     	direction = playerMovement.direction;
         paused = managerScript.paused;
         gameTime.text = Mathf.RoundToInt(Time.time).ToString();
-
+        if (transform.position.y < -10)
+        {
+            DieAndRespawn();
+        }
     }
 
     void OnCollisionEnter(Collision collision)
@@ -83,13 +90,28 @@ public class PlayerScript : MonoBehaviour {
     }
 	
 	void OnTriggerEnter(Collider collision){
-		if(collision.gameObject.tag == "Block"){
+		if(collision.gameObject.tag == "Block")
+        {
 			touchingBlock = true;
 		}
+        if (collision.gameObject.tag == "EnemyBullet")
+        {
+            GotShot();
+            Destroy(collision.gameObject);
+        }
+        if (collision.gameObject.tag == "PlayerBullet")
+        {
+            Destroy(collision.gameObject);
+        }
+        if (collision.gameObject.tag == "EndLevel")
+        {
+            NextLevel();
+        }
 	}
 	
 	void OnTriggerExit(Collider collision){
-		if(collision.gameObject.tag == "Block"){
+		if(collision.gameObject.tag == "Block")
+        {
 			touchingBlock = false;
 		}
 	}
@@ -132,20 +154,70 @@ public class PlayerScript : MonoBehaviour {
             managerScript.timmyLives--;
             Destroy(gameObject);
             managerScript.paused = true;
-            int finalScore = 1;
-            GameManager gm = GameObject.Find("GameManager").GetComponent<GameManager>();
-            gm.score[(int)GameManager.Levels.Timmy] += (int)finalScore;
-            gm.LoadLevel(GameManager.Levels.Timmy);
+            int finalScore = CalculateScore(int.Parse(gameTime.text));
+            managerScript.score[(int)GameManager.Levels.Timmy] += (int)finalScore;
+            managerScript.LoadLevel(GameManager.Levels.Timmy + managerScript.timmyCurrentLevel);
         }
         else
         {
             managerScript.timmyLives = 3;
             Destroy(gameObject);
             managerScript.paused = true;
-            int finalScore = 1;
-            GameManager gm = GameObject.Find("GameManager").GetComponent<GameManager>();
-            gm.score[(int)GameManager.Levels.Timmy] += (int)finalScore;
-            gm.LoadLevel(GameManager.Levels.Overworld);
+            int finalScore = CalculateFinalScore(int.Parse(gameTime.text));
+            managerScript.score[(int)GameManager.Levels.Timmy] += (int)finalScore;
+            managerScript.LoadLevel(GameManager.Levels.Overworld);
         }
+    }
+
+    public void NextLevel()
+    {
+        managerScript.timmyCurrentLevel += 1;
+        
+        if (managerScript.timmyCurrentLevel <= 1)
+        {
+            managerScript.LoadLevel(GameManager.Levels.Timmy + managerScript.timmyCurrentLevel);
+        }
+        else
+        {
+            managerScript.LoadLevel(GameManager.Levels.Overworld);
+        }
+    }
+
+    public int CalculateScore(int stopTime)
+    {
+        int score = 0;
+        int kills = tm.kills;
+        int time = stopTime;
+        int lives = managerScript.timmyLives;
+
+        score = kills;
+
+        return score;
+    }
+
+    public int CalculateFinalScore(int stopTime)
+    {
+        int score = 0;
+        int kills = tm.kills;
+        int time = stopTime;
+        int lives = managerScript.timmyLives;
+
+        if (lives == 0)
+        {
+            score = (kills * 100 / time) * 10;
+        }
+        else if (lives == 1)
+        {
+            score = (kills * 100 / time) * 50;
+        }
+        else if (lives == 2)
+        {
+            score = (kills * 100 / time) * 100;
+        }
+        else
+        {
+            score = (kills * 100 / time) * 150;
+        }
+        return score;
     }
 }

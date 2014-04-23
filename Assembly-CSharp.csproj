@@ -5,7 +5,7 @@
 	<Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
 	<ProductVersion>10.0.20506</ProductVersion>
 	<SchemaVersion>2.0</SchemaVersion>
-	<ProjectGuid>{D2DBCF1D-274F-8EA9-4EC0-EFCBC2AC5C27}</ProjectGuid>
+	<ProjectGuid>{34D8EBE8-0895-E73F-36B9-6B7F011AA638}</ProjectGuid>
 	<OutputType>Library</OutputType>
 	<AppDesignerFolder>Properties</AppDesignerFolder>
 	<RootNamespace></RootNamespace>
@@ -190,9 +190,11 @@
      <Compile Include="Assets\ReverseNormals.cs" />
      <Compile Include="Assets\Timmy\Scripts\Bullet.cs" />
      <Compile Include="Assets\Timmy\Scripts\BulletRotation.cs" />
+     <Compile Include="Assets\Timmy\Scripts\CatchBulletTrigger.cs" />
      <Compile Include="Assets\Timmy\Scripts\Enemy.cs" />
      <Compile Include="Assets\Timmy\Scripts\PlayerMovement.cs" />
      <Compile Include="Assets\Timmy\Scripts\PlayerScript.cs" />
+     <Compile Include="Assets\Timmy\Scripts\TimmyLevelEnd.cs" />
      <Compile Include="Assets\Timmy\Scripts\TimmyManager.cs" />
      <None Include="Assets\Packages\NGUI\Resources\Shaders\Unlit - Depth Cutout.shader" />
      <None Include="Assets\FPS\Level_Assets\Bootcamp\Pro Standard Assets\Glass Refraction\Glass-Stained-BumpDistort.shader" />

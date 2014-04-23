@@ -12,7 +12,7 @@ public class PlayerMovement : MonoBehaviour {
 
 	// Movement Variables
 	public Vector3 jumpVelocity = new Vector3(0, 7, 0);
-	public Vector3 wallJumpVelocity = new Vector3(0, 9, 0);
+	public Vector3 wallJumpVelocity = new Vector3(0, 7, 0);
 	
 	public float cameraYPosition;
 	
@@ -61,7 +61,7 @@ public class PlayerMovement : MonoBehaviour {
 		}
 		else if(fireWallJump){
 			player.rigidbody.AddForce(wallJumpVelocity, ForceMode.VelocityChange);
-			
+
             player.animation.Play("jump");
 			
 			fireWallJump = false;
@@ -117,7 +117,7 @@ public class PlayerMovement : MonoBehaviour {
 			
 			if(playerScript.touchingGround)
 			{// Movement Option
-				if(Input.GetKey("d") && !direction)
+                if (Input.GetKey("d") && !direction)
 				{
 					moving = true;
 					
@@ -174,7 +174,7 @@ public class PlayerMovement : MonoBehaviour {
 			
 			
 		}
-		else if(Input.GetKey("d"))
+        else if (Input.GetKey("d"))
         {
             moving = true;
             if(playerScript.touchingGround)
