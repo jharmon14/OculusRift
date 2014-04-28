@@ -16,3 +16,8 @@ Temp
 obj
 *.pidb
 build
+Assembly*.csproj
+Assembly*.unityproj
+*.userprefs
+*.sln
+*.suo
