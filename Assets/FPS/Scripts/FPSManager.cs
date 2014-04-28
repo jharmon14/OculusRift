@@ -39,6 +39,7 @@ public class FPSManager : MonoBehaviour
 
     public void Update()
     {
+		Screen.showCursor = false;
         accuracy = shotsFired > 0 ? (float)targetsHit / (float)shotsFired : 1;
         score = (int)(((targetsHit * targetScoreMultiplier) * (accuracy * accuracyScoreMultiplier)) / ((timeEnded - timeStarted) / 60) - (civiliansHit * 100));
 

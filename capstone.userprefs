@@ -2,7 +2,7 @@
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
   <MonoDevelop.Ide.Workbench ActiveDocument="Assets\FPS\Scripts\FPSManager.cs">
     <Files>
-      <File FileName="Assets\FPS\Scripts\FPSManager.cs" Line="44" Column="1" />
+      <File FileName="Assets\FPS\Scripts\FPSManager.cs" Line="42" Column="29" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
