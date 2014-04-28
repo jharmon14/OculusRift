@@ -18,6 +18,8 @@ public class FPSManager : MonoBehaviour
     [HideInInspector]
     public int targetsHit = 0;
     [HideInInspector]
+	public int civiliansHit = 0;
+    [HideInInspector]
     public int shotsFired = 0;
     [HideInInspector]
     public float accuracy;
@@ -38,7 +40,11 @@ public class FPSManager : MonoBehaviour
     public void Update()
     {
         accuracy = shotsFired > 0 ? (float)targetsHit / (float)shotsFired : 1;
-        score = (int)(((targetsHit * targetScoreMultiplier) * (accuracy * accuracyScoreMultiplier)) / ((timeEnded - timeStarted) / 60));
+        score = (int)(((targetsHit * targetScoreMultiplier) * (accuracy * accuracyScoreMultiplier)) / ((timeEnded - timeStarted) / 60) - (civiliansHit * 100));
+
+		// in case you shoot too many civilians or are just awful...or something
+		if(score < 0)
+			score = 0;
     }
 
     public void LevelEnd(float time)

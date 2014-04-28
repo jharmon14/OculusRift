@@ -41,6 +41,12 @@ public class Shoot : MonoBehaviour
 					Destroy(hit.transform.gameObject);
 					fpsManager.targetsHit++;
 				}
+				
+				else if (hit.transform.gameObject.name == "Civilian")
+				{
+					Destroy(hit.transform.gameObject);
+					fpsManager.civiliansHit++;
+				}
 			}
 
 		}
