@@ -21,6 +21,7 @@ public class MisconductManager : MonoBehaviour
 	public MisconductStudent playerStudent;
 
 	private int answersCollected = 0;
+	private int suspicionLevel = 0;
 
 	// Private variables
 
@@ -32,6 +33,16 @@ public class MisconductManager : MonoBehaviour
 	void Update()
 	{
 
+	}
+	
+	public void increaseSuspicion(int val = 1){
+		suspicionLevel += val;
+	}
+	
+	public void reduceSuspicion(int val = 1){
+		suspicionLevel -= val;
+		if(suspicionLevel < 0)
+			suspicionLevel = 0;
 	}
 
 	public void collectAnswer()
