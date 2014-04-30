@@ -166,6 +166,8 @@ public class Enemy : MonoBehaviour {
 	}
 	
 	public void moveEnemy(){
+        if (managerScript.paused)
+            return;
 		// If the player is in enemy range, allow Update() to determine enemy movement
 		if(Vector3.Angle(transform.position, player.transform.position) > maxDistance || 
             (Vector3.Angle(transform.position, player.transform.position) > activeDistance && !move))
@@ -244,7 +246,14 @@ public class Enemy : MonoBehaviour {
 	
     public void GotShot()
     {
-        health -= 50;
+        if (managerScript.timmyCurrentLevel == 0)
+        {
+            health -= 50;
+        }
+        else
+        {
+            health -= 25;
+        }
     }
 
     void Fire()

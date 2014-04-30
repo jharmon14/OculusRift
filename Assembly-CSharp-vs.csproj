@@ -192,6 +192,7 @@
      <Compile Include="Assets\Timmy\Scripts\BulletRotation.cs" />
      <Compile Include="Assets\Timmy\Scripts\CatchBulletTrigger.cs" />
      <Compile Include="Assets\Timmy\Scripts\Enemy.cs" />
+     <Compile Include="Assets\Timmy\Scripts\LevelStart.cs" />
      <Compile Include="Assets\Timmy\Scripts\PlayerMovement.cs" />
      <Compile Include="Assets\Timmy\Scripts\PlayerScript.cs" />
      <Compile Include="Assets\Timmy\Scripts\TimmyLevelEnd.cs" />

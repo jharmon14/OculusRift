@@ -27,10 +27,10 @@ public class TimmyLevelEnd : MonoBehaviour {
             gm.paused = true;
             if (calc)
             {
-                gm.score[(int)GameManager.Levels.Timmy] += ps.CalculateFinalScore(stopTime);
+                gm.score[(int)GameManager.Levels.Timmy + gm.timmyCurrentLevel] += ps.CalculateFinalScore(stopTime);
                 calc = false;
             }
-            label.text = label.text.Replace("[SCORE]", gm.score[(int)GameManager.Levels.Timmy].ToString());
+            label.text = label.text.Replace("[SCORE]", gm.score[(int)GameManager.Levels.Timmy + gm.timmyCurrentLevel].ToString());
 
             if (Input.GetButtonDown("Jump"))
             {

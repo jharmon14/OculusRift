@@ -20,11 +20,13 @@ public class PlayerScript : MonoBehaviour {
 
     public UISlider healthBar;
     public UILabel gameTime;
+    public UILabel livesLeft;
 
     private GameObject manager;
     private GameManager managerScript;
     private bool paused;
     private TimmyManager tm;
+    private float time;
 
     // Use this for initialization
     void Start()
@@ -33,23 +35,33 @@ public class PlayerScript : MonoBehaviour {
         managerScript = manager.GetComponent<GameManager>();
         playerParent = GameObject.Find("PlayerParent");
         playerMovement = playerParent.GetComponent<PlayerMovement>();
-        bullets = GameObject.Find("Bullets");
-        bullets.SetActive(false);
+        //bullets = GameObject.Find("Bullets");
+        //bullets.SetActive(false);
         healthBar = GameObject.Find("HealthBar").GetComponent<UISlider>();
         gameTime = GameObject.Find("GameTime").GetComponent<UILabel>();
+        livesLeft = GameObject.Find("LivesLeft").GetComponent<UILabel>();
+        livesLeft.text = "Lives: " + managerScript.timmyLives;
         tm = GameObject.Find("TimmyManager").GetComponent<TimmyManager>();
+        Screen.lockCursor = true;
     }
-    /*
+    
     void OnLevelWasLoaded(int level)
     {
-        pauseManager = GameObject.Find("PauseManager");
-        managerScript = pauseManager.GetComponent<PauseManagerScript>();
+        manager = GameObject.Find("GameManager");
+        managerScript = manager.GetComponent<GameManager>();
         playerParent = GameObject.Find("PlayerParent");
         playerMovement = playerParent.GetComponent<PlayerMovement>();
-        bullets = GameObject.Find("Bullets");
+        //bullets = GameObject.Find("Bullets");
         //bullets.SetActive(false);
+        healthBar = GameObject.Find("HealthBar").GetComponent<UISlider>();
+        gameTime = GameObject.Find("GameTime").GetComponent<UILabel>();
+        livesLeft = GameObject.Find("LivesLeft").GetComponent<UILabel>();
+        livesLeft.text = "Lives: " + managerScript.timmyLives;
+        tm = GameObject.Find("TimmyManager").GetComponent<TimmyManager>();
+        Screen.lockCursor = true;
+        time = 0;
     }
-    */
+    
     // Update is called once per frame
 
     void Update()
@@ -58,7 +70,8 @@ public class PlayerScript : MonoBehaviour {
             return;
     	direction = playerMovement.direction;
         paused = managerScript.paused;
-        gameTime.text = Mathf.RoundToInt(Time.time).ToString();
+        time = time + Time.deltaTime;
+        gameTime.text = Mathf.RoundToInt(time).ToString();
         if (transform.position.y < -10)
         {
             DieAndRespawn();
@@ -142,29 +155,34 @@ public class PlayerScript : MonoBehaviour {
 
     public void GotShot()
     {
-        health -= 10;
+        if (managerScript.timmyCurrentLevel == 0)
+        {
+            health -= 10;
+        }
+        else
+        {
+            health -= 25;
+        }
         healthBar.sliderValue = health/100.0f;
-		//Debug.Log ("Health: " + health.ToString());
     }
 
     public void DieAndRespawn()
     {
+        managerScript.paused = true;
         if (managerScript.timmyLives > 1)
         {
             managerScript.timmyLives--;
             Destroy(gameObject);
-            managerScript.paused = true;
             int finalScore = CalculateScore(int.Parse(gameTime.text));
-            managerScript.score[(int)GameManager.Levels.Timmy] += (int)finalScore;
+            managerScript.score[(int)GameManager.Levels.Timmy + managerScript.timmyCurrentLevel] += (int)finalScore;
             managerScript.LoadLevel(GameManager.Levels.Timmy + managerScript.timmyCurrentLevel);
         }
         else
         {
             managerScript.timmyLives = 3;
-            Destroy(gameObject);
-            managerScript.paused = true;
+            Destroy(gameObject);            
             int finalScore = CalculateFinalScore(int.Parse(gameTime.text));
-            managerScript.score[(int)GameManager.Levels.Timmy] += (int)finalScore;
+            managerScript.score[(int)GameManager.Levels.Timmy + managerScript.timmyCurrentLevel] += (int)finalScore;
             managerScript.LoadLevel(GameManager.Levels.Overworld);
         }
     }
