@@ -4,7 +4,7 @@ using System.Collections;
 public class ConeTracker : MonoBehaviour {
 	
 	private bool paused;
-	public int suspicionLevel = 0;
+	public int suspicionRatePerTick = 1;
 	private Transform coneInside;
 	private Transform coneOutside;
 	private int triggerCatch = 0;
@@ -68,8 +68,7 @@ public class ConeTracker : MonoBehaviour {
 
 				if(deltaTime > suspicionTimeTick){
 					// Keep incrementing suspicion if Player is actin' a fool
-					managerScript.increaseSuspicion();
-					Debug.Log (deltaTime);
+					managerScript.increaseSuspicion(suspicionRatePerTick);
 					
 					// Reset Time
 					startTime = Time.time;
@@ -91,7 +90,6 @@ public class ConeTracker : MonoBehaviour {
 	{
 		if (trigger.gameObject.tag == "Cone")
 		{
-			Debug.Log ("Leaving Trigger");
 			// Change material to reflect Player action
 			updateConeColor(Color.green);
 
