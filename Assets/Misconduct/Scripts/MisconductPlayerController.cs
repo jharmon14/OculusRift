@@ -259,4 +259,9 @@ public class MisconductPlayerController : MonoBehaviour
 			}
 		}
 	}
+
+	public bool isCheating()
+	{
+		return slider.gameObject.activeInHierarchy;
+	}
 }
