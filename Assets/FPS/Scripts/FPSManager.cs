@@ -35,13 +35,13 @@ public class FPSManager : MonoBehaviour
         // Fade in the camera
         CameraFade.StartAlphaFade(Color.black, true, 4.0f);
 		Screen.showCursor = false;
-    }
+	}
 
     public void Update()
     {
 		Screen.showCursor = false;
         accuracy = shotsFired > 0 ? (float)targetsHit / (float)shotsFired : 1;
-        score = (int)(((targetsHit * targetScoreMultiplier) * (accuracy * accuracyScoreMultiplier)) / ((timeEnded - timeStarted) / 60) - (civiliansHit * 100));
+        score = (int)((((targetsHit * targetScoreMultiplier) * (accuracy * accuracyScoreMultiplier)) / ((timeEnded - timeStarted) / 60)) - (civiliansHit * 100));
 
 		// in case you shoot too many civilians or are just awful...or something
 		if(score < 0)
