@@ -31,7 +31,7 @@ public class MisconductStudent : MonoBehaviour
 		{
       meshRend.enabled = false;
 			var mm = GameObject.Find("MisconductManager").GetComponent<MisconductManager>();
-			var player = Instantiate(mm.playerOject, this.transform.position, this.transform.rotation) as GameObject;
+			var player = Instantiate(mm.playerObject, this.transform.position, this.transform.rotation) as GameObject;
 			mm.player = player.GetComponent<MisconductPlayerController>();
 			mm.player.playerStudent = meshRend;
 		}

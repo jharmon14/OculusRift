@@ -14,18 +14,20 @@ public class MisconductManager : MonoBehaviour
 {
 
 	// Inspector variables
-	public GameObject playerOject;
+	public GameObject playerObject;
+	public int maxSuspicion = 100;
+
   [HideInInspector]
 	public MisconductPlayerController player;
 	[HideInInspector]
 	public MisconductStudent playerStudent;
 	
 	private UISlider slider;
-	
 	private int answersCollected = 0;
+	private int answersTotal = 0;
 	private float suspicionLevel = 0;
+	private UILabel answersCollectedText;
 
-	public int maxSuspicion = 100;
 
 	// Private variables
 
@@ -39,6 +41,10 @@ public class MisconductManager : MonoBehaviour
 	}
 	
 	void Awake(){
+		GameObject[] papers = GameObject.FindGameObjectsWithTag("Paper");
+		answersTotal = papers.Length - 1; // minus one for the player's paper
+		answersCollectedText = transform.FindChild("PapersCollected").GetComponent<UILabel>();
+		answersCollectedText.text = answersCollected + "\nof\n" + answersTotal;
 		slider = GameObject.Find("SuspicionProgressBar").GetComponent<UISlider>();
 	}
 	
@@ -67,5 +73,13 @@ public class MisconductManager : MonoBehaviour
 	public void collectAnswer()
 	{
 		answersCollected++;
+		answersCollectedText.text = answersCollected + "\nof\n" + answersTotal;
+	}
+
+	public void endLevel()
+	{
+		// calculate score
+		// fade to black and display score
+		// reload level... for now
 	}
 }

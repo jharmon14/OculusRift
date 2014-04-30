@@ -17,6 +17,14 @@ public class ClockCountdown : MonoBehaviour
 	{
 		StartCoroutine(CountDown());
 	}
+
+	void Update()
+	{
+		if ((minutes == 0) && (seconds == 0))
+		{
+			GameObject.Find("MisconductManager").GetComponent<MisconductManager>().endLevel();
+		}
+	}
 	
 	IEnumerator CountDown()
 	{

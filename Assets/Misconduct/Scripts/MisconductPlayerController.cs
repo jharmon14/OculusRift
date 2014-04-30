@@ -23,6 +23,7 @@ public class MisconductPlayerController : MonoBehaviour
 
 	// Private variables
 	private int answersCollected = 0;
+	private Transform answersCollectedText;
 	private Transform cam;
 	private RaycastHit hit;
 	private bool needsRotated = false;
@@ -38,6 +39,7 @@ public class MisconductPlayerController : MonoBehaviour
 	private bool possLerpUp = true;
 	private MisconductStudent possTarget = null;
 	private UISlider slider;
+	private Transform sliderTransform;
 	private bool studentRendererSet = false;
 	private int xRotMin, xRotMax, zRotMin, zRotMax;
 	private bool xChanged = false;
@@ -45,12 +47,16 @@ public class MisconductPlayerController : MonoBehaviour
 
 	void Awake()
 	{
+		answersCollectedText = GameObject.Find("PapersCollected").transform;
 		cam = GameObject.Find("CameraRight").transform;
-		paperPlayer = GameObject.Find("PlayerStudent/Paper").transform;
+		paperPlayer = GameObject.Find("PlayerStudent").transform.FindChild("Paper");
+		paperPlayer.FindChild("Indicators").gameObject.SetActive(false);
+		Debug.Log(paperPlayer);
 		possLerpStart = this.transform.position;
 		possLerpEnd = this.transform.position + new Vector3(0, possLookHeight, 0);
 		this.gameObject.name = this.gameObject.name.Replace("(Clone)", "");
-		slider = GameObject.Find("Progress Bar").GetComponent<UISlider>();
+		sliderTransform = GameObject.Find("Progress Bar").transform;
+		slider = sliderTransform.GetComponent<UISlider>();
 		misconductManager = GameObject.Find("MisconductManager").GetComponent<MisconductManager>();
 	}
 
@@ -101,6 +107,11 @@ public class MisconductPlayerController : MonoBehaviour
 					}
 					if (!papersCollected.Contains(hit.transform) && (hit.transform != paperPlayer))
 					{
+						sliderTransform.position = new Vector3(
+							hit.transform.position.x,
+							hit.transform.position.y + 0.2f,
+							hit.transform.position.z);
+						sliderTransform.rotation = Quaternion.LookRotation(sliderTransform.position - cam.position);
 						slider.sliderValue = papersProgress[hit.transform];
 						slider.gameObject.SetActive(true);
 						slider.sliderValue += 0.5f * Time.deltaTime;
@@ -109,6 +120,8 @@ public class MisconductPlayerController : MonoBehaviour
 						// reset the slider and mark answer collected
 						if (slider.sliderValue >= 1.0f)
 						{
+							hit.transform.FindChild("Indicators/Target").gameObject.SetActive(false);
+							hit.transform.FindChild("Indicators/Check").gameObject.SetActive(true);
 							papersCollected.Add(hit.transform);
 							slider.sliderValue = 0.0f;
 							misconductManager.collectAnswer();
@@ -118,6 +131,8 @@ public class MisconductPlayerController : MonoBehaviour
 					{
 						// answer already collected message
 						slider.gameObject.SetActive(false);
+						answersCollectedText.position = hit.transform.position;
+
 					}
 				}
 				else
