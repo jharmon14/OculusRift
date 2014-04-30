@@ -23,6 +23,8 @@ public class MisconductManager : MonoBehaviour
 	private int answersCollected = 0;
 	private int suspicionLevel = 0;
 
+	public int maxSuspicion = 100;
+
 	// Private variables
 
 	void Start()

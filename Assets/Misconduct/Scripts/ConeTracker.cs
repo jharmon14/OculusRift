@@ -3,11 +3,8 @@ using System.Collections;
 
 public class ConeTracker : MonoBehaviour {
 	
-	private bool paused;
-	public int suspicionRatePerTick = 1;
 	private Transform coneInside;
 	private Transform coneOutside;
-	private int triggerCatch = 0;
 	
 	private GameObject teacher;
 	private Transform player;
@@ -15,12 +12,15 @@ public class ConeTracker : MonoBehaviour {
 	private GameObject manager;
     private MisconductManager managerScript;
 	private MisconductTeacherMovement teacherMovement;
+	private MisconductPlayerController playerController;
 	
 	private float startTime = 0.0f;
 	private float deltaTime = 0.0f;
 	
+	public int suspicionRatePerTick = 1;
+	public int suspicionRateStealing = 3;
 	public float suspicionTimeTick = 0.25f;
-	public float playerSuspicionAngle = 10.0f; 
+	public float playerSuspicionAngle = 15.0f; 
 
 	// Use this for initialization
 	void Awake()
@@ -29,6 +29,7 @@ public class ConeTracker : MonoBehaviour {
         managerScript = manager.GetComponent<MisconductManager>();
 		
 		player = GameObject.Find("Player").transform;
+		playerController = player.GetComponent<MisconductPlayerController>();
 
 		coneInside = GameObject.Find("Cone_Inside").transform;
 		coneOutside = GameObject.Find("Cone_Outside").transform;
@@ -68,7 +69,11 @@ public class ConeTracker : MonoBehaviour {
 
 				if(deltaTime > suspicionTimeTick){
 					// Keep incrementing suspicion if Player is actin' a fool
-					managerScript.increaseSuspicion(suspicionRatePerTick);
+					if(isPlayerStealing()){
+						managerScript.increaseSuspicion(suspicionRateStealing);
+					} else {
+						managerScript.increaseSuspicion(suspicionRatePerTick);
+					}
 					
 					// Reset Time
 					startTime = Time.time;
@@ -119,6 +124,10 @@ public class ConeTracker : MonoBehaviour {
 			return false;
 		}
 		
+	}
+					
+	bool isPlayerStealing(){
+		return playerController.isCheating();					
 	}
 
 	void Update(){
