@@ -22,9 +22,8 @@ public class MisconductManager : MonoBehaviour
 	
 	private UISlider slider;
 	
-
 	private int answersCollected = 0;
-	private int suspicionLevel = 0;
+	private float suspicionLevel = 0;
 
 	public int maxSuspicion = 100;
 
@@ -37,14 +36,13 @@ public class MisconductManager : MonoBehaviour
 	// Update is called once per frame
 	void Update()
 	{
-
 	}
 	
 	void Awake(){
 		slider = GameObject.Find("SuspicionProgressBar").GetComponent<UISlider>();
 	}
 	
-	public void increaseSuspicion(int val = 1){
+	public void increaseSuspicion(float val = 1.0f){
 		suspicionLevel += val;
 		
 		slider.sliderValue = suspicionLevel/100.0f;
@@ -55,10 +53,13 @@ public class MisconductManager : MonoBehaviour
 		}
 	}
 	
-	public void reduceSuspicion(int val = 1){
+	public void reduceSuspicion(float val = 1.0f){
 		suspicionLevel -= val;
-		if(suspicionLevel < 0)
+		Debug.Log ("Current");
+		Debug.Log (suspicionLevel);
+		if(suspicionLevel < 0){
 			suspicionLevel = 0;
+		}
 		
 		slider.sliderValue = suspicionLevel/100.0f;
 	}

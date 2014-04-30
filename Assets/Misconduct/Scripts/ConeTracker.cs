@@ -17,10 +17,17 @@ public class ConeTracker : MonoBehaviour {
 	private float startTime = 0.0f;
 	private float deltaTime = 0.0f;
 	
-	public int suspicionRatePerTick = 1;
-	public int suspicionRateStealing = 3;
-	public float suspicionTimeTick = 0.25f;
 	public float playerSuspicionAngle = 15.0f; 
+	public float suspicionRatePerTick = 1.0f;
+	public float suspicionRateStealing = 3.0f;
+	public float suspicionTimeTick = 0.25f;
+	
+	public float suspicionDecayRatePerTick = 0.25f;
+	public float suspicionDecayTimeTick = 1.0f;
+	
+	private float decayTimeStart = 0.0f;
+	private float decayDeltaTime = 0.0f;
+	
 
 	// Use this for initialization
 	void Awake()
@@ -36,6 +43,8 @@ public class ConeTracker : MonoBehaviour {
 
 		teacher = GameObject.Find ("Teacher");
 		teacherMovement = teacher.GetComponent<MisconductTeacherMovement>();
+		
+		decayTimeStart = Time.time;
 	}
 
 	void OnTriggerEnter(Collider trigger)
@@ -52,9 +61,8 @@ public class ConeTracker : MonoBehaviour {
 				
 				// Time since game started
 				startTime = Time.time;
-
+				decayTimeStart = Time.time;
 			}
-
 		}
 	}
 
@@ -65,6 +73,7 @@ public class ConeTracker : MonoBehaviour {
 		{
 			if(isPlayerSuspicious()){
 				
+				decayTimeStart = Time.time;
 				deltaTime = Time.time - startTime;
 
 				if(deltaTime > suspicionTimeTick){
@@ -80,13 +89,11 @@ public class ConeTracker : MonoBehaviour {
 					deltaTime = 0;
 				}
 				
-				
 				updateConeColor(Color.red);
 				
 			} else {
 				updateConeColor(Color.yellow);
 				setTeacherPath(true);
-	
 			}			
 		}
 	}
@@ -131,6 +138,13 @@ public class ConeTracker : MonoBehaviour {
 	}
 
 	void Update(){
+		
+		decayDeltaTime = Time.time - decayTimeStart;
+		
+		if(decayDeltaTime > suspicionDecayTimeTick){
+			managerScript.reduceSuspicion(suspicionDecayRatePerTick);
+			decayTimeStart = Time.time;
+		}
 
 	}
 }
