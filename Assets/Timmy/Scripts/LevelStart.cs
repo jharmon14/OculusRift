@@ -1,0 +1,20 @@
+﻿using UnityEngine;
+using System.Collections;
+
+public class LevelStart : MonoBehaviour {
+
+	// Use this for initialization
+	void Start () {
+	
+	}
+	
+	// Update is called once per frame
+	void Update () {
+	
+	}
+
+    void Awake()
+    {
+        Destroy(gameObject, 7);
+    }
+}

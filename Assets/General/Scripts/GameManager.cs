@@ -18,7 +18,9 @@ public class GameManager : MonoBehaviour
 		None = -1,
 		Overworld = 0,
 		FPS,
-    Num_Levels
+        Timmy,
+        Timmy2,
+    	Num_Levels
 	}
 
 	// Inspector variables
@@ -26,7 +28,8 @@ public class GameManager : MonoBehaviour
 	public GameObject[] initialLevelManagers;
     public bool paused = false;
     public GameObject pauseMenu;
-	public GameObject targetParent;
+    public int timmyLives;
+    public int timmyCurrentLevel;
 
 	// Hidden public variables
 	[HideInInspector]
@@ -35,30 +38,35 @@ public class GameManager : MonoBehaviour
 	[HideInInspector]
 	public OverworldManager overworldManager;
 
+    [HideInInspector]
+    public TimmyManager timmyManager;
+
 	// Private variables
 	private GameObject levelManagerGO;
 
 
 	void Start()
 	{
+        pauseMenu = GameObject.FindWithTag("PauseMenu");
         pauseMenu.SetActive(false);
 		levelManagerGO = Instantiate(initialLevelManagers[(int)Levels.Overworld]) as GameObject;
 		overworldManager = levelManagerGO.GetComponent<OverworldManager>();
 		score = new int[(int)Levels.Num_Levels];
-		
-		// Mouse Settings
-		Screen.lockCursor = true;
+        timmyLives = 3;
+        timmyCurrentLevel = 0;
 	}
-
-    void Awake()
-    {
-        pauseMenu = GameObject.Find("PauseMenu");
-    }
 
     void OnLevelWasLoaded(int level)
     {
         pauseMenu = GameObject.FindWithTag("PauseMenu");
         pauseMenu.SetActive(false);
+        paused = false;
+    }
+
+    void Awake()
+    {
+        pauseMenu = GameObject.FindWithTag("PauseMenu");
+
     }
 
 	// Update is called once per frame
@@ -86,16 +94,34 @@ public class GameManager : MonoBehaviour
 		int levelIndex;
 		switch (level)
 		{
+            case Levels.Timmy:
+                levelIndex = (int)Levels.Timmy;
+                overworldManager = null;
+                fpsManager = null;
+                levelManagerGO = Instantiate(initialLevelManagers[levelIndex]) as GameObject;
+                timmyManager = levelManagerGO.GetComponent<TimmyManager>();
+                break;
+            case Levels.Timmy2:
+                levelIndex = (int)Levels.Timmy2;
+                overworldManager = null;
+                fpsManager = null;
+                levelManagerGO = Instantiate(initialLevelManagers[(int)Levels.Timmy]) as GameObject;
+                timmyManager = levelManagerGO.GetComponent<TimmyManager>();
+                break;
 			case Levels.FPS:
 				levelIndex = (int)Levels.FPS;
 				overworldManager = null;
+                timmyManager = null;
 				levelManagerGO = Instantiate(initialLevelManagers[levelIndex]) as GameObject;
 				fpsManager = levelManagerGO.GetComponent<FPSManager>();
 				break;
 			case Levels.Overworld:
 			default:
+                timmyLives = 3;
+                timmyCurrentLevel = 0;
 				levelIndex = (int)Levels.Overworld;
 				fpsManager = null;
+                timmyManager = null;
 				levelManagerGO = Instantiate(initialLevelManagers[levelIndex]) as GameObject;
 				overworldManager = levelManagerGO.GetComponent<OverworldManager>();
 				break;
