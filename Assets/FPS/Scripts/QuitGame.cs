@@ -19,7 +19,6 @@ public class QuitGame : MonoBehaviour {
 
     void OnClick()
     {
-        Manager.GetComponent<GameManager>().paused = false;
         Manager.GetComponent<GameManager>().LoadLevel(GameManager.Levels.Overworld);
     }
 }

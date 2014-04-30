@@ -117,6 +117,8 @@ public class GameManager : MonoBehaviour
 				break;
 			case Levels.Overworld:
 			default:
+                timmyLives = 3;
+                timmyCurrentLevel = 0;
 				levelIndex = (int)Levels.Overworld;
 				fpsManager = null;
                 timmyManager = null;

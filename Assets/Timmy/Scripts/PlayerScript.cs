@@ -183,6 +183,7 @@ public class PlayerScript : MonoBehaviour {
             Destroy(gameObject);            
             int finalScore = CalculateFinalScore(int.Parse(gameTime.text));
             managerScript.score[(int)GameManager.Levels.Timmy + managerScript.timmyCurrentLevel] += (int)finalScore;
+            managerScript.timmyCurrentLevel = 0;
             managerScript.LoadLevel(GameManager.Levels.Overworld);
         }
     }

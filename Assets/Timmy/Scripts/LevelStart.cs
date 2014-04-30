@@ -15,6 +15,6 @@ public class LevelStart : MonoBehaviour {
 
     void Awake()
     {
-        Destroy(gameObject, 10);
+        Destroy(gameObject, 7);
     }
 }
