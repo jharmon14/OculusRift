@@ -18,9 +18,16 @@ public class ClockCountdown : MonoBehaviour
 		StartCoroutine(CountDown());
 	}
 
+	void Awake()
+	{
+		MisconductManager mm = GameObject.Find("MisconductManager").GetComponent<MisconductManager>();
+		mm.startMins = minutes;
+		mm.startSecs = seconds;
+	}
+
 	void Update()
 	{
-		if ((minutes == 0) && (seconds == 0))
+		if ((minutes <= 0) && (seconds <= 0))
 		{
 			GameObject.Find("MisconductManager").GetComponent<MisconductManager>().endLevel();
 		}
