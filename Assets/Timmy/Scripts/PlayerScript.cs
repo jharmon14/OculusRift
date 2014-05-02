@@ -270,19 +270,19 @@ public class PlayerScript : MonoBehaviour {
         {
             if (lives == 0)
             {
-                score = (kills * 100 / time) * 30;
+                score = (kills * 50 / time) * 30;
             }
             else if (lives == 1)
             {
-                score = (kills * 100 / time) * 70;
+                score = (kills * 50 / time) * 70;
             }
             else if (lives == 2)
             {
-                score = (kills * 100 / time) * 120;
+                score = (kills * 50 / time) * 120;
             }
             else
             {
-                score = (kills * 100 / time) * 170;
+                score = (kills * 50 / time) * 170;
             }
         }
         return score;
