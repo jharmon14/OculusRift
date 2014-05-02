@@ -29,7 +29,7 @@ public class ClockCountdown : MonoBehaviour
 	{
 		if ((minutes <= 0) && (seconds <= 0))
 		{
-			GameObject.Find("MisconductManager").GetComponent<MisconductManager>().endLevel();
+			GameObject.Find("MisconductManager").GetComponent<MisconductManager>().gameOver();
 		}
 	}
 	

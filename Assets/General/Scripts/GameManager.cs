@@ -18,6 +18,7 @@ public class GameManager : MonoBehaviour
 		None = -1,
 		Overworld = 0,
 		FPS,
+		Misconduct,
     Num_Levels
 	}
 
@@ -30,7 +31,8 @@ public class GameManager : MonoBehaviour
 	// Hidden public variables
 	[HideInInspector]
 	public FPSManager fpsManager;
-
+	[HideInInspector]
+	public MisconductManager misconductManager;
 	[HideInInspector]
 	public OverworldManager overworldManager;
 
@@ -54,13 +56,13 @@ public class GameManager : MonoBehaviour
     void OnLevelWasLoaded(int level)
     {
         pauseMenu = GameObject.Find("PauseMenu");
-        pauseMenu.SetActive(false);
+				pauseMenu.SetActive(false);
     }
 
 	// Update is called once per frame
 	void Update()
 	{
-        if (Input.GetKeyDown(KeyCode.Escape))
+        if (Input.GetKeyDown(KeyCode.Escape) && (pauseMenu != null))
         {
             paused = !paused;
 
@@ -87,17 +89,24 @@ public class GameManager : MonoBehaviour
 				overworldManager = null;
 				levelManagerGO = Instantiate(initialLevelManagers[levelIndex]) as GameObject;
 				fpsManager = levelManagerGO.GetComponent<FPSManager>();
+				levelManagerGO.name = levelManagerGO.name.Replace("(Clone)", "");
+				DontDestroyOnLoad(levelManagerGO);
+				break;
+			case Levels.Misconduct:
+				levelIndex = (int)Levels.Misconduct;
+				overworldManager = null;
 				break;
 			case Levels.Overworld:
 			default:
 				levelIndex = (int)Levels.Overworld;
 				fpsManager = null;
+				misconductManager = null;
 				levelManagerGO = Instantiate(initialLevelManagers[levelIndex]) as GameObject;
 				overworldManager = levelManagerGO.GetComponent<OverworldManager>();
+				levelManagerGO.name = levelManagerGO.name.Replace("(Clone)", "");
+				DontDestroyOnLoad(levelManagerGO);
 				break;
 		}
-		levelManagerGO.name = levelManagerGO.name.Replace("(Clone)", "");
-		DontDestroyOnLoad(levelManagerGO);
 		CameraFade.StartAlphaFade(Color.black, false, 2.0f, 2.0f, () => { Application.LoadLevel(levelIndex); });
 		return;
 	}
