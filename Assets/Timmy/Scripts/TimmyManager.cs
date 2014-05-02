@@ -13,6 +13,7 @@ public class TimmyManager : MonoBehaviour {
     {
         // Fade in the camera
         CameraFade.StartAlphaFade(Color.black, true, 4.0f);
+		Screen.showCursor = false;
     }
 
 	// Use this for initialization
@@ -22,6 +23,6 @@ public class TimmyManager : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-	
+		Screen.showCursor = false;
 	}
 }

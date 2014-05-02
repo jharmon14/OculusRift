@@ -18,10 +18,13 @@ public class OverworldManager : MonoBehaviour
 	{
 		// Fade in the camera
 		CameraFade.StartAlphaFade(Color.black, true, 4.0f);
+		Screen.showCursor = false;
 	}
 
 	// Update is called once per frame
 	void Update()
 	{
+		Debug.Log("Here");
+		Screen.showCursor = false;
 	}
 }
