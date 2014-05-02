@@ -192,7 +192,7 @@ public class PlayerScript : MonoBehaviour {
     {
         managerScript.timmyCurrentLevel += 1;
         
-        if (managerScript.timmyCurrentLevel <= 1)
+        if (managerScript.timmyCurrentLevel <= 2)
         {
             managerScript.LoadLevel(GameManager.Levels.Timmy + managerScript.timmyCurrentLevel);
         }
@@ -220,22 +220,62 @@ public class PlayerScript : MonoBehaviour {
         int kills = tm.kills;
         int time = stopTime;
         int lives = managerScript.timmyLives;
-
-        if (lives == 0)
+        if (managerScript.timmyCurrentLevel == 0)
         {
-            score = (kills * 100 / time) * 10;
-        }
-        else if (lives == 1)
+            if (lives == 0)
+            {
+                score = (kills * 100 / time) * 10;
+            }
+            else if (lives == 1)
+            {
+                score = (kills * 100 / time) * 50;
+            }
+            else if (lives == 2)
+            {
+                score = (kills * 100 / time) * 100;
+            }
+            else
+            {
+                score = (kills * 100 / time) * 150;
+            }
+        } 
+        else if (managerScript.timmyCurrentLevel == 1)
         {
-            score = (kills * 100 / time) * 50;
-        }
-        else if (lives == 2)
-        {
-            score = (kills * 100 / time) * 100;
+            if (lives == 0)
+            {
+                score = (kills * 100 / time) * 20;
+            }
+            else if (lives == 1)
+            {
+                score = (kills * 100 / time) * 60;
+            }
+            else if (lives == 2)
+            {
+                score = (kills * 100 / time) * 110;
+            }
+            else
+            {
+                score = (kills * 100 / time) * 160;
+            }
         }
         else
         {
-            score = (kills * 100 / time) * 150;
+            if (lives == 0)
+            {
+                score = (kills * 100 / time) * 30;
+            }
+            else if (lives == 1)
+            {
+                score = (kills * 100 / time) * 70;
+            }
+            else if (lives == 2)
+            {
+                score = (kills * 100 / time) * 120;
+            }
+            else
+            {
+                score = (kills * 100 / time) * 170;
+            }
         }
         return score;
     }

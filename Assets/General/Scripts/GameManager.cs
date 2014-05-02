@@ -20,6 +20,7 @@ public class GameManager : MonoBehaviour
 		FPS,
         Timmy,
         Timmy2,
+        Timmy3,
     	Num_Levels
 	}
 
@@ -103,6 +104,13 @@ public class GameManager : MonoBehaviour
                 break;
             case Levels.Timmy2:
                 levelIndex = (int)Levels.Timmy2;
+                overworldManager = null;
+                fpsManager = null;
+                levelManagerGO = Instantiate(initialLevelManagers[(int)Levels.Timmy]) as GameObject;
+                timmyManager = levelManagerGO.GetComponent<TimmyManager>();
+                break;
+            case Levels.Timmy3:
+                levelIndex = (int)Levels.Timmy3;
                 overworldManager = null;
                 fpsManager = null;
                 levelManagerGO = Instantiate(initialLevelManagers[(int)Levels.Timmy]) as GameObject;
