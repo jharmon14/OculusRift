@@ -7,14 +7,21 @@ public class AmmoCount : MonoBehaviour
 	private int ammoCount;
 	private bool reloading;
 	private float reloadDone;
+    private GameObject gameManager;
+    private GameManager managerScript;
 
 	public float reloadRate = 2.5f;
 	public int ammoFull = 30;
 	public bool isReloading;
 
+	
+	public AudioClip reloadSound;
+
 	// Use this for initialization
 	void Awake()
 	{
+        gameManager = GameObject.Find("GameManager");
+        managerScript = gameManager.GetComponent<GameManager>();
 		ammo = GetComponent<UILabel>();
 		ammoCount = ammoFull;
 		ammo.text = ammoFull.ToString() + " / " + ammoFull.ToString();
@@ -23,9 +30,10 @@ public class AmmoCount : MonoBehaviour
 	// Update is called once per frame
 	void Update()
 	{
+        if (managerScript.paused)
+            return;
+
 		isReloading = reloading;
-        GameObject go = GameObject.Find("PauseManager");
-        PauseManagerScript managerScript = go.GetComponent<PauseManagerScript>();
         bool paused = managerScript.paused;
         // check if paused
         if (paused)
@@ -66,6 +74,8 @@ public class AmmoCount : MonoBehaviour
 
 	void Reload()
 	{
+		audio.PlayOneShot(reloadSound);
+		
 		ammoCount = ammoFull;
 		reloading = true;
         isReloading = true;

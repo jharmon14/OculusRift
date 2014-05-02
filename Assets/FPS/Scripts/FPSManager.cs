@@ -18,11 +18,13 @@ public class FPSManager : MonoBehaviour
     [HideInInspector]
     public int targetsHit = 0;
     [HideInInspector]
+	public int civiliansHit = 0;
+    [HideInInspector]
     public int shotsFired = 0;
     [HideInInspector]
     public float accuracy;
     [HideInInspector]
-    public int score;
+    public int score = 0;
     [HideInInspector]
     public float timeStarted = 0.0f;
     [HideInInspector]
@@ -32,12 +34,18 @@ public class FPSManager : MonoBehaviour
     {
         // Fade in the camera
         CameraFade.StartAlphaFade(Color.black, true, 4.0f);
-    }
+		Screen.showCursor = false;
+	}
 
     public void Update()
     {
+		Screen.showCursor = false;
         accuracy = shotsFired > 0 ? (float)targetsHit / (float)shotsFired : 1;
-        score = (int)(((targetsHit * targetScoreMultiplier) * (accuracy * accuracyScoreMultiplier)) / ((timeEnded - timeStarted) / 60));
+        score = (int)((((targetsHit * targetScoreMultiplier) * (accuracy * accuracyScoreMultiplier)) / ((timeEnded - timeStarted) / 60)) - (civiliansHit * 100));
+
+		// in case you shoot too many civilians or are just awful...or something
+		if(score < 0)
+			score = 0;
     }
 
     public void LevelEnd(float time)
