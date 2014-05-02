@@ -27,6 +27,9 @@ public class PlayerScript : MonoBehaviour {
     private bool paused;
     private TimmyManager tm;
     private float time;
+	
+	public AudioClip fireSound;
+	public AudioClip gotHitSound;
 
     // Use this for initialization
     void Start()
@@ -85,6 +88,7 @@ public class PlayerScript : MonoBehaviour {
 		} else */
 		if (collision.gameObject.tag == "Enemy"){
 			touchingEnemy = true;
+			
 		} else {
         	touchingGround = true;
 		}
@@ -131,6 +135,8 @@ public class PlayerScript : MonoBehaviour {
 
     public void Fire()
     {
+		audio.PlayOneShot(fireSound);
+		
         GameObject clone;
         if (direction)
         {
@@ -155,6 +161,8 @@ public class PlayerScript : MonoBehaviour {
 
     public void GotShot()
     {
+		audio.PlayOneShot(gotHitSound);
+		
         if (managerScript.timmyCurrentLevel == 0)
         {
             health -= 10;

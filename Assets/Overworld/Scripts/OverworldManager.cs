@@ -24,7 +24,6 @@ public class OverworldManager : MonoBehaviour
 	// Update is called once per frame
 	void Update()
 	{
-		Debug.Log("Here");
 		Screen.showCursor = false;
 	}
 }

@@ -15,6 +15,7 @@ public class Enemy : MonoBehaviour {
 	public float dirNum; //set by AngleDir function
     public bool shooter = false; //true if enemy shoots, false if enemy only patrols
     public GameObject bullets;
+	public AudioClip enemyGotShot;
 
     private int health = 100;
     public GameObject manager;
@@ -246,6 +247,8 @@ public class Enemy : MonoBehaviour {
 	
     public void GotShot()
     {
+		audio.PlayOneShot(enemyGotShot);
+		
         if (managerScript.timmyCurrentLevel == 0)
         {
             health -= 50;

@@ -45,6 +45,7 @@ public class Bullet : MonoBehaviour {
         //For player bullets
         if (collision.gameObject.tag == "Enemy" && gameObject.tag == "PlayerBullet")
         {
+			Debug.Log("here");
             collision.gameObject.GetComponent<Enemy>().GotShot();
         }
         //For Enemy bullets
