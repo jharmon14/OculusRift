@@ -40,7 +40,7 @@ public class MisconductPaperIndicators : MonoBehaviour {
 			player = GameObject.Find("Player").transform;
 			playerFound = true;
 		}
-		else
+		else if (playerFound)
 		{
 			transform.rotation = Quaternion.LookRotation(transform.position - player.position);
 		}

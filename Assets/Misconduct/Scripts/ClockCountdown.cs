@@ -10,6 +10,7 @@ public class ClockCountdown : MonoBehaviour
 	
 	private bool outOfTime = false;
 	private int secondsPassed = 0;
+	private MisconductManager mm;
 
 	
 	// Use this for initialization
@@ -20,16 +21,17 @@ public class ClockCountdown : MonoBehaviour
 
 	void Awake()
 	{
-		MisconductManager mm = GameObject.Find("MisconductManager").GetComponent<MisconductManager>();
+		mm = GameObject.Find("MisconductManager").GetComponent<MisconductManager>();
 		mm.startMins = minutes;
 		mm.startSecs = seconds;
 	}
 
 	void Update()
 	{
-		if ((minutes <= 0) && (seconds <= 0))
+		if ((minutes <= 0) && (seconds <= 0) && !mm.levelEnded)
 		{
-			GameObject.Find("MisconductManager").GetComponent<MisconductManager>().gameOver();
+			mm.levelEnded = true;
+			mm.gameOver();
 		}
 	}
 	

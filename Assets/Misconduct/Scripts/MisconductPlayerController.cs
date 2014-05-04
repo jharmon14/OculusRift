@@ -67,7 +67,7 @@ public class MisconductPlayerController : MonoBehaviour
 		 * Sitting character functionality
 		 */
 		if (!possessing)
-		{
+		{			
 			// Character "leaning" rotation
 			this.transform.Rotate(new Vector3(Input.GetAxis("Vertical"), 0, -Input.GetAxis("Horizontal")));
 			if (this.transform.eulerAngles.x < 314)
@@ -151,7 +151,11 @@ public class MisconductPlayerController : MonoBehaviour
 		 * Begin Lerp to possession height
 		 */
 		if (Input.GetButtonDown("Possess") && !possLerping && !possessing)
-		{
+		{				
+			// make the top lights invisible
+			foreach (GameObject go in GameObject.FindGameObjectsWithTag("ClassroomLights"))
+				go.renderer.enabled = false;
+			
 			possessing = !possessing;
 			possLerping = true;
 			studentRendererSet = false;
@@ -208,6 +212,11 @@ public class MisconductPlayerController : MonoBehaviour
 					{
 						student.transform.Find("StudentShape").GetComponent<MeshRenderer>().material.color = Color.white;
 					}
+					
+					// make the top lights visible
+					foreach (GameObject go in GameObject.FindGameObjectsWithTag("ClassroomLights"))
+						go.renderer.enabled = true;
+					
 				}
 
 				possLerping = false;
@@ -224,7 +233,7 @@ public class MisconductPlayerController : MonoBehaviour
 		 * Possessing player functionality
 		 */
 		if (possessing && !possLerping)
-		{
+		{			
       if (Time.time - lastRaycast > 0.4f)
 			{
 				lastRaycast = Time.time;
@@ -258,13 +267,14 @@ public class MisconductPlayerController : MonoBehaviour
 			}
 
 			if ((Input.GetAxis("Possess Pick") == 1) || Input.GetButtonDown("Possess Pick"))
-			{
+			{				
 				possessing = !possessing;
 				possLerping = true;
 				playerStudent = possTarget.transform.Find("StudentShape").GetComponent<MeshRenderer>();
 				possLerpEnd = possTarget.transform.position;
 				studentRendererSet = false;
 			}
+			
 			else if (Input.GetButtonDown("Possess Cancel"))
 			{
 				possessing = !possessing;

@@ -27,6 +27,8 @@ public class MisconductManager : MonoBehaviour
 	public int startMins;
 	[HideInInspector]
 	public int startSecs;
+	[HideInInspector]
+	public bool levelEnded = false;
 	
 	// Private variables
 	private UISlider slider;
@@ -34,7 +36,6 @@ public class MisconductManager : MonoBehaviour
 	private int answersTotal = 0;
 	private float suspicionLevel = 0;
 	private UILabel answersCollectedText;
-	private bool levelEnded = false;
 	private bool won = false;
 	private float score = 0;
 	private GameManager gm;
@@ -130,12 +131,14 @@ public class MisconductManager : MonoBehaviour
 
 	public void gameOver()
 	{
-		Debug.Log(this.GetInstanceID());
 		// calculate score
-		score = calcScore();
+		score = calcScore(); 
 
 		GameObject.Find("Teacher").GetComponent<MisconductTeacherMovement>().enabled = false;
-		GameObject.Find("inverse_cone").SetActive(false);
+		if (GameObject.Find("inverse_cone") != null)
+		{
+			GameObject.Find("inverse_cone").SetActive(false);
+		}
 		GameObject.Find("Player").GetComponent<MisconductPlayerController>().enabled = false;
 		if (GameObject.Find("Progress Bar") != null)
 		{
@@ -199,7 +202,6 @@ public class MisconductManager : MonoBehaviour
 		float totalSecs = (startMins * 60f) + startSecs;
 		float endSecs = (cc.minutes * 60f) + cc.seconds;
 		score += (initScore * 0.5f * (endSecs/totalSecs));
-		Debug.Log("Final score: " + score);
 		won = true;
 		return Mathf.Round(score);
 	}
