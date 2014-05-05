@@ -21,6 +21,7 @@ public class GameManager : MonoBehaviour
         Timmy,
         Timmy2,
         Timmy3,
+		Misconduct,
     	Num_Levels
 	}
 
@@ -122,6 +123,12 @@ public class GameManager : MonoBehaviour
                 timmyManager = null;
 				levelManagerGO = Instantiate(initialLevelManagers[levelIndex]) as GameObject;
 				fpsManager = levelManagerGO.GetComponent<FPSManager>();
+				break;
+			case Levels.Misconduct:
+				levelIndex = (int)Levels.Misconduct;
+				overworldManager = null;
+				timmyManager = null;
+				fpsManager = null;
 				break;
 			case Levels.Overworld:
 			default:

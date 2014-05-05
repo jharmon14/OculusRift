@@ -29,6 +29,7 @@ public class DisplayArcadeInfo : MonoBehaviour
         {
             int timmyScore = managerScript.score[(int)GameManager.Levels.Timmy] + managerScript.score[(int)GameManager.Levels.Timmy2] + managerScript.score[(int)GameManager.Levels.Timmy3];
             Debug.Log(timmyScore);
+			AMScore.text = managerScript.score[(int)GameManager.Levels.Misconduct].ToString();
             RTScore.text = managerScript.score[(int)GameManager.Levels.FPS].ToString();
             LTScore.text = timmyScore.ToString();
             //AMScore.text = gm.score[(int)GameManager.Levels.Misconduct].ToString();
