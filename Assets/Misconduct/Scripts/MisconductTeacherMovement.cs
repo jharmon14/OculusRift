@@ -39,6 +39,7 @@ public class MisconductTeacherMovement : MonoBehaviour
 	private Transform nextWaypoint;					// next waypoint to move to
 	private int waypointsTilStop;						// waypoints to pass before stop
 	private int waypointsHit = 0;						// waypoints passed
+	private float playWalkTime = 0;
 	// Stopped variables
 	private float timeStopped = 0;					// time teacher has been stopped
 	private int turnsMade = 0;							// turns teacher has made while stopped
@@ -89,6 +90,13 @@ public class MisconductTeacherMovement : MonoBehaviour
 	// Teacher is moving between waypoints
 	void UpdateMoving()
 	{
+		animation.Play("teacher_walk");
+		//if (Time.time >= playWalkTime)
+		//{
+		//  animation.Play("teacher_walk");
+		//  float clipLength = animation.GetClip("teacher_walk").length;
+		//  playWalkTime = Time.time + clipLength;
+		//}
 		float waypointDistance = Vector3.Distance(transform.position, nextWaypoint.position);
 		if (waypointDistance <= 0.01f)
 		{
@@ -122,7 +130,7 @@ public class MisconductTeacherMovement : MonoBehaviour
 		else
 		{
 			Quaternion lookRotation = Quaternion.LookRotation(
-				lastWaypoint.position - nextWaypoint.position
+				nextWaypoint.position - lastWaypoint.position 
 				);
 			transform.rotation = Quaternion.RotateTowards(
 				transform.rotation, 
@@ -140,6 +148,7 @@ public class MisconductTeacherMovement : MonoBehaviour
 	// Teacher is stopping to survey the room to stopTime seconds
 	void UpdateStopped()
 	{
+		animation.Play("teacher_idle");
 		// Pick a new point to turn to
 		if (timeStopped >= ((turnsMade * stopTime) / standingTurns))
 		{
@@ -153,7 +162,41 @@ public class MisconductTeacherMovement : MonoBehaviour
 				{
 					way2 = waypoints[Random.Range(0, waypoints.Length)];
 				} while (way1 == way2);
-				Vector3 lookAt = way1.position + way2.position;
+				Vector3 lookAt = (way1.position - way2.position) * 0.5f;
+				if (lastWaypoint.GetComponent<MisconductWaypoint>().xAdjust)
+				{
+					if (lastWaypoint.GetComponent<MisconductWaypoint>().xPos)
+					{
+						if (lookAt.x < 0)
+						{
+							lookAt.x = -lookAt.x;
+						}
+					}
+					else
+					{
+						if (lookAt.x > 0)
+						{
+							lookAt.x = -lookAt.x;
+						}
+					}
+				}
+				if (lastWaypoint.GetComponent<MisconductWaypoint>().xAdjust)
+				{
+					if (lastWaypoint.GetComponent<MisconductWaypoint>().zPos)
+					{
+						if (lookAt.z < 0)
+						{
+							lookAt.z = -lookAt.z;
+						}
+					}
+					else
+					{
+						if (lookAt.z > 0)
+						{
+							lookAt.z = -lookAt.z;
+						}
+					}
+				}
 				lookAt.y = 0;
 				stopRotation = Quaternion.LookRotation(lookAt);
 			}

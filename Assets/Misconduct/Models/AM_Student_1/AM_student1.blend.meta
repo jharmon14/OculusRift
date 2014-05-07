@@ -1,0 +1,128 @@
+fileFormatVersion: 2
+guid: 9f43dad7a9965b44b9a4d675be8dcd6f
+ModelImporter:
+  serializedVersion: 15
+  fileIDToRecycleName:
+    100000: //RootNode
+    100002: Armature
+    100004: chair
+    100006: girl_pivot
+    100008: head
+    100010: l_collar
+    100012: l_finger
+    100014: l_foot
+    100016: l_hand
+    100018: l_lower_arm
+    100020: l_lower_leg
+    100022: l_pelvis
+    100024: l_upper_arm
+    100026: l_upper_leg
+    100028: neck
+    100030: r_collar
+    100032: r_finger
+    100034: r_foot
+    100036: r_hand
+    100038: r_lower_arm
+    100040: r_lower_leg
+    100042: r_pelvis
+    100044: r_upper_arm
+    100046: r_upper_leg
+    100048: spine1
+    100050: spine2
+    100052: spine3
+    100054: table
+    400000: //RootNode
+    400002: Armature
+    400004: chair
+    400006: girl_pivot
+    400008: head
+    400010: l_collar
+    400012: l_finger
+    400014: l_foot
+    400016: l_hand
+    400018: l_lower_arm
+    400020: l_lower_leg
+    400022: l_pelvis
+    400024: l_upper_arm
+    400026: l_upper_leg
+    400028: neck
+    400030: r_collar
+    400032: r_finger
+    400034: r_foot
+    400036: r_hand
+    400038: r_lower_arm
+    400040: r_lower_leg
+    400042: r_pelvis
+    400044: r_upper_arm
+    400046: r_upper_leg
+    400048: spine1
+    400050: spine2
+    400052: spine3
+    400054: table
+    2300000: chair
+    2300002: table
+    3300000: chair
+    3300002: table
+    4300000: girl_pivot
+    4300002: table
+    4300004: chair
+    6400000: chair
+    6400002: table
+    7400000: Default Take
+    7400002: student1_idle
+    7400004: student1_leave
+    9500000: //RootNode
+    11100000: //RootNode
+    13700000: girl_pivot
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    animationCompression: 1
+    animationRotationError: .5
+    animationPositionError: .5
+    animationScaleError: .5
+    animationWrapMode: 0
+    clipAnimations: []
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 1
+    importBlendShapes: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    weldVertices: 1
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+  tangentSpace:
+    normalSmoothAngle: 60
+    splitTangentsAcrossUV: 1
+    normalImportMode: 0
+    tangentImportMode: 1
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    human: []
+    skeleton: []
+    handles: []
+    armTwist: .5
+    foreArmTwist: .5
+    upperLegTwist: .5
+    legTwist: .5
+    armStretch: .0500000007
+    legStretch: .0500000007
+    feetSpacing: 0
+    rootMotionBoneName: 
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  additionalBone: 1
+  animationType: 1
+  userData: 

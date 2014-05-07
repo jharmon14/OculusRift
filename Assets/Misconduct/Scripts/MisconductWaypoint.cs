@@ -16,6 +16,10 @@ public class MisconductWaypoint : MonoBehaviour
 	// Inspector variables
 	public Transform[] waypoints;
 	public bool canWaitAt = false;
+	public bool xAdjust = false;
+	public bool zAdjust = false;
+	public bool xPos = true;
+	public bool zPos = true;
 	
 	
 	// Private variables

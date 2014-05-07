@@ -14,7 +14,6 @@ public class MisconductManager : MonoBehaviour
 {
 
 	// Inspector variables
-	public GameObject playerObject;
 	public int maxSuspicion = 100;
 	public float scoreMultiplier = 10000f;
 	public Transform atlasPrefab;

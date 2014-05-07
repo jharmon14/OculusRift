@@ -10,6 +10,7 @@
 using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 
 public class MisconductPlayerController : MonoBehaviour
 {
@@ -18,8 +19,12 @@ public class MisconductPlayerController : MonoBehaviour
 	public float possLookHeight = 3.0f;
 	public float possLerpTime = 1.0f;
 	public float lookDistance = 1.5f;
+	public Transform targetPrefab;
+	public LayerMask studentLayer;
 	[HideInInspector]
 	public MeshRenderer playerStudent;
+	[HideInInspector]
+	public List<GameObject> playerModelParts;
 
 	// Private variables
 	private int answersCollected = 0;
@@ -44,6 +49,13 @@ public class MisconductPlayerController : MonoBehaviour
 	private int xRotMin, xRotMax, zRotMin, zRotMax;
 	private bool xChanged = false;
 	private float xPrev;
+	private Transform targetIndicator;
+
+	void Start()
+	{
+		targetIndicator = Instantiate(targetPrefab) as Transform;
+		targetIndicator.gameObject.SetActive(false);
+	}
 
 	void Awake()
 	{
@@ -51,8 +63,7 @@ public class MisconductPlayerController : MonoBehaviour
 		cam = GameObject.Find("CameraRight").transform;
 		paperPlayer = GameObject.Find("PlayerStudent").transform.FindChild("Paper");
 		paperPlayer.FindChild("Indicators").gameObject.SetActive(false);
-		Debug.Log(paperPlayer);
-		possLerpStart = this.transform.position;
+		possLerpStart = new Vector3(transform.position.x, transform.position.y, transform.position.z - 1f) ;
 		possLerpEnd = this.transform.position + new Vector3(0, possLookHeight, 0);
 		this.gameObject.name = this.gameObject.name.Replace("(Clone)", "");
 		sliderTransform = GameObject.Find("Progress Bar").transform;
@@ -132,7 +143,6 @@ public class MisconductPlayerController : MonoBehaviour
 						// answer already collected message
 						slider.gameObject.SetActive(false);
 						answersCollectedText.position = hit.transform.position;
-
 					}
 				}
 				else
@@ -183,7 +193,9 @@ public class MisconductPlayerController : MonoBehaviour
 				// Turn student mesh on when moving up
 				if (!studentRendererSet && possLerpUp)
 				{
-					playerStudent.enabled = !playerStudent.enabled;
+					//playerModel.gameObject.SetActive(!playerModel.gameObject.activeInHierarchy);
+					playerModelParts.ForEach(p => p.SetActive(!p.activeInHierarchy));
+					//playerStudent.enabled = !playerStudent.enabled;
 					studentRendererSet = true;
 				}
 
@@ -205,18 +217,21 @@ public class MisconductPlayerController : MonoBehaviour
 				// Turn on student mesh when done moving down
 				if (!studentRendererSet && !possLerpUp)
 				{
-					playerStudent.enabled = !playerStudent.enabled;
+					//playerModel.gameObject.SetActive(!playerModel.gameObject.activeInHierarchy);
+					playerModelParts.ForEach(p => p.SetActive(!p.activeInHierarchy));
+					//playerStudent.enabled = !playerStudent.enabled;
 					studentRendererSet = true;
-					GameObject[] students = GameObject.FindGameObjectsWithTag("MisconductStudent") as GameObject[];
-					foreach (GameObject student in students)
-					{
-						student.transform.Find("StudentShape").GetComponent<MeshRenderer>().material.color = Color.white;
-					}
+					//GameObject[] students = GameObject.FindGameObjectsWithTag("MisconductStudent") as GameObject[];
+					//foreach (GameObject student in students)
+					//{
+					//  student.transform.Find("StudentShape").GetComponent<MeshRenderer>().material.color = Color.white;
+					//}
 					
 					// make the top lights visible
 					foreach (GameObject go in GameObject.FindGameObjectsWithTag("ClassroomLights"))
+					{
 						go.renderer.enabled = true;
-					
+					}
 				}
 
 				possLerping = false;
@@ -237,6 +252,7 @@ public class MisconductPlayerController : MonoBehaviour
       if (Time.time - lastRaycast > 0.4f)
 			{
 				lastRaycast = Time.time;
+				//if (Physics.Raycast(cam.position, cam.forward, out hit, Mathf.Infinity, ~(1 << 0)))
 				if (Physics.Raycast(cam.position, cam.forward, out hit))
 				{
 					var students = GameObject.FindGameObjectsWithTag("MisconductStudent") as GameObject[];
@@ -252,16 +268,22 @@ public class MisconductPlayerController : MonoBehaviour
 						}
 					}
 
-					if (possTarget == null)
+					//if (possTarget == null)
+					//{
+					//  possTarget = closestStudent.GetComponent<MisconductStudent>();
+					//  possTarget.highlightColor = true;
+					//}
+					//else if (possTarget != closestStudent.GetComponent<MisconductStudent>())
+					//{
+					//  possTarget.revertColor = true;
+					//  possTarget = closestStudent.GetComponent<MisconductStudent>();
+					//  possTarget.highlightColor = true;
+					//}
+					if (possTarget != closestStudent.GetComponent<MisconductStudent>())
 					{
 						possTarget = closestStudent.GetComponent<MisconductStudent>();
-						possTarget.highlightColor = true;
-					}
-					else if (possTarget != closestStudent.GetComponent<MisconductStudent>())
-					{
-						possTarget.revertColor = true;
-						possTarget = closestStudent.GetComponent<MisconductStudent>();
-						possTarget.highlightColor = true;
+						targetIndicator.position = possTarget.transform.position;
+						targetIndicator.gameObject.SetActive(true);
 					}
 				}
 			}
@@ -270,8 +292,10 @@ public class MisconductPlayerController : MonoBehaviour
 			{				
 				possessing = !possessing;
 				possLerping = true;
-				playerStudent = possTarget.transform.Find("StudentShape").GetComponent<MeshRenderer>();
-				possLerpEnd = possTarget.transform.position;
+				//playerStudent = possTarget.transform.Find("StudentShape").GetComponent<MeshRenderer>();
+				playerModelParts = possTarget.getModelParts();
+				possLerpEnd = new Vector3(possTarget.transform.position.x, possTarget.transform.position.y, possTarget.transform.position.z - 1f);
+				targetIndicator.gameObject.SetActive(false);
 				studentRendererSet = false;
 			}
 			
@@ -280,6 +304,7 @@ public class MisconductPlayerController : MonoBehaviour
 				possessing = !possessing;
 				possLerping = true;
 				possLerpEnd = possLerpStart + new Vector3(0, -possLookHeight, 0);
+				targetIndicator.gameObject.SetActive(false);
 				studentRendererSet = false;
 			}
 		}

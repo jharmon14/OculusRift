@@ -235,6 +235,7 @@ ModelImporter:
     2300146: Vidro_Janela_Inferior_021
     2300148: Vidro_Janela_Inferior_022
     2300150: Vidro_Janela_Inferior_023
+    2300152: Cadeira
     3300000: Cadeira_001
     3300002: Cadeira_002
     3300004: Cadeira_MeshPart0
@@ -311,6 +312,7 @@ ModelImporter:
     3300146: Vidro_Janela_Inferior_021
     3300148: Vidro_Janela_Inferior_022
     3300150: Vidro_Janela_Inferior_023
+    3300152: Cadeira
     4300000: Plane_005
     4300002: Plane_004
     4300004: Plane_003
@@ -387,6 +389,82 @@ ModelImporter:
     4300146: Paredes_Sala
     4300148: Teto_Sala
     4300150: Fechadura_001
+    4300152: Cadeira
+    6400000: Cadeira
+    6400002: Cadeira_001
+    6400004: Cadeira_002
+    6400006: Cube
+    6400008: Cube_001
+    6400010: Fechadura_000
+    6400012: Fechadura_001
+    6400014: Fechadura_002
+    6400016: Janela_Inferior_000
+    6400018: Janela_Inferior_001
+    6400020: Janela_Inferior_002
+    6400022: Janela_Inferior_003
+    6400024: Janela_Inferior_005
+    6400026: Janela_Inferior_006
+    6400028: Janela_Inferior_007
+    6400030: Janela_Inferior_008
+    6400032: Janela_Inferior_009
+    6400034: Janela_Inferior_010
+    6400036: Janela_Inferior_011
+    6400038: Janela_Inferior_012
+    6400040: Janela_Inferior_013
+    6400042: Janela_Inferior_014
+    6400044: Janela_Inferior_015
+    6400046: Janela_Inferior_016
+    6400048: Janela_Inferior_017
+    6400050: Janela_Inferior_018
+    6400052: Janela_Inferior_027
+    6400054: Janela_Inferior_028
+    6400056: Janela_Inferior_029
+    6400058: Janela_Inferior_030
+    6400060: Janela_Inferior_031
+    6400062: Janela_Inferior_032
+    6400064: Janela_Inferior_033
+    6400066: Janela_Inferior_034
+    6400068: Janela_Inferior_035
+    6400070: Lampada1
+    6400072: Lampada2
+    6400074: Luz_Natural
+    6400076: Paredes_Sala
+    6400078: Paredes_Sala_001
+    6400080: Paredes_Sala_002
+    6400082: Paredes_Sala_003
+    6400084: Paredes_Sala_004
+    6400086: Paredes_Sala_005
+    6400088: Paredes_Sala_006
+    6400090: Plane
+    6400092: Plane_001
+    6400094: Plane_002
+    6400096: Plane_003
+    6400098: Plane_004
+    6400100: Plane_005
+    6400102: Porta_Sala_000
+    6400104: Porta_Sala_001
+    6400106: Porta_Sala_002
+    6400108: Suporte_Lampada
+    6400110: Teto_Sala
+    6400112: Teto_Sala_001
+    6400114: Vidro_Janela_Inferior_000
+    6400116: Vidro_Janela_Inferior_001
+    6400118: Vidro_Janela_Inferior_002
+    6400120: Vidro_Janela_Inferior_003
+    6400122: Vidro_Janela_Inferior_004
+    6400124: Vidro_Janela_Inferior_005
+    6400126: Vidro_Janela_Inferior_006
+    6400128: Vidro_Janela_Inferior_007
+    6400130: Vidro_Janela_Inferior_008
+    6400132: Vidro_Janela_Inferior_009
+    6400134: Vidro_Janela_Inferior_010
+    6400136: Vidro_Janela_Inferior_011
+    6400138: Vidro_Janela_Inferior_018
+    6400140: Vidro_Janela_Inferior_019
+    6400142: Vidro_Janela_Inferior_020
+    6400144: Vidro_Janela_Inferior_021
+    6400146: Vidro_Janela_Inferior_022
+    6400148: Vidro_Janela_Inferior_023
     7400000: Default Take
     9500000: //RootNode
   materials:
@@ -407,7 +485,7 @@ ModelImporter:
     lODScreenPercentages: []
     globalScale: 1
     meshCompression: 0
-    addColliders: 0
+    addColliders: 1
     importBlendShapes: 1
     swapUVChannels: 0
     generateSecondaryUV: 0
